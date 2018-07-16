@@ -5,6 +5,21 @@ html:global {
   --typewriter-cursor-color: var(--electric-blue);
 }
 
-h1:global {
+body {
+  background: black;
+  font-family: Monaco;
+  font-size: 26px;
+  padding: 0;
+}
+
+:global(.vbox) {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+h1 {
   color: var(--electric-blue);
 }
