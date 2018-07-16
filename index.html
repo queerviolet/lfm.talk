@@ -1,3 +1,22 @@
+<html data-slide=0>
 <title>Learning from Machines</title>
+<link rel=stylesheet href=base.css>
+<link rel=stylesheet href=slide-0.less>
 <link rel=stylesheet href=slide-1.less>
-<body data-slide=1></body>
+<script src=typewriter.js></script>
+<script src=builds.js></script>
+
+<body>
+  <h1 id=title></h1>
+  <script>
+    const titleWriter = new Typewriter(title, '')
+    Builds(titleWriter.type('')
+      , titleWriter.type('learning from machines')
+      , titleWriter.erase()
+      , titleWriter.type('1. ')
+      , titleWriter.type('hallucinations')
+      , titleWriter.erase()
+    )
+  </script>
+  <video id=deep-dream-layers />
+</body>

@@ -1,0 +1,23 @@
+.solidCursor {
+  display: inline-block;
+  background: var(--typewriter-cursor-color);
+  width: 2px;
+  height: 1.2em;
+  position: relative;
+  top: 0.2em;
+}
+
+.blinkingCursor {
+  composes: solidCursor;
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 1; }
+  60% { opacity: 0; }
+  90% { opacity: 0; }
+  100% { opacity: 1; }
+}
