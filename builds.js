@@ -1,4 +1,5 @@
 import Animation from './anim'
+import Effect from './effect'
 
 const Builds = (...builds) => {
   document.currentScript[Builds] =
@@ -11,72 +12,42 @@ Builds[Symbol.toPrimitive] = () => buildSymbol
 
 export default Builds
 
-class CSSBuilds {
+class CSSBuilds extends Effect {
   constructor(element, startClass=element.className) {
-    this.last = new SetCSSClass(element, null, startClass)
+    super(startClass)
+    this.element = element
   }
 
   setClass(newClass) {
-    return this.last = this.last.setClass(newClass)
+    return this.add(newClass)
+  }
+
+  applyState(endClass) {
+    return Animation.instant(() => {
+      this.element.className = endClass
+    })
   }
 }
 
 global.CSSBuilds = CSSBuilds
 
-class SetCSSClass {
-  constructor(element, startClass, endClass) {
+class Playback extends Effect {
+  constructor(element, startState={playing: false, currentTime: 0}) {
+    super(startState)
     this.element = element
-    this.startClass = startClass
-    this.endClass = endClass
   }
 
-  setClass(nextClass) {
-    return new SetCSSClass(this.element, this.endClass, nextClass)
+  play(currentTime) {
+    const newState = {playing: true}
+    if (typeof currentTime === 'number') newState.currentTime = currentTime
+    return this.add(Object.assign({}, this.last.endState, newState))
   }
 
-  build(startAt) {
+  applyState(end) {
+    const {element} = this
     return Animation.instant(() => {
-      this.element.classList.remove(this.startClass)
-      this.element.classList.add(this.endClass)
-    })
-  }
+      console.log('hi', this.element, end)
 
-  unbuild(startAt) {
-    return Animation.instant(() => {
-      this.element.classList.remove(this.endClass)
-      this.element.classList.add(this.startClass)
-    })
-  }
-}
-
-
-class Playback {
-  constructor(element, startState={playing: element.playing, currentTime: element.currentTime}) {
-    this.last = new PlayState(element, null, startState)
-  }
-
-  play(mediaTime) {
-    return this.last = this.last.play(mediaTime)
-  }
-}
-
-window.Playback = Playback
-
-class PlayState {
-  constructor(element, startState, endState) {
-    this.element = element
-    this.startState = startState
-    this.endState = endState
-  }
-
-  play() {
-    return new PlayState(this.element,
-      this.endState,
-      Object.assign({}, this.endState, {playing: true}))
-  }
-
-  static changeState(element, end) {
-    return Animation.instant(() => {
       if (element.currentTime !== end.currentTime)
         element.currentTime = end.currentTime
 
@@ -85,62 +56,31 @@ class PlayState {
       }
     })
   }
-
-  build() {
-    return PlayState.changeState(this.element, this.endState)
-  }
-
-  unbuild() {
-    return PlayState.changeState(this.element, this.startState)
-  }
 }
 
-class Daemon {
-  constructor(props) {
-    this.props = props
-    this.last = new DaemonState(this, false, false)
+global.Playback = Playback
+
+class Daemon extends Effect {
+  constructor(params) {
+    super(false)
+    this.params = params
+    this.proc = null
   }
 
   start() {
-    return this.last = this.last.start()
+    return this.add(true)
   }
 
   stop() {
-    return this.last = this.last.stop()
-  }
-}
-
-global.Daemon = Daemon
-
-class DaemonState {
-  constructor(daemon, startState, endState) {
-    this.daemon = daemon
-    this.startState = startState
-    this.endState = endState
+    return this.add(false)
   }
 
-  start() {
-    return new DaemonState(this.daemon, this.endState, true)
-  }
-
-  stop() {
-    return new DaemonState(this.daemon, this.endState, false)
-  }
-
-  build() {
-    return DaemonState.applyState(this.daemon, this.startState, this.endState)
-  }
-
-  unbuild() {
-    return DaemonState.applyState(this.daemon, this.endState, this.startState)
-  }
-
-  static applyState(daemon, start, end) {
-    if (start === end) return
-    if (!end && daemon.proc)
-      daemon.proc.running = false
-    if (end && !daemon.proc) {
-      daemon.proc = Animation.daemon(daemon.props)
+  applyState(end) {
+    if (end && !this.proc)
+      return Animation.daemon(daemon.props)
+    if (!end && this.proc) {
+      this.proc.running = false
+      this.proc = null
     }
   }
 }

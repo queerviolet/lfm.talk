@@ -1,3 +1,5 @@
+import {Build} from './effect'
+
 import Timeline from './timeline'
 global.Timeline = Timeline
 
@@ -19,16 +21,35 @@ const setBuildHash = build => {
   window.location.hash = '#' + target
 }
 const allBuilds = []
+const allEffectBuilds = []
+global.allBuilds = allBuilds
+global.allEffectBuilds = allEffectBuilds
 
 function main() {
-  let id = 0;
+  let orderCounter = 0, lastBuildForEffect = []
+
+  const addBuildGroup = group => {
+    allBuilds.push(group)
+
+    if (!Array.isArray(group)) group = [group]
+
+    const order = orderCounter++
+    group.forEach(build => {
+      build.order = order
+      lastBuildForEffect[build.effect.id] = build
+    })
+
+    allEffectBuilds[order] = lastBuildForEffect
+      .map(lastBuild => {
+        if (lastBuild.order === order) return lastBuild
+        return new Build(lastBuild.effect, lastBuild.endState, lastBuild.endState)
+      })
+  }
+
   Array.from(document.scripts).forEach(script => {
-    const builds = script[Builds]
-    if (Array.isArray(builds)) {
-      for (let i = 0; i != builds.length; ++i) {
-        builds[i].id = id++
-      }
-      allBuilds.push(...builds)
+    const buildGroups = script[Builds]
+    if (Array.isArray(buildGroups)) {
+      buildGroups.forEach(addBuildGroup)
     }
   })
   console.log('Builds:', allBuilds)
@@ -36,44 +57,64 @@ function main() {
   setBuildHash(getBuildHash())
   
   let active = []
-  let currentBuild = null
-
-  const buildAt = startTime => build => build.build(startTime)
-  const unbuildAt = startTime => build => build.unbuild(startTime)
+  let currentBuildIndex = null
 
   let nextTaskId = 0
-  const launch = (build, builds, createAnimation) => {
+
+  const build = _ => _.build()
+  build[Symbol.toPrimitive] = () => 'build'
+
+  const unbuild = _ => _.unbuild()
+  unbuild[Symbol.toPrimitive] = () => 'unbuild'
+
+  const launch = createAnimation => builds => {
     builds = Array.isArray(builds)
       ? builds
       : [builds]
     
-    active.push(...builds.map(b => {
+    let i = builds.length; while (i --> 0) {
+      const b = builds[i]
       const anim = createAnimation(b)
       if (anim) {
-        anim.build = build
         anim.id = nextTaskId++
-        console.log('[%s] START animation for build id:%s', anim.id, build.id, anim, build)
-        return anim
+        console.log('[%s] (%s) START animation for build order:%s',
+          anim.id, createAnimation, b.order, anim, b)
+        active.push(anim)
       }
-    }))
+    }
   }
 
-  const frame = ts => {
-    requestAnimationFrame(frame)
+  const launchBuilds = launch(build)
+  const launchUnbuilds = launch(unbuild)
 
-    const nextBuild = getBuildHash()
-    if (nextBuild !== currentBuild) {
+  const rebuildForward = order => launchBuilds(allEffectBuilds[order])
+  const rebuildBackward = order => launchUnbuilds(allEffectBuilds[order + 1])
+  const buildForward = order => launchBuilds(allBuilds[order])
+  const buildBackward = order => launchUnbuilds(allBuilds[order + 1])
+
+  const initiateBuilds = () => {
+    const nextBuildIndex = getBuildHash()
+    if (nextBuildIndex !== currentBuildIndex) {
       active = active
         .filter(animation => !animation.daemon)
-      if (nextBuild < currentBuild)
-        launch(allBuilds[nextBuild], allBuilds[nextBuild + 1], unbuildAt(ts))
+      if (currentBuildIndex === null)
+        rebuildForward(nextBuildIndex)
+
+      const delta = nextBuildIndex - currentBuildIndex
+      console.log('nextBuildIndex', nextBuildIndex)
+      if (Math.abs(delta) === 1)
+        delta === 1 ? buildForward(nextBuildIndex) : buildBackward(nextBuildIndex)
+      else if (nextBuildIndex < currentBuildIndex)
+        rebuildBackward(nextBuildIndex)
       else
-        launch(allBuilds[nextBuild], allBuilds[nextBuild], buildAt(ts))
-      currentBuild = nextBuild
-      console.log('Building:', currentBuild)
+        rebuildForward(nextBuildIndex)
+      currentBuildIndex = nextBuildIndex
+      console.log('Building:', currentBuildIndex)
       console.log('active:', active.length)
     }
+  }
 
+  const runAnimations = ts => {
     let i = active.length; while (i --> 0) {
       const animation = active[i]
       if (!animation) {
@@ -85,6 +126,12 @@ function main() {
         console.log('[%s] DONE', animation.id)
       }
     }
+  }
+
+  const frame = ts => {
+    requestAnimationFrame(frame)
+    initiateBuilds()
+    runAnimations(ts)
   }
 
   global.dumpState = () => console.log(currentBuild, active)
@@ -106,6 +153,5 @@ function onKey({code}) {
   }
 }
 
-global.allBuilds = allBuilds
 addEventListener('DOMContentLoaded', main)
 addEventListener('keydown', onKey)

@@ -1,5 +1,7 @@
+let nextEffectId = 0
 class Effect {
   constructor(state={}) {
+    this.id = nextEffectId++
     this.last = new Build(this, null, state)
   }
 
