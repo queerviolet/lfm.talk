@@ -1,0 +1,35 @@
+@import "./base.less";
+
+:global(#hallucinations) {
+  .fixed();
+  transition: 2s;
+  background: black;
+}
+
+:global(#deepDream) {
+  .absolute();
+  transition: 1s;
+}
+
+:global(#hallucinations.seed) {
+  transform: scale(0);
+}
+
+:global(#hallucinations.fullscreen) {
+  transform: scale(1);
+
+  :global(#deepDream) {
+    .absolute(0, 0, 100vw, 100vh);
+  }  
+}
+
+:global(#hallucinations.inception) {
+  .fixed();
+  transform: scale(1);
+  background: @light-gray;
+
+  :global(#deepDream) {
+    .absolute(35px, 35px, 50vw, calc(50vw * 9 / 16));
+    box-shadow: 5px 5px 32px darkgray;
+  }
+}

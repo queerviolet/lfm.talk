@@ -1,0 +1,41 @@
+@light-gray: #E4E2E4;
+@electric-blue: #498CF8;
+
+html {
+  --typewriter-cursor-color: @electric-blue;
+}
+
+body {
+  background: black;
+  font-family: Monaco;
+  font-size: 26px;
+  padding: 0;
+}
+
+:global(.vbox) {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+h1 {
+  color: @electric-blue
+}
+
+.fixed(@top: 0, @left: 0, @width: 100vw, @height: 100vh) {
+  position: fixed;
+  width: @width;
+  height: @height;
+  top: @top;
+  left: @left;
+}
+
+.absolute(@top: 0, @left: 0, @width: 100vw, @height: 100vh) {
+  position: absolute;
+  width: @width;
+  height: @height;
+  top: @top;
+  left: @left;
+}

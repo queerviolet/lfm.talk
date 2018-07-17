@@ -1,4 +1,12 @@
 class Animation {
+  static instant(atStart) {
+    return Object.assign(new Animation(), {atStart})
+  }
+
+  static daemon(params) {
+    return new DaemonAnimation(params)
+  }
+
   constructor(duration=0, startAt) {
     this.duration = duration
     this.startAt = startAt
@@ -13,7 +21,7 @@ class Animation {
   // Lifecycle callbacks
   atStart(ts) {}
   atFrame(ts) {}
-  atEnd(ts) {}  
+  atEnd(ts) {}
 
   step(ts) {
     if (typeof this.startAt !== 'number')
@@ -37,6 +45,26 @@ class Animation {
   }
 }
 
+class DaemonAnimation extends Animation {
+  constructor(params) {
+    super(Infinity, 0)
+    Object.assign(this, params, {daemon: true, running: true, hasStarted: false, hasFinished: false})
+  }
+
+  step(ts) {
+    if (!this.running) {
+      this.atEnd(ts)
+      return false
+    }
+    if (!this.hasStarted) {
+      this.hasStarted = true
+      this.running = this.atStart(ts)
+      return true
+    }
+    this.running = this.atFrame(ts)
+    return true
+  }
+}
 
 export default Animation
 

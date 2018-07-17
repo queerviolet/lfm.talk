@@ -1,8 +1,9 @@
-import Builds, {forBuild} from './builds'
+import Timeline from './timeline'
+global.Timeline = Timeline
+
+import Builds from './builds'
 
 global.Builds = Builds
-
-console.log(Builds)
 
 const getBuildHash = () => +window.location.hash.substr(1) || 0
 const setBuildHash = build => {
@@ -40,7 +41,8 @@ function main() {
   const buildAt = startTime => build => build.build(startTime)
   const unbuildAt = startTime => build => build.unbuild(startTime)
 
-  const launch = (forBuildId, builds, createAnimation) => {
+  let nextTaskId = 0
+  const launch = (build, builds, createAnimation) => {
     builds = Array.isArray(builds)
       ? builds
       : [builds]
@@ -48,7 +50,9 @@ function main() {
     active.push(...builds.map(b => {
       const anim = createAnimation(b)
       if (anim) {
-        anim[forBuild] = forBuildId
+        anim.build = build
+        anim.id = nextTaskId++
+        console.log('[%s] START animation for build id:%s', anim.id, build.id, anim, build)
         return anim
       }
     }))
@@ -60,7 +64,7 @@ function main() {
     const nextBuild = getBuildHash()
     if (nextBuild !== currentBuild) {
       active = active
-        .filter(animation => animation[forBuild])
+        .filter(animation => !animation.daemon)
       if (nextBuild < currentBuild)
         launch(allBuilds[nextBuild], allBuilds[nextBuild + 1], unbuildAt(ts))
       else
@@ -78,6 +82,7 @@ function main() {
       }
       if (!animation.step(ts)) {
         active.splice(i, 1)
+        console.log('[%s] DONE', animation.id)
       }
     }
   }
