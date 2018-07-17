@@ -3,14 +3,16 @@ class Effect {
     this.last = new Build(this, null, state)
   }
 
-  build(params) {
-    return this.last = this.last.build(params)
+  add(newState) {
+    return this.last = new Build(this, this.last.endState, newState)
   }
 
-  applyState(state) {}
+  applyState(endState, startState) {}
 }
 
-class Build {
+export default Effect
+
+export class Build {
   constructor(effect, startState, endState) {
     this.effect = effect
     this.startState = startState
@@ -18,10 +20,10 @@ class Build {
   }
 
   build() {
-    return this.effect.applyState(this.startState, this.endState)
+    return this.effect.applyState(this.endState, this.startState)
   }
 
   unbuild() {
-    return this.effect.applyState(this.endState, this.startState)
+    return this.effect.applyState(this.startState, this.endState)
   }
 }
