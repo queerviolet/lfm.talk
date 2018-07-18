@@ -53,12 +53,13 @@ class DaemonAnimation extends Animation {
 
   step(ts) {
     if (!this.running) {
-      this.atEnd(ts)
+      this.hasFinished || this.atEnd(ts)
+      this.hasFinished = true
       return false
     }
     if (!this.hasStarted) {
       this.hasStarted = true
-      this.running = this.atStart(ts)
+      this.atStart(ts)
       return true
     }
     this.running = this.atFrame(ts)

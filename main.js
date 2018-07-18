@@ -96,7 +96,7 @@ function main() {
     const nextBuildIndex = getBuildHash()
     if (nextBuildIndex !== currentBuildIndex) {
       active = active
-        .filter(animation => !animation.daemon)
+        .filter(animation => animation.daemon)
       if (currentBuildIndex === null)
         rebuildForward(nextBuildIndex)
 
@@ -134,7 +134,7 @@ function main() {
     runAnimations(ts)
   }
 
-  global.dumpState = () => console.log(currentBuild, active)
+  global.dumpState = () => console.log(currentBuildIndex, active)
 
   requestAnimationFrame(frame)
 }

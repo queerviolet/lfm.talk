@@ -46,8 +46,6 @@ class Playback extends Effect {
   applyState(end) {
     const {element} = this
     return Animation.instant(() => {
-      console.log('hi', this.element, end)
-
       if (element.currentTime !== end.currentTime)
         element.currentTime = end.currentTime
 
@@ -77,7 +75,7 @@ class Daemon extends Effect {
 
   applyState(end) {
     if (end && !this.proc)
-      return Animation.daemon(daemon.props)
+      return this.proc = Animation.daemon(this.params)
     if (!end && this.proc) {
       this.proc.running = false
       this.proc = null

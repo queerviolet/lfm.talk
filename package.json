@@ -16,5 +16,7 @@
     "parcel": "^1.9.7",
     "postcss-modules": "^1.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "binarysearch": "^1.0.0"
+  }
 }
