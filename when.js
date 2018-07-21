@@ -26,6 +26,9 @@ export const When = (condition=always, ctx=defaultContext) => {
   const at = run('at')
   const end = run('end')
 
+  let resolveDone = null
+  const resetDone = () => step.done = new Promise(_ => resolveDone = _)
+
   const step = (ts, currentBuild, lastBuild) => {
     const shouldRun = condition[match](ts, currentBuild, lastBuild)
     if (shouldRun && !step.running) {
@@ -37,6 +40,8 @@ export const When = (condition=always, ctx=defaultContext) => {
       end(ts, currentBuild, lastBuild)
       step.endedAt = ts
       step.running = false
+      resolveDone(step)
+      resetDone()
     }
     if (step.running) {
       frame(ts, currentBuild, lastBuild)
@@ -47,6 +52,7 @@ export const When = (condition=always, ctx=defaultContext) => {
     }
   }
 
+  resetDone()
   step.running = false
   step.start = cb => { handlers.start.push(cb); return step }
   step.frame = cb => { handlers.frame.push(cb); return step }

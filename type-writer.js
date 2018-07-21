@@ -4,6 +4,8 @@ import {blinkingCursor, solidCursor} from './typewriter.css'
 const {ceil, floor} = Math
 
 class TypeWriter extends HTMLElement {
+  static get observedAttributes() { return ['text'] }
+
   constructor() {
     super()
     const shadow = this.attachShadow({mode: 'open'});
@@ -16,14 +18,14 @@ class TypeWriter extends HTMLElement {
     shadow.appendChild(text)
     shadow.appendChild(cursor)
     this.cursor = cursor
-    this.text = text
+    this.textNode = text
   }
 
   type(input, rate=this.typingRate) {
-    const {text} = this
+    const {textNode: text} = this
     const startText = text.textContent
     if (this.anim) this.anim.remove()
-    this.anim =
+    return this.anim =
       For(input.length [secs] / rate)
         .withName('typing')
         .at(t =>
@@ -31,17 +33,40 @@ class TypeWriter extends HTMLElement {
         )
   }
 
-  erase(count=this.text.textContent.length, rate=this.erasingRate) {
-    const {text} = this
+  erase(count=this.textNode.textContent.length, rate=this.erasingRate) {
+    const {textNode: text} = this
     const startText = text.textContent
     const length = lerp(startText.length, startText.length - count)
     if (this.anim) this.anim.remove()
-    this.anim =
+    return this.anim =
       For(count [secs] / rate)
         .withName('erasing')
         .at(t =>
           text.textContent = startText.substr(0, floor(length(t)))
         )
+  }
+
+  async attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'text') this.setText(newValue)
+  }
+
+  set text(newText) {
+    this.setText(newText)
+  }
+
+  get text() {
+    return this.textNode.textContent
+  }
+
+  async setText(newText) {
+    const {textNode} = this
+    const currentText = textNode.textContent
+    if (currentText === newText) return
+    const prefixLength = commonPrefix(currentText, newText)
+    const delta = currentText.length - prefixLength
+    console.log(delta)
+    if (delta) await this.erase(delta).done
+    this.type(newText.substr(prefixLength))
   }
 
   get typingRate() {
@@ -51,6 +76,13 @@ class TypeWriter extends HTMLElement {
   get erasingRate() {
     return +getComputedStyle(this).getPropertyValue('--typewriter-erasing-rate') || 60;
   }
+}
+
+const commonPrefix = (a, b) => {
+  for (let i = 0; i != a.length; ++i) {
+    if(a[i] !== b[i]) return i
+  }
+  return a.length
 }
 
 TypeWriter.style = `
