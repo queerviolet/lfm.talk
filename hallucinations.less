@@ -1,10 +1,156 @@
 @import "./base.less";
 
+:global(#hallucinations.fullscreen-with-miquel) {
+  :global(#miquel) { opacity: 1; }
+}
+
+:global(#hallucinations.fullscreen-with-layer) {
+  :global(#deepDreamLayers) { opacity: 1; top: 0; left: 0; }
+}
+
+:global(#hallucinations.inception) {
+  background: @light-gray;
+  :global(#deepDream) { .layer(10vh); }
+}
+
+:global(#hallucinations.inception-from-input) {
+  background: @light-gray;
+  :global(#deepDream) { .layer(10vh); }
+  :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
+}
+
+:global(#hallucinations.inception-to-output) {
+  background: @light-gray;
+  :global(#deepDream) { .layer(10vh); }
+  :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
+  :global(#deepDreamOutputLayer) { .layer(70vh); opacity: 1; }
+}
+
+:global(#hallucinations.inception-conv) {
+  background: @light-gray;
+  :global(#deepDream) { .layer(10vh); }
+  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
+  :global(#deepDreamConvOutput) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamOutputLayer) { .layer(70vh); opacity: 1; }
+}
+
+
+:global(#hallucinations.inception-conv-forward) {
+  background: @light-gray;
+  :global(#deepDream) { .layer(10vh); }
+  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
+  :global(#deepDreamInputLayerReceptiveField) {
+    opacity: 1;
+    :global(#deepDreamReceptiveFieldHighlight) {
+      .blink-blue-pink()
+    }
+    .zoom-down();
+  }
+  :global(#deepDreamConvOutput) {
+    .layer(60vh); opacity: 1;
+    :global(.cell-2-2) {
+      .blink-pink();
+    }
+  }
+  :global(#deepDreamOutputLayer) { .layer(70vh); opacity: 1; }
+}
+
+:global(#hallucinations.inception-training) {
+  background: @light-gray;
+  :global(#deepDream) { .layer(10vh); }
+  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
+  :global(#deepDreamInputLayerReceptiveField) {
+    opacity: 1;
+    :global(#deepDreamReceptiveFieldHighlight) {
+      .blink-blue-pink()
+    }
+    .zoom-down();
+  }
+  :global(#deepDreamConvFilter) {
+    opacity: 1;
+  }
+  :global(#deepDreamConvOutput) {
+    .layer(60vh); opacity: 1;
+    :global(.cell-2-2) {
+      .blink-pink();
+    }
+  }
+  :global(#deepDreamOutputLayer) { .layer(70vh); opacity: 1; }
+}
+
+:global(#hallucinations.inception-incepting) {
+  background: @light-gray;
+  :global(#deepDream) { .layer(10vh); }
+  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
+  :global(#deepDreamInputLayerReceptiveField) {
+    opacity: 1;
+    :global(#deepDreamReceptiveFieldHighlight) {
+      .blink-blue-pink(reverse)
+    }
+    .zoom-down(reverse);
+  }
+  :global(#deepDreamConvFilter) {
+    opacity: 1;
+  }
+  :global(#deepDreamConvOutput) {
+    .layer(60vh); opacity: 1;
+    :global(.cell-2-2) {
+      .blink-pink();
+    }
+  }
+  :global(#deepDreamOutputLayer) { .layer(70vh); opacity: 1; }
+}
+
+:global(#hallucinations.pan-diagram) {
+  background: @light-gray;
+  :global(#deepDream) { .layer(10vh); }
+  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
+  :global(#deepDreamInputLayerReceptiveField) {
+    opacity: 1;
+    :global(#deepDreamReceptiveFieldHighlight) {
+      .blink-blue-pink(reverse)
+    }
+    .zoom-down(reverse);
+  }
+  :global(#deepDreamConvFilter) {
+    opacity: 0;
+  }
+  :global(#deepDreamConvOutput) {
+    .layer(60vh); opacity: 1;
+    :global(.cell-2-2) {
+      .blink-pink();
+    }
+  }
+  :global(#deepDreamOutputLayer) { .layer(70vh); opacity: 1; }
+  :global(#inceptionDiagram) {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+// ----
+
 :global(#hallucinations) {
   .fixed();
   transition: 2s;
   background: black;
   perspective: 100vh;
+}
+
+:global(#miquel) {
+  .fixed(@top: auto, @left: 5vw, @bottom: 5vh, @height: auto, @width: auto);
+
+  transition: 1s;
+  opacity: 0;
+  background: @electric-blue;
+  color: white;
+  --typewriter-cursor-color: white;
+  padding: 0 9px;
 }
 
 :global(#deepDream) {
@@ -17,12 +163,18 @@
 }
 
 :global(#deepDreamLayers) {
-  position: absolute;
+  .absolute(10vh, 10vw, 80vw, 80vh);
   opacity: 0;
   transition: 1s;
-  color: white;
-  background: @electric-blue;
-  padding: 9px;
+
+  :global(#deepDreamCurrentLayer) {
+    background: @electric-blue;
+    color: white;
+    top: 0;
+    left: 0;
+    padding: 9px;
+    display: inline-block;
+  }
 }
 
 :global(#deepDream) { .absolute(); }
@@ -37,26 +189,10 @@
   transition: transform 30s, opacity 1s;
 }
 
-:global(#deepDreamLayers.running) {
-  opacity: 1;
-  transition: 1s;
-}
-
-:global(#hallucinations.fullscreen) {
-  transform: scale(1);
-
-  :global(#deepDreamLayers) {
-    top: 0; left: 0;
-  }
-}
-
 :global(#deepDreamInputLayer) {
   .absolute(10vh, 10vw, 80vw, 80vh);
   background: @translucent-electric-blue;
-  // transform: rotateX(90deg);
-  transform: translateY(0vh) translateZ(-400px) rotateX(90deg);
-
-  transform-origin: center top;
+  .layer(0);  
   opacity: 0;
   transition: 1s;
   border: thin solid @electric-blue;
@@ -85,9 +221,7 @@
 }
 
 :global(#deepDreamOutputLayer) {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
+  .absolute(10vh, 10vw, 80vw, 80vh);  
   transition: 1s;
   opacity: 0;
   text-align: center;
@@ -96,16 +230,16 @@
   background: @translucent-electric-blue;
   display: flex;
   align-items: flex-end;
-  justify-content: space-around;
+  justify-content: center;
   padding: 30px;
   box-sizing: border-box;
-  transform: translateY(60vh) translateZ(-400px) rotateX(90deg);
+  .layer(0);
+  // transform: translateY(60vh) translateZ(-400px) rotateX(90deg);
 }
 
 :global(#deepDreamConvOutput) {
   .absolute(10vh, 10vw, 80vw, 80vh);  
-  transform-origin: center top;
-  transform: translateY(10vh) translateZ(-400px) rotateX(90deg);
+  .layer(10vh);
   opacity: 0;
   transition: 1s;
 
@@ -135,6 +269,7 @@
   color: white;
   padding: 9px;
   border-radius: 24px;
+  margin: 9px;
 }
 
 :global(.P)::before {
@@ -153,99 +288,25 @@
   opacity: 0;
 }
 
-:global(#hallucinations.inception) {
-  .fixed();
-  transform: scale(1);
-  background: @light-gray;
+.layer(@y) {
+  position: absolute;
+  bottom: -200px;
+  transform-origin: center top;
+  transform: translateY(@y) translateZ(-400px) rotateX(90deg);
+}
 
-  --video-height: calc(50vw * 9 / 16);
+.zoom-down(@direction: normal) {
+  animation: zoom-down;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: @direction;
+}
 
-  :global(#deepDream) {
-    position: absolute;
-    bottom: -200px;
-    transform-origin: center top;
-    transform: translateY(10vh) translateZ(-400px) rotateX(90deg);
-    perspective: 100vh;
-  }
-
-  :global(#deepDreamLayers) {
-    top: var(--video-height); left: 35px;
-    font-size: 18px;    
-  }
-
-
-  :global(#inceptionDiagram.panning) {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-
-  :global(#inceptionDiagram.faded) {
-    opacity: 0;
-  }
-
-  :global(#deepDreamOutputLayer.shown) {
-    opacity: 1;
-    bottom: 25px;
-    transform: rotateX(90deg);
-  }
-
-  :global(#deepDreamInputLayer.exposed) {
-    opacity: 1;
-    // transform: rotateX(90deg) translateZ(100px);
-    transform: translateY(10vh) translateZ(-400px) rotateX(90deg);
-  }
-  
-  .exposed {
-    border: thin solid @electric-blue;
-    transform: translateY(60vh) translateZ(-400px) rotateX(90deg);
-    opacity: 1;
-  }
-
-  :global(#deepDreamConvOutput.exposed) {
-    .exposed();
-  }
-
-  :global(#deepDreamConvOutput.blinking) {
-    .exposed();
-
-    :global(.cell-2-2) {
-      .blink-pink();
-    }
-  }
-
-  :global(#deepDreamInputLayerReceptiveField.forwards) {
-    opacity: 1;
-    :global(#deepDreamReceptiveFieldHighlight) {
-      animation: blue-pink;
-      animation-duration: 2s;
-      animation-iteration-count: infinite;
-    }
-
-    animation: zoom-down;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-  }
-
-
-  :global(#deepDreamInputLayerReceptiveField.backwards) {
-    opacity: 1;
-    :global(#deepDreamReceptiveFieldHighlight) {
-      animation: blue-pink;
-      animation-duration: 2s;
-      animation-iteration-count: infinite;
-      animation-direction: reverse;
-    }
-
-    animation: zoom-down;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-direction: reverse;
-  }
-
-  :global(#deepDreamConvFilter.shown) {
-    opacity: 1;
-  }
-
+.blink-blue-pink(@direction: normal) {
+  animation: blue-pink;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: @direction;
 }
 
 .blink-pink {

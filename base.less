@@ -27,12 +27,13 @@ h1 {
   color: @electric-blue
 }
 
-.fixed(@top: 0, @left: 0, @width: 100vw, @height: 100vh) {
+.fixed(@top: 0, @left: 0, @width: 100vw, @height: 100vh, @bottom: auto) {
   position: fixed;
   width: @width;
   height: @height;
   top: @top;
   left: @left;
+  bottom: @bottom;
 }
 
 .absolute(@top: 0, @left: 0, @width: 100vw, @height: 100vh) {
