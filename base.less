@@ -1,5 +1,8 @@
 @light-gray: #E4E2E4;
 @electric-blue: #498CF8;
+@pink: deeppink;
+@translucent-electric-blue: rgba(73, 140, 248, 0.418);
+@translucent-pink: rgba(255, 20, 145, 0.521);
 
 html {
   --typewriter-cursor-color: @electric-blue;
@@ -38,4 +41,16 @@ h1 {
   height: @height;
   top: @top;
   left: @left;
+}
+
+@keyframes trippy {
+  0% { filter: hue-rotate(0); }
+  50% { filter: hue-rotate(180deg); }
+  100% { filter: hue-rotate(0); }
+}
+
+.trippy {
+  animation-name: trippy;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
 }

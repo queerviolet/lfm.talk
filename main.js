@@ -74,6 +74,7 @@ function main() {
     
     let i = builds.length; while (i --> 0) {
       const b = builds[i]
+      if (!b) continue // TODO: Use timelines instead
       const anim = createAnimation(b)
       if (anim) {
         anim.id = nextTaskId++

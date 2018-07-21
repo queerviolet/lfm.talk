@@ -58,7 +58,7 @@ class Playback extends Effect {
 
 global.Playback = Playback
 
-class Daemon extends Effect {
+export class Daemon extends Effect {
   constructor(params) {
     super(false)
     this.params = params
