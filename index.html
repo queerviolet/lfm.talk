@@ -1,17 +1,19 @@
 <html data-slide=0>
 <title>Learning from Machines</title>
 <link rel=stylesheet href=base.less>
+<link rel=stylesheet href=title.less>
 <link rel=stylesheet href=hallucinations.less>
 
 <script src=typewriter.js></script>
+<script src=type-writer.js></script>
 <script src=main.js></script>
 
 <body>
   <div id=titleCard class=vbox>
-    <h1 id=title></h1>
+    <type-writer id=titleWriter></type-writer>
   </div>
   <script>
-    const titleWriter = new Typewriter(title, '')
+    // const titleWriter = new Typewriter(title, '')
     Builds(
       titleWriter.type('')
       , titleWriter.type('learning from machines')
@@ -66,6 +68,23 @@
     </script>
     <script src=inception.js></script>
   </div>
+  <build-note id="titleBlank"></build-note>
+  <build-note id="titleLfm"></build-note>
+  <build-note id="titleLfmErased"></build-note>
+  <build-note id="titleHallucinations"></build-note>
+  <build-note id="dreamFullscreenPaused"></build-note>
+  <build-note id="dreamFullscreenMiquel"></build-note>
+  <build-note id="inception"></build-note>
+
+
+  <script>
+    When(buildInRange(titleBlank, titleLfmErased))
+      .frame(() => {
+        if (!deepDream.timeline) return
+        deepDreamCurrentLayer.textContent = deepDream.timeline(deepDream).layer
+      })
+  </script>
+  
   <script>
     const trip = new CSSBuilds(hallucinations)
     const video = new Playback(deepDream, {playing: false, currentTime: 0})

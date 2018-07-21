@@ -1,3 +1,20 @@
+type-writer {
+  display: block;
+}
+
+type-writer {
+  --typewriter-cursor-blink-rate: 1s;
+}
+
+type-writer::shadow span {
+  display: inline-block;
+  background: var(--typewriter-cursor-color);
+  width: 2px;
+  height: 1.2em;
+  position: relative;
+  top: 0.2em;
+}
+
 .solidCursor {
   display: inline-block;
   background: var(--typewriter-cursor-color);
@@ -10,7 +27,7 @@
 .blinkingCursor {
   composes: solidCursor;
   animation-name: blink;
-  animation-duration: 1s;
+  animation-duration: var(--typewriter-cursor-blink-rate);
   animation-iteration-count: infinite;
 }
 

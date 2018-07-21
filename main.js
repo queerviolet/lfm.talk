@@ -7,135 +7,50 @@ import Builds from './builds'
 
 global.Builds = Builds
 
-const getBuildHash = () => +window.location.hash.substr(1) || 0
-const setBuildHash = build => {
-  const target =
-    build < 0
-      ? 0
-      :
-    build >= allBuilds.length
-      ? allBuilds.length - 1
-      :
-      build
-  console.log('build target:', target)
-  window.location.hash = '#' + target
+import {When, buildInRange, runAnimatorStep, match} from './when'
+Object.assign(global, {When, buildInRange, runAnimatorStep})
+
+function collectBuilds() {
+  const all = Array.from(document.getElementsByTagName('build-note'))
+  let i = all.length; while (i --> 0) {
+    const b = all[i]
+    b.order = i
+    b.nextBuild = all[i + 1]
+    b.prevBuild = all[i - 1]
+    b[match] = (_, current) => current === b
+  }
+  return all
 }
-const allBuilds = []
-const allEffectBuilds = []
-global.allBuilds = allBuilds
-global.allEffectBuilds = allEffectBuilds
+
+let BUILDS, currentBuild = null
+const getBuildIdFromHash = () => window.location.hash.substr(1)
+const getCurrentBuild = () => document.getElementById(getBuildIdFromHash())
+const setCurrentBuild = build => window.location.hash = '#' + build.id
+
+const activate = build => {
+  if (build === currentBuild) return [build, build]
+  if (currentBuild) {
+    currentBuild.classList.remove('current')
+    document.body.classList.remove(currentBuild.id)
+  }
+  if (!build) return
+  document.body.classList.add(build.id)
+  build.classList.add('current')
+  const prev = currentBuild
+  currentBuild = build
+  return [build, prev]
+}
 
 function main() {
-  let orderCounter = 0, lastBuildForEffect = []
-
-  const addBuildGroup = group => {
-    allBuilds.push(group)
-
-    if (!Array.isArray(group)) group = [group]
-
-    const order = orderCounter++
-    group.forEach(build => {
-      build.order = order
-      lastBuildForEffect[build.effect.id] = build
-    })
-
-    allEffectBuilds[order] = lastBuildForEffect
-      .map(lastBuild => {
-        if (lastBuild.order === order) return lastBuild
-        return new Build(lastBuild.effect, lastBuild.endState, lastBuild.endState)
-      })
-  }
-
-  Array.from(document.scripts).forEach(script => {
-    const buildGroups = script[Builds]
-    if (Array.isArray(buildGroups)) {
-      buildGroups.forEach(addBuildGroup)
-    }
-  })
-  console.log('Builds:', allBuilds)
-
-  setBuildHash(getBuildHash())
-  
-  let active = []
-  let currentBuildIndex = null
-
-  let nextTaskId = 0
-
-  const build = _ => _.build()
-  build[Symbol.toPrimitive] = () => 'build'
-
-  const unbuild = _ => _.unbuild()
-  unbuild[Symbol.toPrimitive] = () => 'unbuild'
-
-  const launch = createAnimation => builds => {
-    builds = Array.isArray(builds)
-      ? builds
-      : [builds]
-    
-    let i = builds.length; while (i --> 0) {
-      const b = builds[i]
-      if (!b) continue // TODO: Use timelines instead
-      const anim = createAnimation(b)
-      if (anim) {
-        anim.id = nextTaskId++
-        console.log('[%s] (%s) START animation for build order:%s',
-          anim.id, createAnimation, b.order, anim, b)
-        active.push(anim)
-      }
-    }
-  }
-
-  const launchBuilds = launch(build)
-  const launchUnbuilds = launch(unbuild)
-
-  const rebuildForward = order => launchBuilds(allEffectBuilds[order])
-  const rebuildBackward = order => launchUnbuilds(allEffectBuilds[order + 1])
-  const buildForward = order => launchBuilds(allBuilds[order])
-  const buildBackward = order => launchUnbuilds(allBuilds[order + 1])
-
-  const initiateBuilds = () => {
-    const nextBuildIndex = getBuildHash()
-    if (nextBuildIndex !== currentBuildIndex) {
-      active = active
-        .filter(animation => animation.daemon)
-      if (currentBuildIndex === null)
-        rebuildForward(nextBuildIndex)
-
-      const delta = nextBuildIndex - currentBuildIndex
-      console.log('nextBuildIndex', nextBuildIndex)
-      if (Math.abs(delta) === 1)
-        delta === 1 ? buildForward(nextBuildIndex) : buildBackward(nextBuildIndex)
-      else if (nextBuildIndex < currentBuildIndex)
-        rebuildBackward(nextBuildIndex)
-      else
-        rebuildForward(nextBuildIndex)
-      currentBuildIndex = nextBuildIndex
-      console.log('Building:', currentBuildIndex)
-      console.log('active:', active.length)
-    }
-  }
-
-  const runAnimations = ts => {
-    let i = active.length; while (i --> 0) {
-      const animation = active[i]
-      if (!animation) {
-        active.splice(i, 1)
-        continue
-      }
-      if (!animation.step(ts)) {
-        active.splice(i, 1)
-        console.log('[%s] DONE', animation.id)
-      }
-    }
-  }
+  BUILDS = collectBuilds()
+  Object.assign(global, {getCurrentBuild, BUILDS})
 
   const frame = ts => {
     requestAnimationFrame(frame)
-    initiateBuilds()
-    runAnimations(ts)
+    if (!getCurrentBuild()) { setCurrentBuild(BUILDS[0]) }
+    const [current, prev] = activate(getCurrentBuild())
+    runAnimatorStep(ts, current, prev)
   }
-
-  global.dumpState = () => console.log(currentBuildIndex, active)
 
   requestAnimationFrame(frame)
 }
@@ -144,12 +59,16 @@ function onKey({code}) {
   switch (code) {
     case 'ArrowRight':
     case 'PageDown':
-      setBuildHash(getBuildHash() + 1)
+      currentBuild &&
+      currentBuild.nextBuild &&
+      setCurrentBuild(currentBuild.nextBuild)
       return
     
     case 'ArrowLeft':
     case 'PageUp':
-      setBuildHash(getBuildHash() - 1)
+      currentBuild &&
+      currentBuild.prevBuild &&
+      setCurrentBuild(currentBuild.prevBuild)
       return
   }
 }
