@@ -4,9 +4,8 @@
 <link rel=stylesheet href=title.less>
 <link rel=stylesheet href=hallucinations.less>
 
-<script src=typewriter.js></script>
-<script src=type-writer.js></script>
 <script src=main.js></script>
+<script src=type-writer.js></script>
 
 <body>
   <div id=titleCard class=vbox>
@@ -20,7 +19,6 @@
   <script>
     When(buildInRange(titleBlank, title1Hallucinations))
       .withName('titleWriter')
-      .frame(console.log)
       .changed((_, current, prev) => {
         titleWriter.text = current.dataset.text
       })
@@ -89,9 +87,13 @@
   <build-note id=inceptionPanDiagram></build-note>
   <build-note id=dreamFullscreenPlayingAgain></build-note>
   <script>
-    When(buildInRange(dreamFullscreenMiquel, dreamFullscreenPlayingAgain))
+    When(dreamFullscreenPaused)
       .start(() => {
         deepDream.currentTime = 0
+        deepDream.pause()
+      })
+    When(buildInRange(dreamFullscreenMiquel, dreamFullscreenPlayingAgain))
+      .start(() => {
         deepDream.play()
       })
       .frame(() => {
