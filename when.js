@@ -8,68 +8,76 @@ export const unattached = {
   remove: _ => {}
 }
 
-export const always = () => true
+export function always() { return true }
 
-export const When = (condition=always, ctx=defaultContext) => {
-  const handlers = {start: [], frame: [], at: [], end: [], changed: []}
-  const run = type => {
-    const cbs = handlers[type]
-    return (ts, currentBuild, lastBuild) => {
-      const count = cbs.length
-      for (let i = 0; i !== count; ++i)
-        cbs[i].apply(step, [ts, currentBuild, lastBuild])
+export function When(condition=always, ctx=defaultContext) {
+  if (!new.target) return new When(condition, ctx)
+  this.condition = condition
+  this.running = false
+
+  this._handlers = {start: [], frame: [], at: [], end: [], changed: []}
+  this._resetDone()
+  this._ctx = ctx
+  ctx.add && ctx.add(this)
+}
+
+const fire = type => ({
+  [type](cb) { this._handlers[type].push(cb); return this },
+  [`_fire_${type}`](ts, currentBuild, lastBuild) {
+    const cbs = this._handlers[type]
+    const count = cbs.length
+    for (let i = 0; i !== count; ++i)
+      cbs[i].apply(this, [ts, currentBuild, lastBuild])
+  }
+})
+
+Object.assign(When.prototype, ...['start', 'frame', 'at', 'end', 'changed'].map(fire))
+
+When.prototype._resetDone = function() {
+  this.done = new Promise(_ => this._resolveDone = _)
+}
+
+When.prototype.withName = function(name) {
+  this.name = name
+  return this
+}
+
+When.prototype.withDuration = function(duration) {
+  this.duration = duration
+  return this
+}
+
+When.prototype.remove = function() {
+  this._ctx.remove(this)
+  return this
+}
+
+When.prototype.step = function(ts, currentBuild, lastBuild) {
+  const shouldRun = this.condition[match](ts, currentBuild, lastBuild)
+  if (shouldRun && !this.running) {
+    this._fire_start(ts, currentBuild, lastBuild)
+    this.startedAt = ts
+    this.running = true
+  }
+  if (!shouldRun && this.running) {
+    this._fire_end(ts, currentBuild, lastBuild)
+    this.endedAt = ts
+    this.running = false
+    this._resolveDone(this)
+    this._resetDone()
+  }
+  if (this.running) {
+    if (currentBuild !== lastBuild) this._fire_changed(ts, currentBuild, lastBuild)
+    this._fire_frame(ts, currentBuild, lastBuild)
+    if (typeof this.duration === 'number') {
+      const t = (ts - this.startedAt) / this.duration
+      this._fire_at(t, currentBuild, lastBuild)
     }
   }
-
-  const start = run('start')
-  const frame = run('frame')
-  const at = run('at')
-  const end = run('end')
-  const changed = run('changed')
-
-  let resolveDone = null
-  const resetDone = () => step.done = new Promise(_ => resolveDone = _)
-
-  const step = (ts, currentBuild, lastBuild) => {
-    const shouldRun = condition[match](ts, currentBuild, lastBuild)
-    if (shouldRun && !step.running) {
-      start(ts, currentBuild, lastBuild)
-      step.startedAt = ts
-      step.running = true
-    }
-    if (!shouldRun && step.running) {
-      end(ts, currentBuild, lastBuild)
-      step.endedAt = ts
-      step.running = false
-      resolveDone(step)
-      resetDone()
-    }
-    if (step.running) {
-      if (currentBuild !== lastBuild) changed(ts, currentBuild, lastBuild)
-      frame(ts, currentBuild, lastBuild)
-      if (typeof step.duration === 'number') {
-        const t = (ts - step.startedAt) / step.duration
-        at(t, currentBuild, lastBuild)
-      }
-    }
-  }
-
-  resetDone()
-  step.running = false
-  step.start = cb => { handlers.start.push(cb); return step }
-  step.changed = cb => { handlers.changed.push(cb); return step }
-  step.frame = cb => { handlers.frame.push(cb); return step }
-  step.at = cb => { handlers.at.push(cb); return step }
-  step.end = cb => { handlers.end.push(cb); return step }
-  step.withName = name => { step.animatorName = name; return step }
-  step.withDuration = duration => { step.duration = duration; return step }
-  step.remove = () => ctx && ctx.remove(step)
-  ctx.add && ctx.add(step)
-  return step
 }
 
 export const For = (duration, ctx=defaultContext) => {
-  let endTime
+  let endTime  
   const anim =
     When(ts => !anim.running || ts < endTime, ctx).withDuration(duration)
       .start(ts => endTime = ts + duration)
@@ -117,7 +125,7 @@ export function removeAnimator(animator) {
 export const runAnimatorStep = (ts, currentBuild, prevBuild) => {
   const animators = global.__animators
   let i = animators.length; while (i --> 0) 
-    animators[i](ts, currentBuild, prevBuild)
+    animators[i].step(ts, currentBuild, prevBuild)
 }
 
 /****** Condition helpers ******/
