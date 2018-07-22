@@ -90,7 +90,7 @@ export const every = interval => {
   return cb => function (ts, currentBuild, lastBuild) {
     const currentTick = Math.floor((ts - this.startedAt) / interval)
     if (currentTick !== lastTick)
-      cb.apply(this, [currentTick, currentBuild, lastBuild])
+      cb.apply(this, [ts, currentTick, currentBuild, lastBuild])
     lastTick = currentTick
   }
 }
@@ -111,10 +111,18 @@ export const lerp = (from, to) => {
 
 /****** Animator framework ******/
 global.__animators = global.__animators || []
+global.__cascadeDebug = (debug=true) =>
+  debug
+    ? log = console
+    : log = debuggingOff
+
+const debuggingOff = { log() {}, table() {}, }
+let log = debuggingOff
+
 export function addAnimator(animator) {
   global.__animators.push(animator)
-  console.log('added animator', animator)
-  console.table(global.__animators)
+  log.log('added animator', animator)
+  log.table(global.__animators)
 }
 export function removeAnimator(animator) {
   const animators = global.__animators

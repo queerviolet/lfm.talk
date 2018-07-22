@@ -6,7 +6,6 @@
 <link rel=stylesheet href=inside.less>
 
 <script src=main.js></script>
-<script src=type-writer.js></script>
 
 <body>
   <div id=titleCard class=vbox>
@@ -36,7 +35,7 @@
       <span class=P>banana</span>
       <span class=P>toaster</span>
       </div>
-    <video id=skully src=brain-skull-to-vision.m4v></video>
+    <video id=skully src=brain-skull-to-vision.m4v is=seekable-video></video>
     <video id=deepDream src=miquel_pn_deep_dream.mp4></video>
     <type-writer id=miquel></type-writer>
     <div id=deepDreamLayers class=stopped>
@@ -129,7 +128,7 @@
       <script>
         When(insideLessCruft)
           .start(() => { skully.currentTime = 0; skully.play() })
-          
+          .frame(() => { })
       </script>
     </build-note>
 

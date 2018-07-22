@@ -1,5 +1,3 @@
-import {Build} from './effect'
-
 import Timeline from './timeline'
 global.Timeline = Timeline
 
@@ -9,6 +7,9 @@ global.Builds = Builds
 
 import {When, buildInRange, runAnimatorStep, always, match, every, sec, any} from './when'
 Object.assign(global, {When, buildInRange, always, every, sec, any})
+
+import './type-writer'
+import './seek-able'
 
 function collectBuilds() {
   const all = Array.from(document.getElementsByTagName('build-note'))
