@@ -11,13 +11,13 @@ export const unattached = {
 export const always = () => true
 
 export const When = (condition=always, ctx=defaultContext) => {
-  const handlers = {start: [], frame: [], at: [], end: []}
+  const handlers = {start: [], frame: [], at: [], end: [], changed: []}
   const run = type => {
     const cbs = handlers[type]
     return (ts, currentBuild, lastBuild) => {
       const count = cbs.length
       for (let i = 0; i !== count; ++i)
-        cbs[i](ts, currentBuild, lastBuild)
+        cbs[i].apply(step, [ts, currentBuild, lastBuild])
     }
   }
 
@@ -25,6 +25,7 @@ export const When = (condition=always, ctx=defaultContext) => {
   const frame = run('frame')
   const at = run('at')
   const end = run('end')
+  const changed = run('changed')
 
   let resolveDone = null
   const resetDone = () => step.done = new Promise(_ => resolveDone = _)
@@ -44,6 +45,7 @@ export const When = (condition=always, ctx=defaultContext) => {
       resetDone()
     }
     if (step.running) {
+      if (currentBuild !== lastBuild) changed(ts, currentBuild, lastBuild)
       frame(ts, currentBuild, lastBuild)
       if (typeof step.duration === 'number') {
         const t = (ts - step.startedAt) / step.duration
@@ -55,9 +57,10 @@ export const When = (condition=always, ctx=defaultContext) => {
   resetDone()
   step.running = false
   step.start = cb => { handlers.start.push(cb); return step }
+  step.changed = cb => { handlers.changed.push(cb); return step }
   step.frame = cb => { handlers.frame.push(cb); return step }
-  step.end = cb => { handlers.end.push(cb); return step }
   step.at = cb => { handlers.at.push(cb); return step }
+  step.end = cb => { handlers.end.push(cb); return step }
   step.withName = name => { step.animatorName = name; return step }
   step.withDuration = duration => { step.duration = duration; return step }
   step.remove = () => ctx && ctx.remove(step)
@@ -74,12 +77,22 @@ export const For = (duration, ctx=defaultContext) => {
   return anim
 }
 
+export const every = interval => {
+  lastTick = null
+  return cb => function (ts, currentBuild, lastBuild) {
+    const currentTick = Math.floor((ts - this.startedAt) / interval)
+    if (currentTick !== lastTick)
+      cb.apply(this, [currentTick, currentBuild, lastBuild])
+    lastTick = currentTick
+  }
+}
+
 /****** Unit utilities ******/
-export const secs = seconds => 1000 * seconds
-secs.symbol = Symbol('seconds')
-secs[Symbol.toPrimitive] = () => secs.symbol
-Object.defineProperty(Number.prototype, secs, {
-  get() { return secs(this.valueOf()) }
+export const sec = seconds => 1000 * seconds
+sec.symbol = Symbol('seconds')
+sec[Symbol.toPrimitive] = () => sec.symbol
+Object.defineProperty(Number.prototype, sec, {
+  get() { return sec(this.valueOf()) }
 })
 
 /****** Animation utils ******/
@@ -89,9 +102,11 @@ export const lerp = (from, to) => {
 }
 
 /****** Animator framework ******/
-global.__animators = []
+global.__animators = global.__animators || []
 export function addAnimator(animator) {
   global.__animators.push(animator)
+  console.log('added animator', animator)
+  console.table(global.__animators)
 }
 export function removeAnimator(animator) {
   const animators = global.__animators
@@ -111,3 +126,6 @@ Object.defineProperty(Function.prototype, match, { get() { return this } })
 
 export const buildInRange = (from, to) =>
   (ts, current, last) => current.order >= from.order && current.order <= to.order
+
+export const any = (...matchers) => (ts, current, next) =>
+  matchers.some(m => m [match] (ts, current, next))

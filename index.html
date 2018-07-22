@@ -12,16 +12,18 @@
   <div id=titleCard class=vbox>
     <type-writer id=titleWriter></type-writer>
   </div>
+  <build-note id=titleBlank            data-text=""></build-note>
+  <build-note id=titleLfm              data-text="learning from machines"></build-note>
+  <build-note id=titleLfmErased        data-text=""></build-note>
+  <build-note id=title1                data-text="1. "></build-note>
+  <build-note id=title1Hallucinations  data-text="1. hallucinations"></build-note>
   <script>
-    // const titleWriter = new Typewriter(title, '')
-    Builds(
-      titleWriter.type('')
-      , titleWriter.type('learning from machines')
-      , titleWriter.erase()
-      , titleWriter.type('1. ')
-      , titleWriter.type('hallucinations')
-      , titleWriter.erase()
-    )
+    When(buildInRange(titleBlank, title1Hallucinations))
+      .withName('titleWriter')
+      .frame(console.log)
+      .changed((_, current, prev) => {
+        titleWriter.text = current.dataset.text
+      })
   </script>
   <div id=hallucinations class=seed>
     <img id=inceptionDiagram src=inception-diagram.svg>
@@ -33,10 +35,10 @@
       <span class=P>toaster</span>
       </div>
     <video id=deepDream src=miquel_pn_deep_dream.mp4></video>
-    <h1 id=miquel></h1>
+    <type-writer id=miquel></type-writer>
     <div id=deepDreamLayers class=stopped>
-        <h1 id=deepDreamCurrentLayer></h1>
-      </div>        
+      <type-writer id=deepDreamCurrentLayer></type-writer>
+    </div>        
     <div id=deepDreamInputLayer>
       <canvas id=deepDreamInputPixels></canvas>
     </div>
@@ -54,7 +56,7 @@
         }
       </script>
     </div>
-    <pre id=deepDreamConvFilter></pre>
+    <type-writer id=deepDreamConvFilter></type-writer>
     <script>
       const layers = ["Initial input data", "conv1/7x7_s2", "pool1/3x3_s2", "pool1/norm1", "conv2/3x3_reduce", "conv2/3x3", "conv2/norm2", "pool2/3x3_s2", "inception_3a/1x1", "inception_3a/3x3_reduce", "inception_3a/3x3", "inception_3a/5x5_reduce", "inception_3a/5x5", "inception_3a/pool", "inception_3a/pool_proj", "inception_3a/output", "inception_3b/1x1", "inception_3b/3x3_reduce", "inception_3b/3x3", "inception_3b/5x5_reduce", "inception_3b/5x5", "inception_3b/pool", "inception_3b/pool_proj", "inception_3b/output", "pool3/3x3_s2", "inception_4a/1x1", "inception_4a/3x3_reduce", "inception_4a/3x3", "inception_4a/5x5_reduce", "inception_4a/5x5", "inception_4a/pool", "inception_4a/pool_proj", "inception_4a/output", "inception_4b/1x1", "inception_4b/3x3_reduce", "inception_4b/3x3", "inception_4b/5x5_reduce", "inception_4b/5x5", "inception_4b/pool", "inception_4b/pool_proj", "inception_4b/output", "inception_4c/1x1", "inception_4c/3x3_reduce", "inception_4c/3x3", "inception_4c/5x5_reduce", "inception_4c/5x5", "inception_4c/pool", "inception_4c/pool_proj", "inception_4c/output", "inception_4d/1x1", "inception_4d/3x3_reduce", "inception_4d/3x3", "inception_4d/5x5_reduce", "inception_4d/5x5", "inception_4d/pool", "inception_4d/pool_proj", "inception_4d/output", "inception_4e/1x1", "inception_4e/3x3_reduce", "inception_4e/3x3", "inception_4e/5x5_reduce", "inception_4e/5x5", "inception_4e/pool", "inception_4e/pool_proj", "inception_4e/output", "pool4/3x3_s2", "inception_5a/1x1", "inception_5a/3x3_reduce", "inception_5a/3x3", "inception_5a/5x5_reduce", "inception_5a/5x5", "inception_5a/pool", "inception_5a/pool_proj", "inception_5a/output", "inception_5b/1x1", "inception_5b/3x3_reduce", "inception_5b/3x3", "inception_5b/5x5_reduce", "inception_5b/5x5", "inception_5b/pool", "inception_5b/pool_proj", "inception_5b/output", "pool5/7x7_s1"]      
       deepDream.onloadedmetadata = () => {
@@ -68,65 +70,50 @@
     </script>
     <script src=inception.js></script>
   </div>
-  <build-note id="titleBlank"></build-note>
-  <build-note id="titleLfm"></build-note>
-  <build-note id="titleLfmErased"></build-note>
-  <build-note id="titleHallucinations"></build-note>
-  <build-note id="dreamFullscreenPaused"></build-note>
-  <build-note id="dreamFullscreenMiquel"></build-note>
-  <build-note id="inception"></build-note>
-
-
+  <build-note id=dreamFullscreenPaused></build-note>
+  <build-note id=dreamFullscreenMiquel></build-note>
   <script>
-    When(buildInRange(titleBlank, titleLfmErased))
+    When(dreamFullscreenMiquel)
+      .start(() => miquel.text = 'Miquel Perelló Nieto')
+      .end(() => miquel.text = '')
+  </script>
+  <build-note id=dreamFullscreenPlaying></build-note>
+  <build-note id=dreamFullscreenShowLayer></build-note>
+  <build-note id=inception></build-note>
+  <build-note id=inceptionFromInput></build-note>
+  <build-note id=inceptionToOutput></build-note>
+  <build-note id=inceptionConv></build-note>
+  <build-note id=inceptionConvForward></build-note>
+  <build-note id=inceptionConvTraining></build-note>
+  <build-note id=inceptionIncepting></build-note>
+  <build-note id=inceptionPanDiagram></build-note>
+  <build-note id=dreamFullscreenPlayingAgain></build-note>
+  <script>
+    When(buildInRange(dreamFullscreenMiquel, dreamFullscreenPlayingAgain))
+      .start(() => {
+        deepDream.currentTime = 0
+        deepDream.play()
+      })
       .frame(() => {
         if (!deepDream.timeline) return
-        deepDreamCurrentLayer.textContent = deepDream.timeline(deepDream).layer
+        deepDreamCurrentLayer.text = deepDream.timeline(deepDream).layer
       })
-  </script>
-  
-  <script>
-    const trip = new CSSBuilds(hallucinations)
-    const video = new Playback(deepDream, {playing: false, currentTime: 0})
-    const inceptionViz = new InceptionViz(deepDream, deepDreamInputPixels)
-    const ddFilter = new Typewriter(deepDreamConvFilter, '', {typingRate: 128, eraseRate: 256})
-    const layersView = new Daemon({
-      atStart() {},
-      atFrame(ts) {
-        if (!deepDream.timeline) return
-        deepDreamCurrentLayer.textContent = deepDream.timeline(deepDream).layer
-        return true
-      },
-      atEnd() {}
-    })
+
+    inceptionPixelsViz(
+      buildInRange(inception, inceptionPanDiagram),
+      deepDream,
+      deepDreamInputPixels
+    )
+
+    When(inceptionConvTraining).frame(every(2[sec]) (() =>
+      deepDreamConvFilter.text = randomMatrix(3, 3)
+    ))
 
     const randomRow = w => () => new Array(w).fill(0)
       .map((() => Math.random().toString().substr(0, 3) + ' '))
       .join('') + '\n'
     const randomMatrix = (w, h) =>
       '[\n' + new Array(h).fill(0).map(randomRow(w)).join('') + ']'
-
-    const twMiquel = new Typewriter(miquel, '')
-
-    Builds(
-      [trip.setClass('fullscreen')]
-      , [trip.setClass('fullscreen-with-miquel'), twMiquel.type('Miquel Perelló Nieto')]
-      , video.play()
-      , trip.setClass('fullscreen')
-      , [trip.setClass('fullscreen-with-layer'), layersView.start()]
-      , trip.setClass('inception')
-      , [trip.setClass('inception-from-input'), inceptionViz.start()]
-      , trip.setClass('inception-to-output')
-      , trip.setClass('inception-conv')
-      , trip.setClass('inception-conv-forward')
-      , trip.setClass('inception-training')
-      , [ddFilter.erase(), ddFilter.type(randomMatrix(3, 3))]
-      , [ddFilter.erase(), ddFilter.type(randomMatrix(3, 3))]
-      , [ddFilter.erase(), ddFilter.type(randomMatrix(3, 3))]
-      , [trip.setClass('inception-incepting'), ddFilter.type('.ascendGradient()')]
-      , trip.setClass('pan-diagram')
-      , [layersView.stop(), inceptionViz.stop(), trip.setClass('inception')]
-      , trip.setClass('fullscreen')
-    )
-  </script>
+  </script>  
+  
 </body>

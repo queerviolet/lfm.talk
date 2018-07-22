@@ -19,6 +19,7 @@ class TypeWriter extends HTMLElement {
     shadow.appendChild(cursor)
     this.cursor = cursor
     this.textNode = text
+    this.currentTargetText = ''
   }
 
   type(input, rate=this.typingRate) {
@@ -26,11 +27,16 @@ class TypeWriter extends HTMLElement {
     const startText = text.textContent
     if (this.anim) this.anim.remove()
     return this.anim =
-      For(input.length [secs] / rate)
+      For(input.length [sec] / rate)
         .withName('typing')
+        .start(() => this.cursor.classList.remove('blinking'))
         .at(t =>
           text.textContent = startText + input.substr(0, ceil(t * input.length))
         )
+        .end(() => {
+          this.cursor.classList.add('blinking')
+          text.textContent = startText + input
+        })
   }
 
   erase(count=this.textNode.textContent.length, rate=this.erasingRate) {
@@ -39,11 +45,16 @@ class TypeWriter extends HTMLElement {
     const length = lerp(startText.length, startText.length - count)
     if (this.anim) this.anim.remove()
     return this.anim =
-      For(count [secs] / rate)
+      For(count [sec] / rate)
         .withName('erasing')
+        .start(() => this.cursor.classList.remove('blinking'))
         .at(t =>
           text.textContent = startText.substr(0, floor(length(t)))
         )
+        .end(() => {
+          text.textContent = startText.substr(0, startText.length - count)
+          this.cursor.classList.add('blinking')
+        })
   }
 
   async attributeChangedCallback(name, oldValue, newValue) {
@@ -60,11 +71,11 @@ class TypeWriter extends HTMLElement {
 
   async setText(newText) {
     const {textNode} = this
-    const currentText = textNode.textContent
-    if (currentText === newText) return
+    if (this.currentTargetText === newText) return
+    this.currentTargetText = newText
+    const currentText = this.text
     const prefixLength = commonPrefix(currentText, newText)
     const delta = currentText.length - prefixLength
-    console.log(delta)
     if (delta) await this.erase(delta).done
     this.type(newText.substr(prefixLength))
   }

@@ -7,8 +7,8 @@ import Builds from './builds'
 
 global.Builds = Builds
 
-import {When, buildInRange, runAnimatorStep, match} from './when'
-Object.assign(global, {When, buildInRange, runAnimatorStep})
+import {When, buildInRange, runAnimatorStep, always, match, every, sec, any} from './when'
+Object.assign(global, {When, buildInRange, always, every, sec, any})
 
 function collectBuilds() {
   const all = Array.from(document.getElementsByTagName('build-note'))
@@ -49,6 +49,8 @@ function main() {
     requestAnimationFrame(frame)
     if (!getCurrentBuild()) { setCurrentBuild(BUILDS[0]) }
     const [current, prev] = activate(getCurrentBuild())
+    global.__currentBuild = current
+    global.__prevBuild = prev
     runAnimatorStep(ts, current, prev)
   }
 
