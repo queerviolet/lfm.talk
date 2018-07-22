@@ -39,7 +39,7 @@
 :global(.inceptionConv #hallucinations) {
   .inception();
   :global(#deepDream) { .layer(10vh); }
-  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamLayers) { .on-conv-output(); }
   :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
   :global(#deepDreamConvOutput) { .layer(60vh); opacity: 1; }
   :global(#deepDreamOutputLayer) { .layer(70vh); opacity: 1; }
@@ -48,7 +48,7 @@
 :global(.inceptionConvForward #hallucinations) {
   .inception();
   :global(#deepDream) { .layer(10vh); }
-  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamLayers) { .on-conv-output(); }
   :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
   :global(#deepDreamInputLayerReceptiveField) {
     opacity: 1;
@@ -69,7 +69,7 @@
 :global(.inceptionConvTraining #hallucinations) {
   .inception();
   :global(#deepDream) { .layer(10vh); }
-  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamLayers) { .on-conv-output(); }
   :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
   :global(#deepDreamInputLayerReceptiveField) {
     opacity: 1;
@@ -94,7 +94,7 @@
   .inception();
 
   :global(#deepDream) { .layer(10vh); }
-  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamLayers) { .on-conv-output(); }
   :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
   :global(#deepDreamInputLayerReceptiveField) {
     opacity: 1;
@@ -119,7 +119,7 @@
   .inception();
 
   :global(#deepDream) { .layer(10vh); }
-  :global(#deepDreamLayers) { .layer(60vh); opacity: 1; }
+  :global(#deepDreamLayers) { .on-conv-output(); }
   :global(#deepDreamInputLayer) { .layer(10vh); opacity: 1; }
   :global(#deepDreamInputLayerReceptiveField) {
     opacity: 1;
@@ -193,12 +193,21 @@
     background: @electric-blue;
     position: absolute;
     color: white;
-    bottom: 0;
-    left: 50%;
-    // transform: translateX(-50%);
+    top: 0;
+    left: 0;
     padding: 9px;
     display: inline-block;
     text-align: center;
+  }
+}
+
+.on-conv-output {
+  .layer(60vh);
+  opacity: 1;
+
+  :global(#deepDreamCurrentLayer) {
+    top: 80vh;
+    left: 10vw;
   }
 }
 
