@@ -1,5 +1,4 @@
-import {For, secs, lerp} from './when'
-import {blinkingCursor, solidCursor} from './typewriter.css'
+import {For, sec, lerp} from './when'
 
 const {ceil, floor} = Math
 
