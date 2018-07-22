@@ -124,13 +124,16 @@
     <!-- 1b. The human visual system -->
     <build-note id=inside></build-note>
     <build-note id=insideEnterSkully></build-note>
-    <build-note id=insideLessCruft>
-      <script>
-        When(insideLessCruft)
-          .start(() => { skully.currentTime = 0; skully.play() })
-          .frame(() => { })
-      </script>
-    </build-note>
+    <build-note id=insideLessCruft></build-note>
+    <build-note id=insideSkullyCloser></build-note>
+    <script>
+      insideEnterSkully.skully = {time: 0, paused: true}
+      insideLessCruft.skully = {time: 15, duration: 5, paused: true}
+      insideSkullyCloser.skully = {time: 20, duration: 5, paused: true}      
+
+      When(buildInRange(insideEnterSkully, insideSkullyCloser))
+        .changed(((_ts, build) => skully.seekTo(build.skully)))
+    </script>
 
   </div>
 

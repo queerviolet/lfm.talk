@@ -2,24 +2,21 @@
 
 :global(.inside #hallucinations) {
   .gray-full();
-
-  :global(#deepDream) {
-    transform-origin: center center;
-    transform: translate3d(-30vw, 0, -100vh) rotateY(80deg);
-    border: 10px solid black;
-    background: black;
-    transition: 4s;
-  }
+  :global(#deepDream) { .being-watched(@x: -30vw, @rotate: 80deg, @scale: 1); }
 }
 
-:global(.insideEnterSkully #hallucinations) {
+:global(.insideEnterSkully #hallucinations)
+{
   .gray-full();
-
   :global(#deepDream) { .being-watched(); }
+  :global(#skully) { transform: none; }
+}
 
-  :global(#skully) {
-    transform: none;
-  }
+:global(.insideLessCruft #hallucinations) 
+, :global(.insideSkullyCloser #hallucinations) {
+  .gray-full();
+  :global(#deepDream) { .being-watched(@x: -100vw); opacity: 0; }
+  :global(#skully) { transform: none; }  
 }
 
 :global(#skully) {
@@ -33,9 +30,10 @@
   transform: scale(1.0);
 }
 
-.being-watched {
+.being-watched(@x: -50vw, @rotate: 90deg, @scale: 0.8) {
+  transition: 10s;
   transform-origin: center center;
-  transform: translate3d(-50vw, 0, -100vh) rotateY(90deg) scale(0.8);
+  transform: translate3d(@x, 0, -100vh) rotateY(@rotate) scale(@scale);
   border: 10px solid black;
   background: black;
   transition: 4s;

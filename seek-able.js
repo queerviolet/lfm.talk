@@ -1,7 +1,7 @@
 import {defaultContext, For, every, sec} from './when'
 
 const Seekable = MediaBase => class SeekAble extends MediaBase {
-  seekTo({seekDuration=1, time=this.currentTime, paused=this.paused}) {
+  seekTo({duration: seekDuration=1, time=this.currentTime, paused=this.paused}) {
     if (this.anim) { this.anim.remove(); this.anim = null }
     if (!seekDuration || time < this.currentTime)
       this.currentTime = time
