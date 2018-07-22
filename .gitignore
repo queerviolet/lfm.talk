@@ -4,3 +4,4 @@ dist
 dist/*
 .cache
 *.mp4
+*.m4v

@@ -3,6 +3,7 @@
 <link rel=stylesheet href=base.less>
 <link rel=stylesheet href=title.less>
 <link rel=stylesheet href=hallucinations.less>
+<link rel=stylesheet href=inside.less>
 
 <script src=main.js></script>
 <script src=type-writer.js></script>
@@ -23,7 +24,10 @@
         titleWriter.text = current.dataset.text
       })
   </script>
+
+  <!-- 1. hallucinations -->
   <div id=hallucinations class=seed>
+    <!-- 1a. the inception neural network -->
     <img id=inceptionDiagram src=inception-diagram.svg>
     <div id=deepDreamOutputLayer>
       <span class=P>cat</span>
@@ -32,6 +36,7 @@
       <span class=P>banana</span>
       <span class=P>toaster</span>
       </div>
+    <video id=skully src=brain-skull-to-vision.m4v></video>
     <video id=deepDream src=miquel_pn_deep_dream.mp4></video>
     <type-writer id=miquel></type-writer>
     <div id=deepDreamLayers class=stopped>
@@ -67,55 +72,67 @@
       }
     </script>
     <script src=inception.js></script>
+    <build-note id=dreamFullscreenPaused></build-note>
+    <build-note id=dreamFullscreenMiquel></build-note>
+    <script>
+      When(dreamFullscreenMiquel)
+        .start(() => miquel.text = 'Miquel Perelló Nieto')
+        .end(() => miquel.text = '')
+    </script>
+    <build-note id=dreamFullscreenPlaying></build-note>
+    <build-note id=dreamFullscreenShowLayer></build-note>
+    <build-note id=inception></build-note>
+    <build-note id=inceptionFromInput></build-note>
+    <build-note id=inceptionToOutput></build-note>
+    <build-note id=inceptionConv></build-note>
+    <build-note id=inceptionConvForward></build-note>
+    <build-note id=inceptionConvTraining></build-note>
+    <build-note id=inceptionIncepting></build-note>
+    <build-note id=inceptionPanDiagram></build-note>
+    <build-note id=dreamFullscreenPlayingAgain></build-note>
+    <script>
+      When(dreamFullscreenPaused)
+        .start(() => {
+          deepDream.currentTime = 0
+          deepDream.pause()
+        })
+      When(buildInRange(dreamFullscreenMiquel, dreamFullscreenPlayingAgain))
+        .start(() => {
+          deepDream.play()
+        })
+        .frame(() => {
+          if (!deepDream.timeline) return
+          deepDreamCurrentLayer.text = deepDream.timeline(deepDream).layer
+        })
+
+      inceptionPixelsViz(
+        buildInRange(inception, inceptionPanDiagram),
+        deepDream,
+        deepDreamInputPixels
+      )
+
+      When(inceptionConvTraining).frame(every(2[sec]) (() =>
+        deepDreamConvFilter.text = randomMatrix(3, 3)
+      ))
+
+      const randomRow = w => () => new Array(w).fill(0)
+        .map((() => Math.random().toString().substr(0, 3) + ' '))
+        .join('') + '\n'
+      const randomMatrix = (w, h) =>
+        '[\n' + new Array(h).fill(0).map(randomRow(w)).join('') + ']'
+    </script>  
+    
+    <!-- 1b. The human visual system -->
+    <build-note id=inside></build-note>
+    <build-note id=insideEnterSkully></build-note>
+    <build-note id=insideLessCruft>
+      <script>
+        When(insideLessCruft)
+          .start(() => { skully.currentTime = 0; skully.play() })
+          
+      </script>
+    </build-note>
+
   </div>
-  <build-note id=dreamFullscreenPaused></build-note>
-  <build-note id=dreamFullscreenMiquel></build-note>
-  <script>
-    When(dreamFullscreenMiquel)
-      .start(() => miquel.text = 'Miquel Perelló Nieto')
-      .end(() => miquel.text = '')
-  </script>
-  <build-note id=dreamFullscreenPlaying></build-note>
-  <build-note id=dreamFullscreenShowLayer></build-note>
-  <build-note id=inception></build-note>
-  <build-note id=inceptionFromInput></build-note>
-  <build-note id=inceptionToOutput></build-note>
-  <build-note id=inceptionConv></build-note>
-  <build-note id=inceptionConvForward></build-note>
-  <build-note id=inceptionConvTraining></build-note>
-  <build-note id=inceptionIncepting></build-note>
-  <build-note id=inceptionPanDiagram></build-note>
-  <build-note id=dreamFullscreenPlayingAgain></build-note>
-  <script>
-    When(dreamFullscreenPaused)
-      .start(() => {
-        deepDream.currentTime = 0
-        deepDream.pause()
-      })
-    When(buildInRange(dreamFullscreenMiquel, dreamFullscreenPlayingAgain))
-      .start(() => {
-        deepDream.play()
-      })
-      .frame(() => {
-        if (!deepDream.timeline) return
-        deepDreamCurrentLayer.text = deepDream.timeline(deepDream).layer
-      })
 
-    inceptionPixelsViz(
-      buildInRange(inception, inceptionPanDiagram),
-      deepDream,
-      deepDreamInputPixels
-    )
-
-    When(inceptionConvTraining).frame(every(2[sec]) (() =>
-      deepDreamConvFilter.text = randomMatrix(3, 3)
-    ))
-
-    const randomRow = w => () => new Array(w).fill(0)
-      .map((() => Math.random().toString().substr(0, 3) + ' '))
-      .join('') + '\n'
-    const randomMatrix = (w, h) =>
-      '[\n' + new Array(h).fill(0).map(randomRow(w)).join('') + ']'
-  </script>  
-  
 </body>

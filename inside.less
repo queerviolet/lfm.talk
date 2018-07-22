@@ -1,0 +1,42 @@
+@import "base.less";
+
+:global(.inside #hallucinations) {
+  .gray-full();
+
+  :global(#deepDream) {
+    transform-origin: center center;
+    transform: translate3d(-30vw, 0, -100vh) rotateY(80deg);
+    border: 10px solid black;
+    background: black;
+    transition: 4s;
+  }
+}
+
+:global(.insideEnterSkully #hallucinations) {
+  .gray-full();
+
+  :global(#deepDream) { .being-watched(); }
+
+  :global(#skully) {
+    transform: none;
+  }
+}
+
+:global(#skully) {
+  height: 100vh;
+  transform: translateX(100%);
+  transition: 4s;
+}
+
+.gray-full {
+  background: @light-gray;
+  transform: scale(1.0);
+}
+
+.being-watched {
+  transform-origin: center center;
+  transform: translate3d(-50vw, 0, -100vh) rotateY(90deg) scale(0.8);
+  border: 10px solid black;
+  background: black;
+  transition: 4s;
+}
