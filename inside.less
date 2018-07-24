@@ -5,24 +5,123 @@
   :global(#deepDream) { .being-watched(@x: -30vw, @rotate: 80deg, @scale: 1); }
 }
 
-:global(.insideEnterSkully #hallucinations)
+:global(.insideEnterSkully #hallucinations),
 {
   .gray-full();
   :global(#deepDream) { .being-watched(); }
-  :global(#skully) { transform: none; }
+  :global(#skully) { .skully-visible(); }
 }
 
-:global(.insideLessCruft #hallucinations) 
-, :global(.insideSkullyCloser #hallucinations) {
+:global(.insideLessCruft #hallucinations),
+{
   .gray-full();
   :global(#deepDream) { .being-watched(@x: -100vw); opacity: 0; }
-  :global(#skully) { transform: none; }  
+  :global(#skully) { .skully-visible(); }
+}
+
+:global(.insideRetina #hallucinations),
+:global(.insideRetinaGanglions #hallucinations),
+:global(.insideRetinaEtc #hallucinations),
+:global(.insideRetinaPhotoreceptors #hallucinations),
+:global(.insideRetinaLightGoesIn #hallucinations),
+:global(.insideRetinaSignalComesOut #hallucinations),
+:global(.insideRetinaOpticNerve #hallucinations),
+:global(.insideRetinaReceptiveField #hallucinations),
+:global(.insideRetinaReceptiveFieldFiringWeakly #hallucinations),
+:global(.insideRetinaReceptiveFieldOffCenterFiring #hallucinations),
+:global(.insideRetinaReceptiveFieldOffCenterDead #hallucinations),
+:global(.insideRetinaReceptiveFieldOnCenterFiring #hallucinations),
+{
+  .gray-full();
+  background: white;
+  :global(#deepDream) { display: none; }
+  :global(#skully)  { .skully-visible(); }
+}
+
+:global(.insideThroughTheBrain #hallucinations),
+:global(.insideVisualCortex #hallucinations),
+{
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+}
+
+:global(.inside5ht2a #hallucinations),
+{
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+  :global(#ht2a) {
+    transform:  translate(-50%, -50%) scale(1);
+  }
+}
+
+:global(.inside5ht2aLSDBinding #hallucinations),
+{
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+  :global(#ht2a) {
+    transform:  translate(calc(-100% + 10vw), -50%) scale(1);
+  }
+  :global(#ht2aLSDBinding) {
+    transform: translate(0, -50%) scale(1);
+  }
+}
+
+:global(#ht2a) {
+  .window();
+  > type-writer { .type-writer-title(); }
+  > video {
+    .window-content();
+    width: 50vw;
+  }
+}
+
+:global(#ht2aLSDBinding) {
+  .window();
+  > type-writer { .type-writer-title(); }
+  > img {
+    .window-content();
+    width: 45vw;
+  }
+}
+
+.window {
+  .absolute(@top: 50%, @left: 50%, @width: auto, @height: auto);
+  transform: translate(-50%, -50%) scale(0);
+  transition: 1s;
+  box-sizing: border-box;
+}
+
+.window-content {
+  border: 3px solid @electric-blue;
+  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.type-writer-title {
+  display: inline-block;
+  transition: 1s;
+  background:  @electric-blue;;
+  color: white;
+  --typewriter-cursor-color: white;
+  padding: 0 9px;
 }
 
 :global(#skully) {
+  position: absolute;
   height: 100vh;
-  transform: translateX(100%);
-  transition: 4s;
+  transform: translateX(100%);  // skully enters from the right
+  transition: transform 4s, left 4s, opacity 0.5s;
+  opacity: 0;
+  left: 0;
+}
+
+.skully-visible {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
 }
 
 .gray-full {

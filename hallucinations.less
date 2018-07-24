@@ -171,9 +171,13 @@
 
 :global(#miquel) {
   .fixed(@top: auto, @left: 5vw, @bottom: 5vh, @height: auto, @width: auto);
-
-  transition: 1s;
+  .type-writer-title();
   opacity: 0;
+}
+
+.type-writer-title {
+  display: block;
+  transition: 1s;
   background: @electric-blue;
   color: white;
   --typewriter-cursor-color: white;

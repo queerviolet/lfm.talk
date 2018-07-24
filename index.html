@@ -125,14 +125,64 @@
     <build-note id=inside></build-note>
     <build-note id=insideEnterSkully></build-note>
     <build-note id=insideLessCruft></build-note>
-    <build-note id=insideSkullyCloser></build-note>
+    <build-note id=insideRetina></build-note>
+    <build-note id=insideRetinaGanglions></build-note>
+    <build-note id=insideRetinaEtc></build-note>
+    <build-note id=insideRetinaPhotoreceptors></build-note>
+    <build-note id=insideRetinaLightGoesIn></build-note>
+    <build-note id=insideRetinaSignalComesOut></build-note>
+    <build-note id=insideRetinaOpticNerve></build-note>
+    <build-note id=insideRetinaReceptiveField></build-note>
+    <build-note id=insideRetinaReceptiveFieldFiringWeakly></build-note>
+    <build-note id=insideRetinaReceptiveFieldOffCenterFiring></build-note>
+    <build-note id=insideRetinaReceptiveFieldOffCenterDead></build-note>
+    <build-note id=insideRetinaReceptiveFieldOnCenterFiring></build-note>
+    <build-note id=insideThroughTheBrain></build-note>
+    <build-note id=insideVisualCortex></build-note>
     <script>
       insideEnterSkully.skully = {time: 0, paused: true}
-      insideLessCruft.skully = {time: 15, duration: 5, paused: true}
-      insideSkullyCloser.skully = {time: 20, duration: 5, paused: true}      
+      insideLessCruft.skully = {time: 14.8, duration: 5, paused: true}
+      insideRetina.skully = {time: 20, duration: 20 - 14.8, paused: true}
+      insideRetinaGanglions.skully = {time: 29, duration: 29 - 20, paused: true}
+      insideRetinaEtc.skully = {time: 31, duration: 31 - 29, paused: true}
+      insideRetinaPhotoreceptors.skully = {time: 34, duration: 34 - 31, paused: true}
+      insideRetinaLightGoesIn.skully = {time: 34.5, duration: 34.5 - 34, paused: true}
+      insideRetinaSignalComesOut.skully = {time: 36.5, duration: 36.5 - 34.5, paused: true}
+      insideRetinaOpticNerve.skully = {time: 42, duration: 42 - 36.5, paused: true}
+      insideRetinaReceptiveField.skully = {time: 50.84, duration: 50.8 - 42, paused: true}
+      insideRetinaReceptiveFieldFiringWeakly.skully = {time: 50.96, duration: 0, paused: true}
+      insideRetinaReceptiveFieldOffCenterFiring.skully = {time: 51.5, duration: 3, paused: true}
+      insideRetinaReceptiveFieldOffCenterDead.skully = {time: 51.63, duration: 1, paused: true}
+      insideRetinaReceptiveFieldOnCenterFiring.skully = {time: 51.8, duration: 1, paused: true}
+      insideThroughTheBrain.skully = {time: 65, duration: 3, paused: true}
+      insideVisualCortex.skully = {time: 86, duration: 5, paused: true}
 
-      When(buildInRange(insideEnterSkully, insideSkullyCloser))
-        .changed(((_ts, build) => skully.seekTo(build.skully)))
+      When(buildInRange(insideEnterSkully, insideVisualCortex))
+        .changed(((_ts, build) => build.skully && skully.seekTo(build.skully)))
+    </script>
+
+    <div id=ht2a>
+      <type-writer id=ht2aTitle></type-writer>
+      <video id=ht2aVideo src=5ht2a.m4v loop></video>
+    </div>
+    <div id=ht2aLSDBinding>
+      <type-writer id=ht2aLSDTitle></type-writer>
+      <img src=lsd-binding-lid.png>
+    </div>  
+    <build-note id=inside5ht2a></build-note>
+    <build-note id=inside5ht2aLSDBinding></build-note>
+    <script>
+      When(buildInRange(inside5ht2a, inside5ht2aLSDBinding))
+        .start(() => {
+          ht2aTitle.text = '5-HT2 receptor subtype A'
+          ht2aVideo.currentTime = 0
+          ht2aVideo.playbackRate = 2
+          ht2aVideo.play()
+        })
+        .end(() => ht2aTitle.text = '')
+      When(inside5ht2aLSDBinding)
+        .start(() => ht2aLSDTitle.text = 'LSD 5-ht2a binding - EL2 "lid"')
+        .end(() => ht2aLSDTitle.text = '')
     </script>
 
   </div>
