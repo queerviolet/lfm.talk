@@ -10,6 +10,7 @@ Object.assign(global, {When, buildInRange, always, every, sec, any})
 
 import './type-writer'
 import './seek-able'
+// import './sketch'
 
 function collectBuilds() {
   const all = Array.from(document.getElementsByTagName('build-note'))
@@ -26,7 +27,7 @@ function collectBuilds() {
 let BUILDS, currentBuild = null
 const getBuildIdFromHash = () => window.location.hash.substr(1)
 const getCurrentBuild = () => document.getElementById(getBuildIdFromHash())
-const setCurrentBuild = build => window.location.hash = '#' + build.id
+const setCurrentBuild = build => build && (window.location.hash = '#' + build.id)
 
 const activate = build => {
   if (build === currentBuild) return [build, build]
@@ -36,6 +37,7 @@ const activate = build => {
   }
   if (!build) return
   document.body.classList.add(build.id)
+  document.body.dataset.currentBuild = build.id
   build.classList.add('current')
   const prev = currentBuild
   currentBuild = build
@@ -78,3 +80,9 @@ function onKey({code}) {
 
 addEventListener('DOMContentLoaded', main)
 addEventListener('keydown', onKey)
+addEventListener('mousedown', () => currentBuild &&
+currentBuild.nextBuild &&
+setCurrentBuild(currentBuild.nextBuild))
+addEventListener('touchstart', () => currentBuild &&
+currentBuild.nextBuild &&
+setCurrentBuild(currentBuild.nextBuild))

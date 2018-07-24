@@ -1,9 +1,10 @@
-<html data-slide=0>
+<html>
 <title>Learning from Machines</title>
 <link rel=stylesheet href=base.less>
 <link rel=stylesheet href=title.less>
 <link rel=stylesheet href=hallucinations.less>
 <link rel=stylesheet href=inside.less>
+<link rel=stylesheet href=dreams.less>
 
 <script src=main.js></script>
 
@@ -179,12 +180,54 @@
           ht2aVideo.playbackRate = 2
           ht2aVideo.play()
         })
-        .end(() => ht2aTitle.text = '')
       When(inside5ht2aLSDBinding)
         .start(() => ht2aLSDTitle.text = 'LSD 5-ht2a binding - EL2 "lid"')
-        .end(() => ht2aLSDTitle.text = '')
     </script>
 
-  </div>
+    <div id=adversarialSticker>
+      <type-writer id=stickerTitle></type-writer>
+      <video src=adversarial-sticker.m4v loop autoplay>
+    </div>
+    <div id=adversarialSkiiers>
+      <type-writer id=skiiersTitle></type-writer>
+      <img src=adversarial-skiiers.gif>  
+    </div>
+    <build-note id=insideAdversarialSticker></build-note>
+    <build-note id=insideAdversarialSkiiers></build-note>
+    <script>
+      When(buildInRange(inside5ht2a, insideAdversarialSkiiers))
+        .end(() => ht2aTitle.text = ht2aLSDTitle.text = stickerTitle.text = skiiersTitle.text = '')
+      When(insideAdversarialSticker)
+        .start(() => stickerTitle.text = 'Adversarial patch (arXiv:1712.09665v2)')
+      When(insideAdversarialSkiiers)
+        .start(() => skiiersTitle.text = 'Black-box adversarial example (arXiv:1712.07113v2)')
+    </script>
 
+    <build-note id=hallucinationsToSleep></build-note>
+    <script>
+      let hallucinationBuilds =
+        [...hallucinations.getElementsByTagName('build-note')]
+          .filter(x => !x.skully)
+      When(hallucinationsToSleep)
+        .start(() => titleWriter.text = '')
+        .frame(every(0.1[sec]) ((_, i) => {
+          const lastBuild = hallucinationBuilds[hallucinationBuilds.length - i - 2]
+          const nextBuild = hallucinationBuilds[hallucinationBuilds.length - i - 3]
+          if (!nextBuild) return
+          document.body.classList.remove(lastBuild.id)
+          document.body.classList.add(nextBuild.id)
+        }))
+        .end(() => document.body.classList.remove(hallucinationBuilds[0].id))
+    </script>
+  </div>
+  <div id=dreams>
+    <build-note id=title2             data-text='2. '></build-note>
+    <build-note id=title2Dreams       data-text='2. dreams'></build-note>
+    <script>
+      When(buildInRange(title2, title2Dreams))
+        .changed((_, current, prev) => {
+          titleWriter.text = current.dataset.text
+        })
+    </script>
+  </div>
 </body>

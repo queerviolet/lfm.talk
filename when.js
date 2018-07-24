@@ -11,7 +11,7 @@ export const unattached = {
 export function always() { return true }
 
 export function When(condition=always, ctx=defaultContext) {
-  if (!new.target) return new When(condition, ctx)
+  if (new.target == null) return new When(condition, ctx)
   this.condition = condition
   this.running = false
 

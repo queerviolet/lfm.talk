@@ -65,9 +65,85 @@
     transform:  translate(calc(-100% + 10vw), -50%) scale(1);
   }
   :global(#ht2aLSDBinding) {
-    transform: translate(0, -50%) scale(1);
+    transform: translate(-5vw, -50%) scale(1);
   }
 }
+
+:global(.insideAdversarialSticker #hallucinations),
+{
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+  :global(#ht2a) {
+    transform:  translate(calc(-100% + 10vw), -50%) scale(1);
+  }
+  :global(#ht2aLSDBinding) {
+    transform: translate(-5vw, -50%) scale(1);
+  }
+  :global(#adversarialSticker) {
+    transform: translate(-40vw, -25vw) scale(1);
+  }
+}
+
+:global(.insideAdversarialSkiiers #hallucinations),
+{
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+  :global(#ht2a) {
+    transform:  translate(calc(-100% + 10vw), -50%) scale(1);
+  }
+  :global(#ht2aLSDBinding) {
+    transform: translate(-5vw, -50%) scale(1);
+  }
+  :global(#adversarialSticker) {
+    transform: translate(-40vw, -25vw) scale(1);
+  }
+  :global(#adversarialSkiiers) {
+    transform: translate(-10vw, -10vh) scale(1);
+  }
+}
+
+:global(.hallucinationsToSleep #hallucinations),
+{
+  .gray-full();
+  animation-name: glow-zonk-out;
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes glow-zonk-out {
+  0% {
+    filter: sepia(0) brightness(100%) hue-rotate(0deg);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);    
+  }
+
+  // 22% { filter: brightnes(500%) hue-rotate(72deg); }
+  // 26% { filter: brightnes(98%) hue-rotate(82deg); }
+
+  90% {
+    filter: sepia(20%) brightness(120%) hue-rotate(270deg);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);    
+  }
+
+  95% {
+    clip-path: polygon(
+    0 calc(50% - 1px),
+    100% calc(50% - 1px),
+    100% calc(50% + 1px),
+    0 calc(50% + 1px));
+  }
+
+  100% {
+    clip-path: polygon(
+    calc(50% - 1px) calc(50% - 1px),
+    calc(50% + 1px) calc(50% - 1px),
+    calc(50% + 1px) calc(50% + 1px),
+    calc(50% - 1px) calc(50% + 1px));
+  }
+}
+
+// ---
 
 :global(#ht2a) {
   .window();
@@ -78,14 +154,26 @@
   }
 }
 
-:global(#ht2aLSDBinding) {
+:global(#ht2aLSDBinding),
+:global(#adversarialSticker),
+:global(#adversarialSkiiers),
+{
   .window();
   > type-writer { .type-writer-title(); }
+  > video {
+    .window-content();
+    width: 50vw;
+  }
   > img {
     .window-content();
-    width: 45vw;
+    width: 50vw;
   }
 }
+
+:global(#adversarialStickers) {
+  z-index: 100;
+}
+
 
 .window {
   .absolute(@top: 50%, @left: 50%, @width: auto, @height: auto);
