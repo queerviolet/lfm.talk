@@ -5,8 +5,8 @@ import Builds from './builds'
 
 global.Builds = Builds
 
-import {When, buildInRange, runAnimatorStep, always, match, every, sec, any} from './when'
-Object.assign(global, {When, buildInRange, always, every, sec, any})
+import {When, For, buildInRange, runAnimatorStep, always, match, lerp, every, sec, any} from './when'
+Object.assign(global, {When, For, buildInRange, always, every, sec, lerp, any})
 
 import './type-writer'
 import './seek-able'

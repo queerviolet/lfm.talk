@@ -7,6 +7,10 @@
 <link rel=stylesheet href=dreams.less>
 
 <script src=main.js></script>
+<script src=create.js></script>
+<script>
+  const {min, max} = Math
+</script>
 
 <body>
   <div id=titleCard class=vbox>
@@ -231,15 +235,49 @@
     </script>
 
     <build-note id=title2DreamsBlur data-time=10 data-paused></build-note>
-    <video id=faces src=gan-faces.mp4 is=seekable-video></video>
+    <div id=faces>
+      <video id=facesVideo src=gan-faces.mp4 class=layer is=seekable-video></video>
+      <script>createLayers({prefix: 'gen', className: 'layer gen-layer', count: 10})</script>
+    </div>
     <build-note id=dreamsPlaying data-time=10></build-note>
-    <build-note id=dreamsTraining data-duration=10 data-time=47 data-paused></build-note>
+    <build-note id=dreamsTraining data-duration=1 data-time=47 data-playback-rate=0.5></build-note>
+    <build-note id=dreamsTrainingExpand data-duration=5 data-time=60 data-paused></build-note>
     <build-note id=dreamsInterpolation data-duration=10 data-time=77.2></build-note>
     <script>
-      When(buildInRange(title2DreamsBlur, dreamsTraining))
-        .changed((_, {dataset: {time, duration=0, paused}}) =>
-          typeof time !== 'undefined'
-            && faces.seekTo({time, duration, paused: typeof paused !== 'undefined'}))
+      When(buildInRange(title2DreamsBlur, dreamsInterpolation))
+        .changed((_, {dataset: {time, duration=0, paused, playbackRate=1}}) =>
+          facesVideo.seekTo({time, duration, playbackRate, paused: typeof paused !== 'undefined'}))
+      faces.interp = {
+        z: lerp(0, 360, _ => _ % 360 + 'deg'),
+        x: lerp(0, 80, _ => min(_ % 360, 80) + 'deg'),
+        zoom: lerp(1, 0.8, _ => max(_, 0.8))
+      }
+
+      When(dreamsTrainingExpand)
+        .withDuration(8[sec])
+        .start(function() {
+          this.panDown = For(2[sec])
+            .at(t => faces.style.setProperty('--stack-rotate-x', faces.interp.x(t)))
+        })
+        .start(function() {
+          this.zoomIn = For(6[sec])
+            .at(t => faces.style.setProperty('--stack-zoom', faces.interp.zoom(t)))
+        })
+        .at(t => {
+          faces.t = t % 1
+          faces.style.setProperty('--stack-rotate-z', faces.interp.z(t % 1))
+        })
+        .end(function () {
+          this.panDown.remove()
+          this.zoomIn.remove()
+          const zReset = lerp(lerp(0, 360)(faces.t), 0, _ => _  + 'deg')
+          For(1[sec])
+            .at(t => {
+              faces.style.setProperty('--stack-rotate-x', faces.interp.x(1 - t))
+              faces.style.setProperty('--stack-zoom', faces.interp.zoom(1 - t))
+              faces.style.setProperty('--stack-rotate-z', zReset(t))
+            })            
+        })
     </script>
   
   <!-- 85.3 -->

@@ -22,10 +22,20 @@ body[data-current-build^="title2"] :global(#hallucinations),
   > :global(#titleCard) { .fixed(); .blurred() }  
   > :global(#dreams) > :global(#faces) { .full() }
 }
+
 :global(.dreamsTraining),
 {
   > :global(#titleCard) { display: none; }
   > :global(#dreams) > :global(#faces) { .full() }
+}
+
+:global(.dreamsTrainingExpand),
+{
+  > :global(#titleCard) { display: none; }
+  > :global(#dreams)
+    > :global(#faces) {
+      .full();
+    }
 }
 
 .blurred(@scale-x: 3, @transform: scale(3, 1.5), @radius: 20px) {
@@ -34,12 +44,57 @@ body[data-current-build^="title2"] :global(#hallucinations),
   transform: @transform;
 }
 
+.zoom-out {
+  animation: rotate-x-down 4s, scale-out 8s, spin-z 5s;
+}
+
 .full {
   .fixed();
   display: block;
   opacity: 1;
-  transition: 2s;
+  transition: filter 2s;
   filter: blur(0);
 }
 
-:global(#faces) { display: none; }
+:global(#faces) {
+  display: none;
+  perspective: 100vw;
+  --stack-rotate-z: 0;
+  --stack-rotate-x: 0;
+  --stack-zoom: 1;
+}
+
+:global(#facesVideo) {
+  .absolute(@width: 100%, @height: 100%);
+  transition: none;
+  --layer-z: 0;
+}
+
+:global(.gen-layer) {
+  .layer(@from-width: 50%, @to-width: 30%, @from-height: 100%, @to-height: 50%, @from-z: 5vw, @to-z: 15vw);
+  transition: none;
+  border: thin solid fuchsia;
+}
+
+:global(.layer) {
+  transform:
+    rotateX(var(--stack-rotate-x))
+    rotateZ(var(--stack-rotate-z))
+    translate3d(0, 0, var(--layer-z))
+    scale(var(--stack-zoom));
+}
+
+.layer(@from-width: 50%, @to-width: 100%, @from-height: 50%, @to-height: 100%, @from-z: 0vw, @to-z: 10vw) {
+  @width: .lerp(@from-width, @to-width)[];
+  @height: .lerp(@from-height, @to-height)[];
+  @top: calc((100% - @height) / 2);
+  @left: calc((100% - @width) / 2);
+  .absolute(@top, @left, @width, @height);
+  --layer-z: .lerp(@from-z, @to-z)[];
+  transform: translate3d(0, 0, 0);
+}
+
+.lerp(@from, @to) {
+  @delta: @to - @from;
+  @value: calc(@from + @delta * var(--layer-t));
+}

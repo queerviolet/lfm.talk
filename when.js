@@ -107,9 +107,9 @@ Object.defineProperty(String.prototype, sec, {
 })
 
 /****** Animation utils ******/
-export const lerp = (from, to) => {
+export const lerp = (from, to, map=_=>_) => {
   const delta = to - from
-  return t => from + t * delta
+  return t => map(from + t * delta)
 }
 
 /****** Animator framework ******/

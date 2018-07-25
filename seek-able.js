@@ -1,14 +1,12 @@
 import {defaultContext, For, every, sec} from './when'
 
 const Seekable = MediaBase => class SeekAble extends MediaBase {
-  seekTo({duration: seekDuration=1, time=this.currentTime, playbackRate=1, paused}) {
-    console.log('paused=', paused)
+  seekTo({duration: seekDuration=1, time=this.currentTime, playbackRate=this.playbackRate, paused=this.paused}) {
     if (this.anim) { this.anim.remove(); this.anim = null }
     if (!seekDuration || time < this.currentTime)
       this.currentTime = time
     const setFinalState = () => {
       this.currentTime = time
-      console.log('final paused=', paused)
       this.playbackRate = playbackRate
       if (typeof paused !== 'undefined')
         paused ? this.pause() : this.play()
