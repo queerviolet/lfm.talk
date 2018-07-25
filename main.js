@@ -10,6 +10,7 @@ Object.assign(global, {When, For, buildInRange, always, every, sec, lerp, any})
 
 import './type-writer'
 import './seek-able'
+import { resolve } from 'when';
 // import './sketch'
 
 function collectBuilds() {
@@ -44,12 +45,105 @@ const activate = build => {
   return [build, prev]
 }
 
-function main() {
+const getAssetsWithLoadStatus = (elementTypes=['video', 'img', 'audio']) =>
+  elementTypes
+    .map(tag => document.getElementsByTagName(tag))
+    .reduce((all, set) => [...all, ...set])
+    .map(v => {
+      v.addEventListener('loadeddata', () => v.hasLoaded = true)
+      v.addEventListener('load', () => v.hasLoaded = true)
+      v.addEventListener('error', err => v.hasError = err)
+      v.preload = 'auto'
+      v.src = v.src
+      return v
+    })
+
+const sleep = (dur=1[sec]) => new Promise(_ => setTimeout(_, dur))
+
+async function countdown(log, count=5, interval=1[sec]) {
+  while (count --> 0) {
+    await log(count + 1, '...')
+    await sleep(interval)
+  }
+  await log('GO!')  
+}
+
+const createLoadScreen = assets => {
+  const loaders = assets.map(asset => Object.assign(
+    document.createElement('type-writer'), {asset}))
+  const term = document.createElement('type-writer')
+  term.className = 'terminal'
+  const loadScreen = document.createElement('div')
+  loadScreen.id = 'bootloader'
+  loaders.forEach(l => loadScreen.appendChild(l))
+  loadScreen.appendChild(term)
+  document.body.appendChild(loadScreen)
+  loadScreen.term = term
+  loadScreen.loaders = loaders
+  return loadScreen
+}
+
+const destroyLoadScreen = screen =>
+  document.body.removeChild(screen)
+
+const anyKey = () => {
+  let resolve, p = new Promise(_ => resolve = _)
+  addEventListener('keydown', resolve)
+  addEventListener('touchstart', resolve)
+  return p.then(() => {
+    removeEventListener('keydown', resolve)
+    removeEventListener('touchstart', resolve)
+  })
+}
+
+async function boot() {
+  if (localStorage.loadQuietly) return true
+  const assets = getAssetsWithLoadStatus()
+  const loadScreen = createLoadScreen(assets)
+
+  const log = (msg, nl='\n') => loadScreen.term.type(msg + nl).done
+  log('Please wait, loading assets...')
+
+  const loading = When().frame(every(0.5[sec])((_, t) => {
+    const dots = new Array(t % 4).fill('.').join('')
+    const stillLoading = loadScreen.loaders.filter(l => !l.reportedDone)
+    if (!stillLoading.length) return loading.remove()
+    stillLoading.forEach(loader => {
+      const {asset} = loader, {src, hasLoaded, hasError} = asset
+      if (hasLoaded) {
+        loader.reportedDone = true
+        return loader.text = `${src}... DONE!`
+      }
+      if (hasError) {
+        loader.reportedDone = true
+        return loader.text = `${src}... ERROR! ${hasError}`
+      }
+      loader.text = loader.asset.src + dots
+    })
+  }))
+  try {
+    await loading.done
+    await log('OK, assets loaded.')
+    if (!localStorage.instructionsDelivered) {
+      localStorage.instructionsDelivered = true
+      await log('Use ⬅ and ➡ arrow keys to move, or 👆🏽 tap to advance on touch devices.')
+      await log('Press any key or tap to continue.')
+      await anyKey()
+    }
+    return true
+  } finally {
+    document.body.removeChild(loadScreen)
+  }
+}
+
+async function main() {
   BUILDS = collectBuilds()
   Object.assign(global, {getCurrentBuild, BUILDS})
 
+  let ready = false
   const frame = ts => {
     requestAnimationFrame(frame)
+    if (!ready) return runAnimatorStep(ts, null, null)
     if (!getCurrentBuild()) { setCurrentBuild(BUILDS[0]) }
     const [current, prev] = activate(getCurrentBuild())
     global.__currentBuild = current
@@ -58,6 +152,8 @@ function main() {
   }
 
   requestAnimationFrame(frame)
+
+  ready = await boot()
 }
 
 function onKey({code}) {

@@ -40,8 +40,8 @@
       <span class=P>banana</span>
       <span class=P>toaster</span>
       </div>
-    <video id=skully src=brain-skull-to-vision.m4v is=seekable-video></video>
-    <video id=deepDream src=miquel_pn_deep_dream.mp4></video>
+    <video id=skully src=brain-skull-to-vision.m4v is=seekable-video preload></video>
+    <video id=deepDream src=miquel_pn_deep_dream.mp4 preload></video>
     <type-writer id=miquel></type-writer>
     <div id=deepDreamLayers class=stopped>
       <type-writer id=deepDreamCurrentLayer></type-writer>
@@ -168,7 +168,7 @@
 
     <div id=ht2a>
       <type-writer id=ht2aTitle></type-writer>
-      <video id=ht2aVideo src=5ht2a.m4v loop></video>
+      <video id=ht2aVideo src=5ht2a.m4v loop preload></video>
     </div>
     <div id=ht2aLSDBinding>
       <type-writer id=ht2aLSDTitle></type-writer>
@@ -190,7 +190,7 @@
 
     <div id=adversarialSticker>
       <type-writer id=stickerTitle></type-writer>
-      <video src=adversarial-sticker.m4v loop autoplay>
+      <video src=adversarial-sticker.m4v loop autoplay preload>
     </div>
     <div id=adversarialSkiiers>
       <type-writer id=skiiersTitle></type-writer>
@@ -236,7 +236,7 @@
 
     <build-note id=title2DreamsBlur data-time=10 data-paused></build-note>
     <div id=faces>
-      <video id=facesVideo src=gan-faces.mp4 class=layer is=seekable-video></video>
+      <video id=facesVideo src=gan-faces.mp4 class=layer is=seekable-video preload></video>
       <script>const discrim = createLayers({prefix: 'discrim', className: 'discrim-layer', count: 10})</script>
       <script>const gen = createLayers({prefix: 'gen', className: 'gen-layer', count: 10})</script>
     </div>
@@ -309,8 +309,7 @@
             if (t > 1) return
             faces.style.setProperty('--discrim-stack-expand', this.expand(t))
           })
-          .end(() => faces.style.setProperty('--discrim-stack-expand', 1))
-          
+          .end(() => faces.style.setProperty('--discrim-stack-expand', 1))          
     </script>
   
   </div>

@@ -133,6 +133,7 @@ export function removeAnimator(animator) {
   const idx = animators.indexOf(animator)
   if (idx >= 0)
     animators.splice(idx, 1)
+  animator._resolveDone()
 }
 export const runAnimatorStep = (ts, currentBuild, prevBuild) => {
   const animators = global.__animators
@@ -145,7 +146,10 @@ export const match = Symbol('when/match')
 Object.defineProperty(Function.prototype, match, { get() { return this } })
 
 export const buildInRange = (from, to) =>
-  (ts, current, last) => current.order >= from.order && current.order <= to.order
+  (ts, current, last) =>
+    current && last &&
+    current.order >= from.order &&
+    current.order <= to.order
 
 export const any = (...matchers) => (ts, current, next) =>
   matchers.some(m => m [match] (ts, current, next))

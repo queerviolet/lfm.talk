@@ -62,3 +62,21 @@ h1 {
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
+
+:global(#bootloader) {
+  .fixed();
+  background: black;
+  color: white;
+  overflow: scroll;
+
+  > type-writer {
+    display: block;
+    --typewriter-typing-rate: 100;
+    --typewriter-cursor-color: rgba(0, 0, 0, 0);
+  }
+
+  > :global(type-writer.terminal) {
+    white-space: pre;
+    --typewriter-typing-rate: 100;  
+  }
+}
