@@ -35,7 +35,62 @@ body[data-current-build^="title2"] :global(#hallucinations),
   > :global(#dreams)
     > :global(#faces) {
       .full();
+      > :global(.gen-layer) {
+        .animate-layers();
+        opacity: 1
+      }
     }
+}
+
+:global(.dreamsTrainingDiscriminator),
+{
+  > :global(#titleCard) { display: none; }
+  > :global(#dreams)
+    > :global(#faces) {
+      .full();
+      > :global(.gen-layer) {
+        .animate-layers();
+        opacity: 1;
+      }
+      > :global(.discrim-layer) {
+        .animate-layers(pulse-blue, @t: calc(1 - var(--layer-t)));
+        opacity: 1;
+      }
+    }
+}
+
+:global(.dreamsTrainingFeedback),
+{
+  > :global(#titleCard) { display: none; }
+  > :global(#dreams)
+    > :global(#faces) {
+      .full();
+      transform: scale(1.8) translateY(15vh);
+      > :global(.gen-layer) {
+        .animate-layers();
+        opacity: 1;
+      }
+      > :global(.discrim-layer) {
+        .animate-layers(pulse-blue, @t: calc(1 - var(--layer-t)));
+        opacity: 1;
+      }
+    }
+}
+
+:global(.dreamsInterpolation),
+{
+  > :global(#titleCard) { display: none; }
+  > :global(#dreams)
+    > :global(#faces) {
+      .full();
+    }
+}
+
+.animate-layers(@name: pulse, @duration: 1s, @count: infinite, @t: var(--layer-t)) {
+  animation-name: @name;
+  animation-duration: @duration;
+  animation-delay: .lerp(@duration, 0s, @t)[];
+  animation-iteration-count: infinite;
 }
 
 .blurred(@scale-x: 3, @transform: scale(3, 1.5), @radius: 20px) {
@@ -52,49 +107,133 @@ body[data-current-build^="title2"] :global(#hallucinations),
   .fixed();
   display: block;
   opacity: 1;
-  transition: filter 2s;
+  transition: filter 2s, transform 4s;
   filter: blur(0);
 }
 
 :global(#faces) {
   display: none;
+  transition: transform 4s;
+  transform: scale(1);
   perspective: 100vw;
   --stack-rotate-z: 0;
   --stack-rotate-x: 0;
   --stack-zoom: 1;
+  --stack-expand: 0;
+  --stack-skew-x: 0deg;
+  --stack-skew-x-from: 0deg;
+  --stack-skew-x-to: 0deg;
+  --stack-translate-x: 0px;
+  --stack-translate-y: 0px;
+  --stack-translate-z: 0px;
+  --discrim-to-z: -80vh;
 }
 
 :global(#facesVideo) {
   .absolute(@width: 100%, @height: 100%);
   transition: none;
+  --layer-t: 0;
+  --layer-x: 0;
+  --layer-y: 0;
   --layer-z: 0;
+  --stack-skew-x-from: 0deg;
+  .layer();
 }
 
 :global(.gen-layer) {
-  .layer(@from-width: 50%, @to-width: 30%, @from-height: 100%, @to-height: 50%, @from-z: 5vw, @to-z: 15vw);
-  transition: none;
-  border: thin solid fuchsia;
+  .layer(
+    @from-width: 50%, @to-width: 30%,
+    @from-height: 100%, @to-height: 50%,
+    @from-z: 5vw, @to-z: 15vw);
+  transition: opacity 1s;
+  border: 3px solid @pink;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --stack-expand: 1;
+  transition: opacity 1s;
+  opacity: 0;
 }
 
-:global(.layer) {
-  transform:
-    rotateX(var(--stack-rotate-x))
-    rotateZ(var(--stack-rotate-z))
-    translate3d(0, 0, var(--layer-z))
-    scale(var(--stack-zoom));
+:global(.discrim-layer) {
+  .layer(
+    @from-width: 50%, @to-width: 30%,
+    @from-height: 100%, @to-height: 30%,
+    @from-z: -60vh, @to-z: calc(var(--discrim-to-z)),
+    // @from-x: 0vw, @to-x: 10vw,
+    // @from-y: 0vh, @to-y: 20vh,
+    // @from-y: 0vw, @to-y: var(--discrim-to-y),
+    // @translation: .circ()[]
+    );
+  transition: opacity 1s;
+  opacity: 0;
+  border: 3px solid @electric-blue;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --stack-skew-x-from: 0deg;
+  --stack-skew-x-to: 10deg;
+  // --stack-expand: 2;
+  // --stack-translate-x: 0vw;
+  --stack-translate-y: -20vh;
+  --stack-translate-z: -35vw;
+  --stack-expand: 1.2;
+  transform-origin: top center;
 }
 
-.layer(@from-width: 50%, @to-width: 100%, @from-height: 50%, @to-height: 100%, @from-z: 0vw, @to-z: 10vw) {
-  @width: .lerp(@from-width, @to-width)[];
-  @height: .lerp(@from-height, @to-height)[];
+
+@keyframes pulse {
+  0% { background: rgba(255, 0, 255, 0); }
+  49% { background:rgba(255, 0, 255, 0.5); }
+  51% { background:rgba(255, 0, 255, 0.5); }
+  100% { background: rgba(255, 0, 255, 0); }
+}
+
+@keyframes pulse-blue {
+  0% { background: rgba(255, 0, 255, 0); }
+  49% { background: @translucent-electric-blue; }
+  51% { background: @translucent-electric-blue; }
+  100% { background: rgba(255, 0, 255, 0); }
+}
+
+.layer(
+  @from-width: 100%, @to-width: 0%,
+  @from-height: 100%, @to-height: 0%,
+  @from-z: 0vw, @to-z: 100vw,
+  @from-x: 0vw, @to-x: 0vw,
+  @from-y: 0vw, @to-y: 0vw,
+  @t: var(--layer-t),
+  @x: calc(.lerp(@from-x, @to-x, @t: var(--layer-x))[]),
+  @y: calc(.lerp(@from-y, @to-y, @t: var(--layer-y))[]),
+  @z: calc(.lerp(@from-z, @to-z, @t: calc(var(--layer-z) * var(--stack-expand)))[]),
+  @translation: translate3d(var(--stack-translate-x), var(--stack-translate-y), @z),
+) {
+  @width: .lerp(@from-width, @to-width, @t)[];
+  @height: .lerp(@from-height, @to-height, @t)[];
   @top: calc((100% - @height) / 2);
   @left: calc((100% - @width) / 2);
   .absolute(@top, @left, @width, @height);
-  --layer-z: .lerp(@from-z, @to-z)[];
-  transform: translate3d(0, 0, 0);
+  transform:
+    rotateX(var(--stack-rotate-x))
+    rotateZ(var(--stack-rotate-z))
+    // rotateX(.lerp(var(--stack-skew-x-from), var(--stack-skew-x-to), @t)[])
+
+    @translation
+    // translate3d(0, .lerp(5vh,s 6vh, @t)[], 0)
+    scale(var(--stack-zoom));
 }
 
-.lerp(@from, @to) {
-  @delta: @to - @from;
-  @value: calc(@from + @delta * var(--layer-t));
+.circ(@from: 0deg, @to: 360deg, @radius: 30vh, @t: var(--layer-t)) {
+  @theta: .lerp(@from, @to, @t)[];
+  @x: calc(var(--stack-translate-x) + var(--layer-sin) * @radius);
+  @y: calc(var(--stack-translate-y) + var(--layer-sin) * @radius);
+  @z: calc(var(--stack-translate-z) + var(--layer-cos) * @radius);
+  @translation: translate3d(@x, @y, @z);
+}
+
+.lerp(@from, @to, @t: var(--layer-t)) {
+  @delta: calc(@to - @from);
+  @value: calc(@from + @delta * @t);
 }

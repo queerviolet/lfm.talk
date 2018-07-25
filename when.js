@@ -71,6 +71,7 @@ When.prototype.step = function(ts, currentBuild, lastBuild) {
     this._fire_frame(ts, currentBuild, lastBuild)
     if (typeof this.duration === 'number') {
       const t = (ts - this.startedAt) / this.duration
+      this.t = t
       this._fire_at(t, currentBuild, lastBuild)
     }
   }
