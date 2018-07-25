@@ -237,7 +237,7 @@
     <build-note id=title2DreamsBlur data-time=10 data-paused></build-note>
     <div id=faces>
       <video id=facesVideo src=gan-faces.mp4 class=layer is=seekable-video></video>
-      <script>const discrim = createLayers({prefix: 'discrim', className: 'discrim-layer', count: 20})</script>
+      <script>const discrim = createLayers({prefix: 'discrim', className: 'discrim-layer', count: 10})</script>
       <script>const gen = createLayers({prefix: 'gen', className: 'gen-layer', count: 10})</script>
     </div>
     <build-note id=dreamsPlaying data-time=10></build-note>
@@ -303,13 +303,13 @@
 
         When(dreamsTrainingFeedback).withDuration(3[sec])
           .start(function() {
-            this.z = lerp(-80, 10)
+            this.expand = lerp(1, -1)
           })
           .at(function(t) {
             if (t > 1) return
-            faces.style.setProperty('--discrim-to-z', this.z(t) + 'vh')
+            faces.style.setProperty('--discrim-stack-expand', this.expand(t))
           })
-          .end(() => faces.style.setProperty('--discrim-to-z', '-80vh'))
+          .end(() => faces.style.setProperty('--discrim-stack-expand', 1))
           
     </script>
   

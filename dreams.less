@@ -126,7 +126,7 @@ body[data-current-build^="title2"] :global(#hallucinations),
   --stack-translate-x: 0px;
   --stack-translate-y: 0px;
   --stack-translate-z: 0px;
-  --discrim-to-z: -80vh;
+  --discrim-stack-expand: 1;
 }
 
 :global(#facesVideo) {
@@ -144,7 +144,7 @@ body[data-current-build^="title2"] :global(#hallucinations),
   .layer(
     @from-width: 50%, @to-width: 30%,
     @from-height: 100%, @to-height: 50%,
-    @from-z: 5vw, @to-z: 15vw);
+    @from-z: 0vw, @to-z: 15vw);
   transition: opacity 1s;
   border: 3px solid @pink;
   color: white;
@@ -160,12 +160,7 @@ body[data-current-build^="title2"] :global(#hallucinations),
   .layer(
     @from-width: 50%, @to-width: 30%,
     @from-height: 100%, @to-height: 30%,
-    @from-z: -60vh, @to-z: calc(var(--discrim-to-z)),
-    // @from-x: 0vw, @to-x: 10vw,
-    // @from-y: 0vh, @to-y: 20vh,
-    // @from-y: 0vw, @to-y: var(--discrim-to-y),
-    // @translation: .circ()[]
-    );
+    @from-z: 0vw, @to-z: -15vw);
   transition: opacity 1s;
   opacity: 0;
   border: 3px solid @electric-blue;
@@ -175,12 +170,7 @@ body[data-current-build^="title2"] :global(#hallucinations),
   justify-content: center;
   --stack-skew-x-from: 0deg;
   --stack-skew-x-to: 10deg;
-  // --stack-expand: 2;
-  // --stack-translate-x: 0vw;
-  --stack-translate-y: -20vh;
-  --stack-translate-z: -35vw;
-  --stack-expand: 1.2;
-  transform-origin: top center;
+  --stack-expand: var(--discrim-stack-expand);
 }
 
 
