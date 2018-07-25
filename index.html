@@ -229,5 +229,19 @@
           titleWriter.text = current.dataset.text
         })
     </script>
+
+    <build-note id=title2DreamsBlur data-time=10 data-paused></build-note>
+    <video id=faces src=gan-faces.mp4 is=seekable-video></video>
+    <build-note id=dreamsPlaying data-time=10></build-note>
+    <build-note id=dreamsTraining data-duration=10 data-time=47 data-paused></build-note>
+    <build-note id=dreamsInterpolation data-duration=10 data-time=77.2></build-note>
+    <script>
+      When(buildInRange(title2DreamsBlur, dreamsTraining))
+        .changed((_, {dataset: {time, duration=0, paused}}) =>
+          typeof time !== 'undefined'
+            && faces.seekTo({time, duration, paused: typeof paused !== 'undefined'}))
+    </script>
+  
+  <!-- 85.3 -->
   </div>
 </body>

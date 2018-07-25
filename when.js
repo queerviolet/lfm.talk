@@ -102,6 +102,9 @@ sec[Symbol.toPrimitive] = () => sec.symbol
 Object.defineProperty(Number.prototype, sec, {
   get() { return sec(this.valueOf()) }
 })
+Object.defineProperty(String.prototype, sec, {
+  get() { return sec(+this) }
+})
 
 /****** Animation utils ******/
 export const lerp = (from, to) => {

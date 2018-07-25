@@ -1,3 +1,45 @@
+@import 'base.less';
+
 body[data-current-build^="dreams"] :global(#hallucinations),
 body[data-current-build^="title2"] :global(#hallucinations),
 { display: none; transform: scale(0); }
+
+:global(.title2DreamsBlur) {
+  > :global(#titleCard) { .fixed(); .blurred() }
+  > :global(#dreams) {
+    > :global(#faces) {
+      .fixed();
+      display: block;
+      .blurred(@transform: scale(0.8));
+      opacity: 0;
+      transition: 8s;
+    }
+  }
+}
+
+:global(.dreamsPlaying)
+{
+  > :global(#titleCard) { .fixed(); .blurred() }  
+  > :global(#dreams) > :global(#faces) { .full() }
+}
+:global(.dreamsTraining),
+{
+  > :global(#titleCard) { display: none; }
+  > :global(#dreams) > :global(#faces) { .full() }
+}
+
+.blurred(@scale-x: 3, @transform: scale(3, 1.5), @radius: 20px) {
+  transition: filter 4s, transform 4s;
+  filter: blur(20px);
+  transform: @transform;
+}
+
+.full {
+  .fixed();
+  display: block;
+  opacity: 1;
+  transition: 2s;
+  filter: blur(0);
+}
+
+:global(#faces) { display: none; }
