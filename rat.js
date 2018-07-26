@@ -9,34 +9,32 @@ class GridCells extends HTMLElement {
 
   constructor() {
     super()
-    const shadow = this.attachShadow({mode: 'open'});
-    const rat = document.createElement('span')
-    rat.textContent = '🐭'
-    rat.className = 'rat'
+
     const style = document.createElement('style')
     style.textContent = GridCells.style
     const canvas = document.createElement('canvas')    
-    const centersCanvas = document.createElement('canvas')
-    shadow.appendChild(style)
-    shadow.appendChild(rat)
-    shadow.appendChild(canvas)
-    shadow.appendChild(centersCanvas)
-    this.rat = rat
+    const trailCanvas = document.createElement('canvas')
+    const container = document.createElement('div')
+    container.className = 'container'
+    container.appendChild(style)
+    container.appendChild(trailCanvas)
+    container.appendChild(canvas)
+    this.container = container
+
     this.canvas = canvas
-    this.centersCanvas = centersCanvas
+    this.trailCanvas = trailCanvas
     this.ctx = canvas.getContext('2d')
-    this.centersCtx = centersCanvas.getContext('2d')
-    this.dRot = 0
+    this.trailCtx = trailCanvas.getContext('2d')
 
     this._pos = this.randomPos()
     this.onResize = this.onResize.bind(this)
     this.gridSize = 200
-    this._centers = []
     this._trail = []
     this._playbackRate = 1
   }
 
   connectedCallback() {
+    this.appendChild(this.container)
     addEventListener('resize', this.onResize)
     addAnimator(this)
   }
@@ -61,15 +59,18 @@ class GridCells extends HTMLElement {
     if (this.width !== box.width || this.height !== box.height) {
       ;[this.width, this.height] = fit(this.canvas, this.ctx, box)
       this.center = scale([this.width, this.height], 0.5)
-      fit(this.centersCanvas, this.centersCtx, box)
+      fit(this.trailCanvas, this.trailCtx, box)
+      this.buildGrid()
     }
   }
 
   get currentTime() {
-    return path[this.pathIndex][0]
+    return path[this.pathIndex || 0][0]
   }
 
+
   step(ts) {
+    if (!this.playbackRate) return
     if (!this.width) this.onResize()
     if (!this.tsBase) {
       this.tsBase = ts
@@ -94,12 +95,9 @@ class GridCells extends HTMLElement {
         this.height * y + (random() - 0.5) * this.gridSize * min(this.playbackRate / 10, 1)
       ]
       trail.push(pos)     
-      if (this.drawCenters) {
-        this.nearestCenters(pos).forEach(c => this._centers[c] = true)
-      }
     } while(ourT * this.playbackRate > mediaT)
 
-    const {ctx, centersCtx} = this
+    const {ctx, trailCtx} = this
 
     let trailPath = null
     if (trail.length) {
@@ -130,11 +128,6 @@ class GridCells extends HTMLElement {
       ctx.fillStyle = 'rgb(255, 0, 255, 0.4)'
       ctx.fill()
       
-      // const avg = scale(
-      //   trail
-      //     .reduce((a, b) => add(a, b)),
-      //   1 / trail.length)
-      // this.pos = avg
       this.pathIndex = i
 
       if (trail.length > 10) {
@@ -142,21 +135,66 @@ class GridCells extends HTMLElement {
       }
     }
 
-    centersCtx.clearRect(0, 0, this.width, this.height)
-    centersCtx.fillStyle = `rgb(73, 140, 248, ${sin(ts / 300) + 0.5})`
-    centersCtx.strokeStyle = `rgba(73, 140, 248, 0.5)`
-    centersCtx.lineWidth = 8
-    trailPath && centersCtx.stroke(trailPath)
-    if (this.drawCenters) {
-      centersCtx.beginPath()
-      Object.keys(this._centers).forEach(c => {
-        ;[x, y] = c.split(',')
-        centersCtx.moveTo(x, y)
-        centersCtx.arc(x, y, 10, 0, 2 * PI)
-        // centersCtx.fillRect(+x, +y, 10, 10)      
-      })
-      centersCtx.fill();
+    trailCtx.clearRect(0, 0, this.width, this.height)
+    trailCtx.strokeStyle = `rgba(73, 140, 248, 0.5)`
+    trailCtx.lineWidth = 8
+    trailPath && trailCtx.stroke(trailPath)
+  }
+
+  buildGrid() {
+    const gridCanvas = document.createElement('canvas')
+    const {gridWidth: w, gridHeight: h, gridSize: sz} = this    
+    // gridCanvas.width = this.width; gridCanvas.height = this.height;
+    const ctx = gridCanvas.getContext('2d')
+    fit(gridCanvas, ctx, {width: this.width, height: this.height});
+    const grid = new Path2D, centers = new Path2D
+    const moveTo = (x, y) => {
+      grid.moveTo(x * sz, y * sz)
+      centers.moveTo(x * sz, y * sz)
     }
+
+    const lineTo = (x, y, center=true) => {
+      center && centers.moveTo(x * sz, y * sz)
+      center && centers.arc(x * sz, y * sz, 10, 0, 2 * PI)
+      grid.lineTo(x * sz, y * sz)
+    }
+
+    moveTo(0, 0)
+    for (let y = 0; y <= h; ++y) {
+      if (y % 2) {
+        for (let x = 0; x <= w; ++x) {
+          lineTo(x, (y + 1))
+          lineTo((x + 0.5), y)
+          lineTo((x + 1), (y + 1))
+        }
+      } else {
+        for (let x = 0; x <= w; ++x) {
+          lineTo(x, y)
+          lineTo((x + 0.5), (y + 1))
+          lineTo((x + 1), y)
+        }
+      }
+      moveTo(w, (y + 1))
+      lineTo(0, (y + 1), y % 2)
+    }
+
+    ctx.fillStyle = `rgb(73, 140, 248, 1)`
+    ctx.fill(centers);      
+    ctx.strokeStyle = `rgb(73, 140, 248, 1)`
+    ctx.lineWidth = 1
+    ctx.stroke(grid)
+    if (this._grid) this.container.removeChild(this._grid)
+    this._grid = gridCanvas
+    gridCanvas.className = 'grid'
+    this.container.appendChild(gridCanvas)
+  }
+
+  get gridHeight() {
+    return Math.ceil(this.height / this.gridSize)
+  }
+
+  get gridWidth() {
+    return Math.ceil(this.width / this.gridSize)
   }
 
   rectGridPos([x, y]=this._pos) {
@@ -236,19 +274,21 @@ const fit = (canvas, ctx, box) => {
 }
 
 GridCells.style = `
-.rat {
-  display: block;
-  position: absolute;
-  transform:
-    translate(
-      var(--rat-x),
-      var(--rat-y))
-    ;
-}
-
 canvas {
   position: absolute;
   top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.container {
+  position: absolute;
   width: 100%; height: 100%;
 }
 `

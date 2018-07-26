@@ -316,6 +316,19 @@
           (facesVideo.currentTime = dreamsInterpolation.dataset.time))
     </script>
 
-    <build-note id=dreamsGrid></build-note>
     <grid-cells id=grid></grid-cells>  
+    <build-note id=dreamsGrid></build-note>
+    <build-note id=dreamsGridFaster></build-note>
+    <build-note id=dreamsGridFlashing></build-note>
+
+    <script>
+      When(dreamsGrid)
+        .start(() => grid.playbackRate = 1)
+
+      When(buildInRange(dreamsGridFaster, dreamsGridFlashing))
+        .start(() => For(2[sec]).at(t => grid.playbackRate = 100 * t))
+        .changed((ts, build) =>
+          grid.drawCenters = build === dreamsGridFlashing)
+        .end(() => grid.playbackRate = 0)
+    </script>
   </div>

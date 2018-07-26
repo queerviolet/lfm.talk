@@ -105,9 +105,42 @@ body[data-current-build^="title2"] :global(#hallucinations),
   }
 }
 
+:global(.dreamsGridFaster),
+{
+  > :global(#titleCard) { display: none; }
+  > :global(#dreams) {
+    > :global(#faces) { display: none; }
+    > :global(#grid) {
+      display: block;
+      .full();
+    }
+  }
+}
+
+:global(.dreamsGridFlashing),
+{
+  > :global(#titleCard) { display: none; }
+  > :global(#dreams) {
+    > :global(#faces) { display: none; }
+    > :global(#grid) {
+      display: block;
+      .full();
+      :global(.grid) {
+        animation: pulse-opacity 2s infinite;
+      }
+    }
+  }
+}
+
 //-------
 
-:global(#grid) {
+@keyframes pulse-opacity {
+  0% { opacity: 0; }
+  50% { opacity: 1; }  
+  100% { opacity: 0; }
+}
+
+grid-cells {
   .fixed();
   background: rgb(37, 37, 37);
   display: none;
