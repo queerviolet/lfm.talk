@@ -16,16 +16,18 @@
   <div id=titleCard class=vbox>
     <type-writer id=titleWriter></type-writer>
   </div>
-  <build-note id=titleBlank            data-text=""></build-note>
-  <build-note id=titleLfm              data-text="learning from machines"></build-note>
-  <build-note id=titleLfmErased        data-text=""></build-note>
-  <build-note id=title1                data-text="1. "></build-note>
-  <build-note id=title1Hallucinations  data-text="1. hallucinations"></build-note>
+  <build-note id=titleBlank            data-title=""></build-note>
+  <build-note id=titleLfm              data-title="learning from machines"></build-note>
+  <build-note id=titleLfmErased        data-title=""></build-note>
+  <build-note id=title1                data-title="1. "></build-note>
+  <build-note id=title1Hallucinations  data-title="1. hallucinations"></build-note>
   <script>
-    When(buildInRange(titleBlank, title1Hallucinations))
+    When()
       .withName('titleWriter')
       .changed((_, current, prev) => {
-        titleWriter.text = current.dataset.text
+        if (current.dataset.title)
+          return titleWriter.text = current.dataset.title
+        titleWriter.text = ''
       })
   </script>
 
@@ -225,8 +227,8 @@
     </script>
   </div>
   <div id=dreams>
-    <build-note id=title2             data-text='2. '></build-note>
-    <build-note id=title2Dreams       data-text='2. dreams'></build-note>
+    <build-note id=title2             data-title='2. '></build-note>
+    <build-note id=title2Dreams       data-title='2. dreams'></build-note>
     <script>
       When(buildInRange(title2, title2Dreams))
         .changed((_, current, prev) => {
@@ -320,15 +322,20 @@
     <build-note id=dreamsGrid></build-note>
     <build-note id=dreamsGridFaster></build-note>
     <build-note id=dreamsGridFlashing></build-note>
+    <build-note id=dreamsGridZoom></build-note>
 
     <script>
       When(dreamsGrid)
-        .start(() => grid.playbackRate = 1)
+        .start(() => { grid.onResize(); grid.playbackRate = 1 })
 
-      When(buildInRange(dreamsGridFaster, dreamsGridFlashing))
+      When(buildInRange(dreamsGridFaster, dreamsGridZoom))
         .start(() => For(2[sec]).at(t => grid.playbackRate = 100 * t))
-        .changed((ts, build) =>
-          grid.drawCenters = build === dreamsGridFlashing)
         .end(() => grid.playbackRate = 0)
     </script>
+
+    <build-note id=dreamsEnd></build-note>
+    <build-note id=title3 data-title='3. '></build-note>
+    <build-note id=title3sticksAndStones data-title='3. sticks and stones'></build-note>
+
+
   </div>

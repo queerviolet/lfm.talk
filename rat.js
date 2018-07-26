@@ -12,8 +12,10 @@ class GridCells extends HTMLElement {
 
     const style = document.createElement('style')
     style.textContent = GridCells.style
-    const canvas = document.createElement('canvas')    
+    const canvas = document.createElement('canvas')   
+    canvas.className = 'firingCanvas' 
     const trailCanvas = document.createElement('canvas')
+    trailCanvas.className = 'trailCanvas'
     const container = document.createElement('div')
     container.className = 'container'
     container.appendChild(style)
@@ -67,7 +69,6 @@ class GridCells extends HTMLElement {
   get currentTime() {
     return path[this.pathIndex || 0][0]
   }
-
 
   step(ts) {
     if (!this.playbackRate) return
@@ -141,12 +142,11 @@ class GridCells extends HTMLElement {
     trailPath && trailCtx.stroke(trailPath)
   }
 
-  buildGrid() {
+  async buildGrid() {
     const gridCanvas = document.createElement('canvas')
     const {gridWidth: w, gridHeight: h, gridSize: sz} = this    
-    // gridCanvas.width = this.width; gridCanvas.height = this.height;
     const ctx = gridCanvas.getContext('2d')
-    fit(gridCanvas, ctx, {width: this.width, height: this.height});
+    fit(gridCanvas, ctx, this.getBoundingClientRect())
     const grid = new Path2D, centers = new Path2D
     const moveTo = (x, y) => {
       grid.moveTo(x * sz, y * sz)
@@ -183,10 +183,21 @@ class GridCells extends HTMLElement {
     ctx.strokeStyle = `rgb(73, 140, 248, 1)`
     ctx.lineWidth = 1
     ctx.stroke(grid)
-    if (this._grid) this.container.removeChild(this._grid)
-    this._grid = gridCanvas
-    gridCanvas.className = 'grid'
-    this.container.appendChild(gridCanvas)
+    if (this._grid) {
+      this.container.removeChild(this._grid)
+    }
+      // this._grid = gridCanvas
+      // gridCanvas.className = 'grid'
+      // this.container.appendChild(gridCanvas)
+    this.gridCanvas = gridCanvas
+    const div = document.createElement('div')
+    div.className = 'grid'
+    const img = await this.getGridImage(ctx)
+    div.style.backgroundImage = `url(${img})`
+    div.style.backgroundSize = `${this.gridSize * 2}px ${this.gridSize * 2}px`
+    div.style.backgroundPosition = `${this.gridSize / 2}px 0`
+    this.container.appendChild(div)
+    this._grid = div
   }
 
   get gridHeight() {
@@ -216,6 +227,15 @@ class GridCells extends HTMLElement {
     // console.log(dist / this.gridSize / 2)
     // console.log(p)
     return p
+  }
+
+  async getGridImage(ctx, x=this.gridSize, y=this.gridSize, w=this.gridSize * 2, h=this.gridSize * 2) {
+    var img = ctx.getImageData(x * 2, y * 2, w * 2, h * 2)
+    var c = document.createElement('canvas')
+    var c2 = c.getContext('2d')
+    c.width = img.width; c.height = img.height
+    c2.putImageData(img, 0, 0)
+    return new Promise(_ => c.toBlob(b => _(URL.createObjectURL(b))))
   }
 
   nearestCenters(pos=this._pos) {
@@ -274,22 +294,25 @@ const fit = (canvas, ctx, box) => {
 }
 
 GridCells.style = `
-canvas {
+canvas.firingCanvas, canvas.trailCanvas {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
+  transform-origin: top left;
 }
 
 .grid {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 1000%;
+  height: 1000%;
   opacity: 0;
+  transform-origin: top left;
 }
 
 .container {
   position: absolute;
   width: 100%; height: 100%;
+  perspective: 100vw;
 }
 `
 

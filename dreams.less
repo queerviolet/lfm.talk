@@ -125,19 +125,91 @@ body[data-current-build^="title2"] :global(#hallucinations),
     > :global(#grid) {
       display: block;
       .full();
+      canvas { transition: transform 4s; }
       :global(.grid) {
         animation: pulse-opacity 2s infinite;
+        transition: transform 4s;
       }
     }
   }
 }
 
+:global(.dreamsGridZoom),
+{
+  > :global(#titleCard) { display: none; }
+  > :global(#dreams) {
+    > :global(#faces) { display: none; }
+    > :global(#grid) {
+      display: block;
+      .full();
+      --rotate-x: 60deg;
+      --zoom: 0.4;
+      canvas {opacity: 0}
+      transition: opacity 4s;
+      :global(.grid) {
+        animation:
+          pulse-opacity 2s infinite,          
+          scroll-grid 2s linear 10s infinite;
+      }
+    }
+  }
+}
+
+:global(.dreamsEnd)
+{
+  > :global(#dreams) {
+    > :global(#faces) { display: none; }
+    > :global(#grid) {      
+      display: block;      
+      .full();
+      transition: opacity 4s;
+      opacity: 0;
+      --rotate-x: 60deg;
+      --zoom: 0.4;
+      canvas {opacity: 0}
+      :global(.grid) {
+        animation:
+          pulse-opacity 2s infinite,
+          scroll-grid 2s linear infinite;
+      }
+    }
+  }
+}
+
+
 //-------
 
+@keyframes glow-out {
+  0% {
+    filter: brightness(100%);
+    opacity: 1;    
+  }
+
+  90% {
+    filter: brightness(200%);
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    filter: brightness(200%);
+  }
+}
+
+@keyframes scroll-grid {
+  from {
+    transform: rotateX(var(--rotate-x)) scale(var(--zoom)) translate3d(0px, 0px, 0px);
+  }
+
+  to {
+    transform: rotateX(var(--rotate-x)) scale(var(--zoom)) translate3d(-400px, -400px, 0px);
+  }
+}
+
 @keyframes pulse-opacity {
-  0% { opacity: 0; }
+  0% { opacity: 0.1; }
   50% { opacity: 1; }  
-  100% { opacity: 0; }
+  100% { opacity: 0.1; }
 }
 
 grid-cells {
@@ -146,6 +218,19 @@ grid-cells {
   display: none;
   opacity: 0;
   transition: opacity 2s;
+
+  --rotate-x: 0deg;
+  --zoom: 1;
+  --translate-grid: 0px;
+
+  canvas {
+    transition: transform 10s linear, opacity 5s;
+    transform: rotateX(var(--rotate-x)) scale(var(--zoom));
+  }
+  :global(.grid) {
+    transition: transform 10s linear;
+    transform: rotateX(var(--rotate-x)) scale(var(--zoom));
+  }
 }
 
 .animate-layers(@name: pulse, @duration: 1s, @count: infinite, @t: var(--layer-t)) {
