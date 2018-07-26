@@ -245,7 +245,7 @@
     <build-note id=dreamsTrainingExpand data-duration=10 data-playback-rate=0.1></build-note>
     <build-note id=dreamsTrainingDiscriminator data-duration=10 data-playback-rate=0.1></build-note>
     <build-note id=dreamsTrainingFeedback data-duration=10 data-playback-rate=0.1></build-note>
-    <build-note id=dreamsInterpolation data-duration=2 data-time=77.2></build-note>
+    <build-note id=dreamsInterpolation data-duration=2 data-time=85.5></build-note>    
     <script>
       When(buildInRange(title2DreamsBlur, dreamsInterpolation))
         .changed((_, {dataset: {time, duration=0, paused, playbackRate=1}}) =>
@@ -301,15 +301,21 @@
             })         
         })
 
-        When(dreamsTrainingFeedback).withDuration(3[sec])
-          .start(function() {
-            this.expand = lerp(1, -1)
-          })
-          .at(function(t) {
-            if (t > 1) return
-            faces.style.setProperty('--discrim-stack-expand', this.expand(t))
-          })
-          .end(() => faces.style.setProperty('--discrim-stack-expand', 1))          
+      When(dreamsTrainingFeedback).withDuration(3[sec])
+        .start(function() {
+          this.expand = lerp(1, -1)
+        })
+        .at(function(t) {
+          if (t > 1) return
+          faces.style.setProperty('--discrim-stack-expand', this.expand(t))
+        })
+        .end(() => faces.style.setProperty('--discrim-stack-expand', 1))
+
+      When(dreamsInterpolation)
+        .frame(() => facesVideo.currentTime > 144 &&
+          (facesVideo.currentTime = dreamsInterpolation.dataset.time))
     </script>
-  
+
+    <build-note id=dreamsGrid></build-note>
+    <grid-cells id=grid></grid-cells>  
   </div>

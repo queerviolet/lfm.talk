@@ -10,6 +10,7 @@ Object.assign(global, {When, For, buildInRange, always, every, sec, lerp, any})
 
 import './type-writer'
 import './seek-able'
+import './rat'
 import { resolve } from 'when';
 // import './sketch'
 
@@ -60,14 +61,6 @@ const getAssetsWithLoadStatus = (elementTypes=['video', 'img', 'audio']) =>
 
 const sleep = (dur=1[sec]) => new Promise(_ => setTimeout(_, dur))
 
-async function countdown(log, count=5, interval=1[sec]) {
-  while (count --> 0) {
-    await log(count + 1, '...')
-    await sleep(interval)
-  }
-  await log('GO!')  
-}
-
 const createLoadScreen = assets => {
   const loaders = assets.map(asset => Object.assign(
     document.createElement('type-writer'), {asset}))
@@ -90,9 +83,11 @@ const anyKey = () => {
   let resolve, p = new Promise(_ => resolve = _)
   addEventListener('keydown', resolve)
   addEventListener('touchstart', resolve)
+  addEventListener('mousedown', resolve)
   return p.then(() => {
     removeEventListener('keydown', resolve)
     removeEventListener('touchstart', resolve)
+    removeEventListener('mousedown', resolve)
   })
 }
 

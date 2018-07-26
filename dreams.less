@@ -80,10 +80,39 @@ body[data-current-build^="title2"] :global(#hallucinations),
 :global(.dreamsInterpolation),
 {
   > :global(#titleCard) { display: none; }
-  > :global(#dreams)
+  > :global(#dreams) {
     > :global(#faces) {
       .full();
     }
+    > :global(#grid) {
+      display: block;
+    }
+  }
+}
+
+:global(.dreamsGrid),
+{
+  > :global(#titleCard) { display: none; }
+  > :global(#dreams) {
+    > :global(#faces) {
+      .full();
+      opacity: 0;
+    }
+    > :global(#grid) {
+      display: block;
+      .full();  
+    }  
+  }
+}
+
+//-------
+
+:global(#grid) {
+  .fixed();
+  background: rgb(37, 37, 37);
+  display: none;
+  opacity: 0;
+  transition: opacity 2s;
 }
 
 .animate-layers(@name: pulse, @duration: 1s, @count: infinite, @t: var(--layer-t)) {
@@ -107,13 +136,13 @@ body[data-current-build^="title2"] :global(#hallucinations),
   .fixed();
   display: block;
   opacity: 1;
-  transition: filter 2s, transform 4s;
+  transition: filter 2s, transform 4s, opacity 2s;
   filter: blur(0);
 }
 
 :global(#faces) {
   display: none;
-  transition: transform 4s;
+  transition: transform 4s, opacity 2s;
   transform: scale(1);
   perspective: 100vw;
   --stack-rotate-z: 0;

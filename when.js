@@ -146,8 +146,8 @@ export const match = Symbol('when/match')
 Object.defineProperty(Function.prototype, match, { get() { return this } })
 
 export const buildInRange = (from, to) =>
-  (ts, current, last) =>
-    current && last &&
+  (ts, current) =>
+    current &&
     current.order >= from.order &&
     current.order <= to.order
 
