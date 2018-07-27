@@ -344,7 +344,9 @@
     Specifically, when your brain sends an action command to your muscles...
   </build-note>
 
-  <body-model id=bodyModel></body-model>
+  <body-model id=bodyModel>
+    <div id=inversion-wipe class=wipe-east-west></div>
+  </body-model>
   <type-writer id=efferenceCopy></type-writer>
   <build-note id=stonesEfference data-title='efference'>
     That's called an efference
@@ -430,9 +432,20 @@
   <build-note id=stonesArmpitWasTickled>
     This attenuation applies to sense of touch, when that touch is an
     expected consequence of our own movement.
+    Pieces of this model exist throughout the brain. That's what your brain is about,
+    really.
+
+    But one part of our brain in particular is implicated in an awful lot of prediction.
+  </build-note>
+  <img id=grayCerebellum src=gray-cerebellum-pink.png>
+  <img id=soboCerebellum src=sobo-cerebellum-pink.png>
+  <build-note id=stonesInTheCerebellum>
+    The cerebellum.
+  </build-note>
+  <build-note id=stonesCerebellumWider>
   </build-note>
   <script>
-    When(any(stonesLifeGoesOn, stonesLifeGoesOnAgain, stonesArmpitWasTickled))
+    When(any(stonesLifeGoesOn, buildInRange(stonesLifeGoesOnAgain, stonesInTheCerebellum)))
       .frame(every(0.1[sec])(() => bodyModel.update()))
   </script>
 </div>

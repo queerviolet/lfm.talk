@@ -163,6 +163,7 @@
     > :global(#bodyModel) {
       display: block;
       --wipe: 100%;
+      backdrop-filter: brightness(200%);
     }
     > :global(#armpitWasTickled) {
       animation:
@@ -170,6 +171,50 @@
         shrink 1s ease-in 1s forwards
         ;
       display: block;
+    }
+    > :global(#grayCerebellum) { display: block; }
+  }
+}
+
+:global(.stonesInTheCerebellum) {
+  :global(#titleWriter) { display: none; }
+  > :global(#stones) {
+    > :global(#bodyModel) {      
+      display: block;
+      --wipe: 0%;
+      transform: translate(-12vw, -10vh) scale(0.2);
+      border: 5px solid fuchsia;
+      backdrop-filter: brightness(200%);
+
+    }
+    > :global(#grayCerebellum) {
+      display: block;
+      opacity: 1;
+    }
+    > :global(#soboCerebellum) {
+      display: block;
+    }
+  }
+}
+
+:global(.stonesCerebellumWider) {
+  :global(#titleWriter) { display: none; }
+  > :global(#stones) {
+    > :global(#bodyModel) {
+      display: block;
+      --wipe: 0%;
+      transform: translate(7vw, -10vh) scale(0.2);
+      border: 5px solid fuchsia;
+      backdrop-filter: brightness(200%) hue-rotate(257deg);
+    }
+    > :global(#grayCerebellum) {
+      display: block;
+      opacity: 1;
+      transform: translate(0, -50%);
+    }
+    > :global(#soboCerebellum) {
+      display: block;
+      transform: translate(-85%, -50%) rotate(90deg);
     }
   }
 }
@@ -192,7 +237,7 @@
 :global(#fingersDidMove),
 :global(#armpitWasTickled),
 {
-    .absoluteCenter();
+  .absoluteCenter();
   background: white;
   color: black;
   padding: 9px;
@@ -207,6 +252,7 @@
   .fixed();
   columns: 3;
   font-size: 16px;
+  transition: 2s;
 }
 
 body-model {
@@ -227,7 +273,7 @@ body-model {
   padding: 4px;
   background: @bg;
   color: white;
-  transition: clip-path 1s;
+  transition: clip-path 1s, opacity 2s;
 }
 
 :global(.wipe-east-west) {
@@ -295,11 +341,35 @@ body-model {
   to { transform:  translate(-50%, -50%) scale(0); }
 }
 
+@keyframes shrink-no-tr {
+  from { transform: scale(1); }
+  to { transform:  scale(0); }
+}
+
 .flash(@period: 1s, @count: 4) {
   & :global(.value) {
     animation: flash @period @count;
   }
 }
+
+:global(#grayCerebellum) {
+  .absoluteCenter();
+  z-index: -100;
+  display: none;
+  opacity: 0;
+  transition: opacity 1s, transform 1s;
+  height: 100vh;
+}
+
+:global(#soboCerebellum) {
+  .absoluteCenter();
+  z-index: -100;
+  transform: translate(calc(-100vw - 50%), -50%) rotate(90deg);
+  transition: transform 1s;
+  width: 100vh;
+  filter: brightness(200%) hue-rotate(257deg);
+}
+
 
 @keyframes flash {
   0% { background: @translucent-electric-blue; }
