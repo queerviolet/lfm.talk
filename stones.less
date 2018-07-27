@@ -42,7 +42,7 @@
 
 :global(.stonesEfferenceSend) {
   :global(#titleWriter) {
-    animation: send-up 4s forwards;
+    animation: send-up 1s forwards;
   }
   > :global(#stones) {
     > :global(#efferenceCopy) {
@@ -92,6 +92,89 @@
   }
 }
 
+:global(.stonesLifeGoesOn) {
+  :global(#titleWriter) { display: none; }
+  > :global(#stones) {
+    > :global(#bodyModel) {
+      display: block;
+      --wipe: 100%;
+    }
+    > :global(#fingersDidMove) {
+      display: block;
+      top: -20vh;
+    }
+  }
+}
+
+:global(.stonesFingersDidMove) {
+  :global(#titleWriter) { display: none; }
+  > :global(#stones) {
+    > :global(#efferenceCopy) {
+      .absoluteCenter();
+      display: block;
+      color: white;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+    > :global(#bodyModel) {
+      display: block;
+      --wipe: 100%;
+    }
+    > :global(#fingersDidMove) {
+      animation-name: send-up;
+      animation-duration: 0.5s;
+      animation-direction: reverse;
+      display: block;
+    }
+  }
+}
+
+:global(.stonesFingersDidMoveAttenuated) {
+  :global(#titleWriter) { display: none; }
+  > :global(#stones) {
+    > :global(#bodyModel) {
+      display: block;
+      --wipe: 100%;
+    }
+    > :global(#fingersDidMove) {      
+      display: block;
+      transform: translate(-50%, -50%) scale(0.1);
+    }
+  }
+}
+
+:global(.stonesLifeGoesOnAgain) {
+  :global(#titleWriter) { display: none; }
+  > :global(#stones) {
+    > :global(#bodyModel) {
+      display: block;
+      --wipe: 100%;
+    }
+    > :global(#fingersDidMove) {
+      display: block;
+      opacity: 0;
+    }
+  }
+}
+
+:global(.stonesArmpitWasTickled) {
+  :global(#titleWriter) { display: none; }
+  > :global(#stones) {
+    > :global(#bodyModel) {
+      display: block;
+      --wipe: 100%;
+    }
+    > :global(#armpitWasTickled) {
+      animation:
+        send-up 0.5s reverse,
+        shrink 1s ease-in 1s forwards
+        ;
+      display: block;
+    }
+  }
+}
+
+
 // ----
 
 :global(#efferenceCopy) {
@@ -104,6 +187,20 @@
   opacity: 0;
   transform-origin: bottom left;
   transform: translateZ(0);
+}
+
+:global(#fingersDidMove),
+:global(#armpitWasTickled),
+{
+    .absoluteCenter();
+  background: white;
+  color: black;
+  padding: 9px;
+  font-size: 8vh;
+  display: none;
+  transition: transform 1s;
+  transform-origin: center center;
+  text-align: center;
 }
 
 :global(#bodyModel) {
@@ -175,22 +272,27 @@ body-model {
     transform: scaleY(1) translate(-50%, -50%);
   }
 
-  10% {
+  30% {
     top: 50%;
-    transform: scaleY(0.6) translate(-50%, -50%);
+    transform: scaleY(0.6) translate(-50%, -30%);
   }
 
-  20% {    
+  40% {    
     transform: scaleY(1.2) translate(-50%, -50%);
   }
 
-  30% {    
+  50% {    
     transform: scaleY(1) translate(-50%, -50%);
   }
 
   100% {
-    top: -100%;
+    top: -20vh;
   }
+}
+
+@keyframes shrink {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to { transform:  translate(-50%, -50%) scale(0); }
 }
 
 .flash(@period: 1s, @count: 4) {

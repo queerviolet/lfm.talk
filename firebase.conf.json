@@ -1,0 +1,8 @@
+{
+  "apiKey": "AIzaSyC3qHNFUZL7VLqKANhcU1e6xfMmby5vGMY",
+  "databaseURL": "https://learning-from-machines.firebaseio.com",
+  "storageBucket": "learning-from-machines.appspot.com",
+  "authDomain": "learning-from-machines.firebaseapp.com",
+  "messagingSenderId": "540136137746",
+  "projectId": "learning-from-machines"
+}

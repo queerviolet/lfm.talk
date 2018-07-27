@@ -1,4 +1,6 @@
-<html>
+<!doctype html>
+<meta charset="utf-8"/>
+
 <title>Learning from Machines</title>
 <link rel=stylesheet href=base.less>
 <link rel=stylesheet href=title.less>
@@ -409,8 +411,28 @@
         l_armpit_touch_pts.update()
       })))
   </script>
-  <build-note id=stonesFingersDidMove>
-    But now we have a problem.
-    We will still receive sense data from our nerves.
+  <h1 id=fingersDidMove>fingers did move</h1>
+  <h1 id=armpitWasTickled>armpit was tickled</h1>
+  <build-note id=stonesLifeGoesOn>
+    Life goes on.  
   </build-note>
+  <build-note id=stonesFingersDidMove>
+    But in a moment, have a problem.
+    We will still receive sense data from our nerves.
+    If we updated our models again, they would actually fall *out* of sync.
+  </build-note>
+  <build-note id=stonesFingersDidMoveAttenuated>
+    So we attenuate this signal.
+  </build-note>
+  <build-note id=stonesLifeGoesOnAgain>
+    And keep our model in sync.
+  </build-note>
+  <build-note id=stonesArmpitWasTickled>
+    This attenuation applies to sense of touch, when that touch is an
+    expected consequence of our own movement.
+  </build-note>
+  <script>
+    When(any(stonesLifeGoesOn, stonesLifeGoesOnAgain, stonesArmpitWasTickled))
+      .frame(every(0.1[sec])(() => bodyModel.update()))
+  </script>
 </div>
