@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "deploy": "gsutil rsync -R dist gs://lfm.ashi.io"
+    "deploy": "gsutil -m rsync -c -r dist gs://lfm.ashi.io"
   },
   "keywords": [],
   "author": "",
