@@ -7,7 +7,8 @@
 html {
   --typewriter-cursor-color: @electric-blue;
   --typewriter-cursor-blink-rate: 1.2s;
-  overflow: none;
+  overflow: hidden;
+  height: 100%;
 }
 
 body {
@@ -16,7 +17,8 @@ body {
   font-size: 26px;
   padding: 0;
   margin: 0;
-  overflow: none;
+  overflow: hidden;
+  height: 100%;
 }
 
 :global(.vbox) {
@@ -24,7 +26,7 @@ body {
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
 }
 
 h1 {
@@ -46,6 +48,11 @@ h1 {
   height: @height;
   top: @top;
   left: @left;
+}
+
+.absoluteCenter {
+  .absolute(@top: 50%, @left: 50%, @width: auto, @height: auto);
+  transform: translate3d(-50%, -50%, 0);
 }
 
 @keyframes trippy {

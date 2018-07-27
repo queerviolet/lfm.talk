@@ -11,6 +11,7 @@ Object.assign(global, {When, For, buildInRange, always, every, sec, lerp, any})
 import './type-writer'
 import './seek-able'
 import './rat'
+import './body-model'
 import { resolve } from 'when';
 // import './sketch'
 

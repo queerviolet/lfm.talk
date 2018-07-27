@@ -1,6 +1,16 @@
 @import "./base.less";
 
-:global(#titleWriter) {
+:global(#titleCard) {
+  display: block;
+  .absolute();
+
+  > :global(#titleWriter) {
+    .absoluteCenter();
+    .titleText();
+  }
+}
+
+.titleText {
   color: @electric-blue;
   font-size: 10vh;
   text-align: center;
