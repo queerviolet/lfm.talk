@@ -1,28 +1,72 @@
-body {
-  display: flex;
-  flex-flow: column nowrap;
-  font-family: Monaco;
-}
+@import "colors.less";
 
-build-note {
-  display: block;
-  margin-bottom: 18px;
+:global {  
+  body {
+    display: flex;
+    flex-flow: column nowrap;
+    font-family: Monaco;
+    margin: 0;
+    background: rgb(243, 243, 243);
 
-  &:global(.current) {
-    > :global(.title) {
-      border-color: fuchsia;
+    font-size: 12pt;
+  }
+
+  button.timer {
+    position: fixed;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    top: 9px; right: 9px;
+    padding: 8px;
+    font-size: 18px;
+    z-index: 100;
+    outline: none;
+    font-family: Monaco;
+
+    &:active {
+      border: thin solid @blue;
+    }
+
+    &.running {
+      border: thin solid fuchsia;
       color: fuchsia;
     }
   }
 
-  > :global(.title) {
-    font-size: 16px;
-    font-weight: bold;
+  build-note {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 16px;
     border-bottom: thin solid darkgray;
-    padding-bottom: 6px;
-  }
 
-  > :global(.note) {
-    white-space: pre-line;
+    &.current {
+      > .title,
+      > .timer {
+        color: white;
+      }
+      color: white;
+      border-color: fuchsia;
+      background: deeppink;
+    }
+
+    > .title {
+      font-size: 16px;
+      font-weight: bold;
+      padding: 6px;
+      color: @electric-blue;
+      display: inline-block;
+      border-radius: 6px;
+    }
+
+    > .timer {
+      position: absolute;
+      top: 9px; right: 9px;
+      color: black;
+    }
+
+    > .note {
+      white-space: pre-line;
+    }
   }
 }

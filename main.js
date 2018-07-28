@@ -32,6 +32,7 @@ const getBuildIdFromHash = () => window.location.hash.substr(1)
 const getCurrentBuild = () => document.getElementById(getBuildIdFromHash())
 const setCurrentBuild = build => {
   build && (window.location.hash = '#' + build.id)
+  console.log('writing current build=', build.id)
   localStorage.currentBuild = build.id
 }
 
@@ -165,9 +166,14 @@ async function main() {
   Object.assign(global, {getCurrentBuild, BUILDS})
 
   localStorage.buildNotes = JSON.stringify(BUILDS.map(
-    ({id, order, textContent, innerHTML}) => ({
-      id, order, textContent, innerHTML
-    })))
+    ({id, order, textContent, innerHTML,
+      nextBuild, prevBuild}) => {
+      return {
+        id, order, textContent, innerHTML,
+        nextBuildId: nextBuild && nextBuild.id,
+        prevBuildId: prevBuild && prevBuild.id,
+      }
+    }))
 
   // observeElementBoxes()
 
@@ -205,6 +211,12 @@ function onKey({code}) {
   }
 }
 
+function updateBuildFromLocalStorage() {
+  const build = document.getElementById(localStorage.currentBuild)
+  if (build) setCurrentBuild(build)
+}
+
+addEventListener('storage', updateBuildFromLocalStorage)
 addEventListener('DOMContentLoaded', main)
 addEventListener('keydown', onKey)
 addEventListener('mousedown', () => currentBuild &&
