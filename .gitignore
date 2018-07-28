@@ -5,3 +5,4 @@ dist/*
 .cache
 *.mp4
 *.m4v
+assets

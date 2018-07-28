@@ -8,6 +8,7 @@
 <link rel=stylesheet href=inside.less>
 <link rel=stylesheet href=dreams.less>
 <link rel=stylesheet href=stones.less>
+<link rel=presenter-notes href=presenter.html>
 
 <script src=main.js></script>
 <script src=create.js></script>
@@ -19,8 +20,26 @@
 <div id=titleCard class=vbox>
   <type-writer id=titleWriter></type-writer>
 </div>
-<build-note id=titleBlank            data-title=""></build-note>
-<build-note id=titleLfm              data-title="learning from machines"></build-note>
+<build-note id=titleBlank            data-title="">
+  Hi.
+</build-note>
+<build-note id=titleAshi             data-title="ashi krishnan">
+  I'm Ashi Krishnan
+</build-note>  
+<build-note id=titleLfm              data-title="learning from machines">
+  (introduction tk)
+  For years, I've been fascinated by cognition.
+  How we think. How we perceive. How the machinery of our perception creates
+  experiences.
+  Why our experiences are shaped like this and not that.
+  Why we suffer.
+  And for years, I've been fascinated by AI.
+  Today, I want to share with you some of what I've learned.
+  Some of this is solid research.
+  Some of it is solid... speculation.
+  But all of it is grounded.
+  Let's begin.
+</build-note>
 <build-note id=titleLfmErased        data-title=""></build-note>
 <script>
   When()
@@ -46,8 +65,8 @@
     <span class=P>banana</span>
     <span class=P>toaster</span>
     </div>
-  <video id=skully src=brain-skull-to-vision.m4v is=seekable-video preload></video>
-  <video id=deepDream src=miquel_pn_deep_dream.mp4 preload></video>
+  <video id=skully src=assets/brain-skull-to-vision.m4v is=seekable-video preload></video>
+  <video id=deepDream src=assets/miquel_pn_deep_dream.mp4 preload></video>
   <type-writer id=miquel></type-writer>
   <div id=deepDreamLayers class=stopped>
     <type-writer id=deepDreamCurrentLayer></type-writer>
@@ -174,11 +193,11 @@
 
   <div id=ht2a>
     <type-writer id=ht2aTitle></type-writer>
-    <video id=ht2aVideo src=5ht2a.m4v loop preload></video>
+    <video id=ht2aVideo src=assets/5ht2a.m4v loop preload></video>
   </div>
   <div id=ht2aLSDBinding>
     <type-writer id=ht2aLSDTitle></type-writer>
-    <img src=lsd-binding-lid.png>
+    <img src=assets/lsd-binding-lid.png>
   </div>  
   <build-note id=inside5ht2a></build-note>
   <build-note id=inside5ht2aLSDBinding></build-note>
@@ -196,11 +215,11 @@
 
   <div id=adversarialSticker>
     <type-writer id=stickerTitle></type-writer>
-    <video src=adversarial-sticker.m4v loop autoplay preload>
+    <video src=assets/adversarial-sticker.m4v loop autoplay preload>
   </div>
   <div id=adversarialSkiiers>
     <type-writer id=skiiersTitle></type-writer>
-    <img src=adversarial-skiiers.gif>  
+    <img src=assets/adversarial-skiiers.gif>  
   </div>
   <build-note id=insideAdversarialSticker></build-note>
   <build-note id=insideAdversarialSkiiers></build-note>
@@ -238,9 +257,11 @@
 
   <build-note id=title2DreamsBlur data-time=10 data-paused></build-note>
   <div id=faces>
-    <video id=facesVideo src=gan-faces.mp4 class=layer is=seekable-video preload></video>
-    <script>const discrim = createLayers({prefix: 'discrim', className: 'discrim-layer', count: 10})</script>
-    <script>const gen = createLayers({prefix: 'gen', className: 'gen-layer', count: 10})</script>
+    <video id=facesVideo src=assets/gan-faces.mp4 class=layer is=seekable-video preload></video>
+    <script>
+      const discrim = createLayers({prefix: 'discrim', className: 'discrim-layer', count: 10})
+      const gen = createLayers({prefix: 'gen', className: 'gen-layer', count: 10})
+    </script>
   </div>
   <build-note id=dreamsPlaying data-time=10></build-note>
   <build-note id=dreamsTraining data-duration=1 data-time=51 data-playback-rate=0.5></build-note>
@@ -437,8 +458,8 @@
 
     But one part of our brain in particular is implicated in an awful lot of prediction.
   </build-note>
-  <img id=grayCerebellum src=gray-cerebellum-pink.png>
-  <img id=soboCerebellum src=sobo-cerebellum-pink.png>
+  <img id=grayCerebellum src=assets/gray-cerebellum-pink.png>
+  <img id=soboCerebellum src=assets/sobo-cerebellum-pink.png>
   <build-note id=stonesInTheCerebellum>
     The cerebellum.
   </build-note>

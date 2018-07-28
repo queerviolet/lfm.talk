@@ -1,19 +1,23 @@
 {
-  "name": "lfm",
-  "version": "1.0.0",
+  "name": "@queerviolet/lfm.talk",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "deploy": "gsutil -m rsync -c -r dist gs://lfm.ashi.io"
+    "build": "parcel build index.html",
+    "fetch": "./fetch.sh",
+    "deploy": "npm run build && gsutil -m rsync -c -r dist gs://lfm.ashi.io"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "binary-search": "^1.3.4",
+    "download-file-with-progressbar": "^1.2.3",
     "immutable": "^3.8.2",
     "less": "^3.7.1",
+    "marked": "^0.4.0",
     "parcel": "^1.9.7",
     "postcss-modules": "^1.1.0"
   },

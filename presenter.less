@@ -1,0 +1,28 @@
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: Monaco;
+}
+
+build-note {
+  display: block;
+  margin-bottom: 18px;
+
+  &:global(.current) {
+    > :global(.title) {
+      border-color: fuchsia;
+      color: fuchsia;
+    }
+  }
+
+  > :global(.title) {
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: thin solid darkgray;
+    padding-bottom: 6px;
+  }
+
+  > :global(.note) {
+    white-space: pre-line;
+  }
+}

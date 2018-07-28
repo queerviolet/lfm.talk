@@ -30,7 +30,10 @@ function collectBuilds() {
 let BUILDS, currentBuild = null
 const getBuildIdFromHash = () => window.location.hash.substr(1)
 const getCurrentBuild = () => document.getElementById(getBuildIdFromHash())
-const setCurrentBuild = build => build && (window.location.hash = '#' + build.id)
+const setCurrentBuild = build => {
+  build && (window.location.hash = '#' + build.id)
+  localStorage.currentBuild = build.id
+}
 
 const activate = build => {
   if (build === currentBuild) return [build, build]
@@ -132,9 +135,41 @@ async function boot() {
   }
 }
 
+// function observeElementBoxes(
+//   set=(prop, value) => document.documentElement.style.setProperty(prop, value + 'px')
+// ) {
+//   const watchId = Symbol('watchId')
+//   const observer = new ResizeObserver(entries => {
+//     let i = entries.length; while (i --> 0) {
+//       const {contentRect, target: {[watchId]: id}} = entries[i]
+//       console.log(contentRect.left)
+//       set(`--${id}-top`, contentRect.top)
+//       set(`--${id}-left`, contentRect.left)
+//       set(`--${id}-bottom`, contentRect.bottom)
+//       set(`--${id}-right`, contentRect.right)
+//       set(`--${id}-width`, contentRect.width)
+//       set(`--${id}-height`, contentRect.height)      
+//     }
+//   })
+
+//   const watching = document.querySelectorAll('[data-watch-box]')
+//   let i = watching.length; while (i --> 0) {
+//     const e = watching[i]
+//     e[watchId] = e.dataset.watchBox || e.id
+//     observer.observe(e)
+//   }
+// }
+
 async function main() {
   BUILDS = collectBuilds()
   Object.assign(global, {getCurrentBuild, BUILDS})
+
+  localStorage.buildNotes = JSON.stringify(BUILDS.map(
+    ({id, order, textContent, innerHTML}) => ({
+      id, order, textContent, innerHTML
+    })))
+
+  // observeElementBoxes()
 
   let ready = false
   const frame = ts => {
