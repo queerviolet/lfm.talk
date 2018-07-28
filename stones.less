@@ -1,378 +1,381 @@
 @import "title.less";
 
-:global(.stonesEfference #stones),
-{
-  > :global(#efferenceCopy) { display: block; }
-}
-
-:global(.stonesEfferenceCopy #stones),
-{
-  > :global(#efferenceCopy) {
-    display: block;
-    opacity: 1;
+/**************** Builds ***************/
+:global {
+  .stonesEfferenceCopy
+  > #stones {
+    > #efferenceCopy {
+      display: block;
+      opacity: 1.0;
+    }
   }
-}
 
-:global(.stonesEfferenceCopy #stones),
-{
-  > :global(#efferenceCopy) {
-    display: block;
-    opacity: 1;
+  .stonesEfferenceReflection
+  > #stones {
+    > #efferenceCopy {
+      display: block;
+      opacity: 1;
+      transform: rotateX(180deg);
+    }
   }
-}
 
-:global(.stonesEfferenceReflection #stones),
-{
-  > :global(#efferenceCopy) {
-    display: block;
-    opacity: 1;
-    transform: rotateX(180deg);
-  }
-}
-
-:global(.stonesEfferenceMove #stones),
-{
-  > :global(#efferenceCopy) {
-    .absoluteCenter();
-    display: block;
-    opacity: 1;
-    transform: translate(-50%, 0) rotateX(180deg);
-  }
-}
-
-:global(.stonesEfferenceSend) {
-  :global(#titleWriter) {
-    animation: send-up 1s forwards;
-  }
-  > :global(#stones) {
-    > :global(#efferenceCopy) {
+  
+  .stonesEfferenceMove
+  > #stones {
+    > #efferenceCopy {
       .absoluteCenter();
       display: block;
       opacity: 1;
       transform: translate(-50%, 0) rotateX(180deg);
     }
   }
-}
 
-:global(.stonesTransformCopy) {
-  :global(#titleWriter) { display: none; }
-  > :global(#stones) {
-    > :global(#efferenceCopy) {
-      .absoluteCenter();
-      color: white;
-      display: block;
-      opacity: 1;
-      transform: translate(-50%, -50%) rotateX(0deg);
-      transform-origin: center;
+  .stonesEfferenceSend
+  {
+    #titleWriter {
+      animation: send-up 1s forwards;
     }
-    > :global(#bodyModel) {
-      display: block;
+    > #stones {
+      > #efferenceCopy {
+        .absoluteCenter();
+        display: block;
+        opacity: 1;
+        transform: translate(-50%, 0) rotateX(180deg);
+      }
+    }
+  }
+
+  .stonesTransformCopy
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #efferenceCopy {
+        .absoluteCenter();
+        color: white;
+        display: block;
+        opacity: 1;
+        transform: translate(-50%, -50%) rotateX(0deg);
+        transform-origin: center;
+      }
+      > #bodyModel {
+        display: block;
+      }
+    }
+  }
+  
+  .stonesApplyCopy
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #efferenceCopy {
+        .absoluteCenter();
+        display: block;
+        color: white;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+      }
+      > #bodyModel {
+        display: block;
+        --wipe: 100%;
+
+        #r_finger_pos,
+        #l_armpit_touch_pts,
+        { .flash(); }
+      }
+    }
+  }
+
+  .stonesLifeGoesOn
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #bodyModel {
+        display: block;
+        --wipe: 100%;
+      }
+      > #fingersDidMove {
+        display: block;
+        top: -20vh;
+      }
+    }
+  }
+  
+  .stonesFingersDidMove
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #efferenceCopy {
+        .absoluteCenter();
+        display: block;
+        color: white;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+      }
+      > #bodyModel {
+        display: block;
+        --wipe: 100%;
+      }
+      > #fingersDidMove {
+        animation-name: send-up;
+        animation-duration: 0.5s;
+        animation-direction: reverse;
+        display: block;
+      }
+    }
+  }
+  
+  .stonesFingersDidMoveAttenuated
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #bodyModel {
+        display: block;
+        --wipe: 100%;
+      }
+      > #fingersDidMove {      
+        display: block;
+        transform: translate(-50%, -50%) scale(0.1);
+      }
+    }
+  }
+  
+  .stonesLifeGoesOnAgain
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #bodyModel {
+        display: block;
+        --wipe: 100%;
+      }
+      > #fingersDidMove {
+        display: block;
+        opacity: 0;
+      }
+    }
+  }
+  
+  .stonesArmpitWasTickled
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #bodyModel {
+        display: block;
+        --wipe: 100%;
+      }
+      > #armpitWasTickled {
+        animation:
+          send-up 0.5s reverse,
+          shrink 1s ease-in 1s forwards
+          ;
+        display: block;
+      }
+      > #grayCerebellum { display: block; }
+    }
+  }
+  
+  .stonesInTheCerebellum
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #bodyModel {      
+        display: block;
+        --wipe: 0%;
+        transform: translate(-12vw, -10vh) scale(0.2);
+        border: 5px solid fuchsia;
+        backdrop-filter: brightness(200%);
+  
+      }
+      > #grayCerebellum {
+        display: block;
+        opacity: 1;
+      }
+      > #soboCerebellum {
+        display: block;
+      }
+    }
+  }
+  
+  .stonesCerebellumWider
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #bodyModel {
+        display: block;
+        --wipe: 0%;
+        transform: translate(7vw, -10vh) scale(0.2);
+        border: 5px solid fuchsia;
+        backdrop-filter: brightness(200%) hue-rotate(257deg);
+      }
+      > #grayCerebellum {
+        display: block;
+        opacity: 1;
+        transform: translate(0, -50%);
+      }
+      > #soboCerebellum {
+        display: block;
+        transform: translate(-85%, -50%) rotate(90deg);
+      }
     }
   }
 }
 
-:global(.stonesApplyCopy) {
-  :global(#titleWriter) { display: none; }
-  > :global(#stones) {
-    > :global(#efferenceCopy) {
-      .absoluteCenter();
-      display: block;
-      color: white;
-      opacity: 0;
-      transform: translate(-50%, -50%);
-    }
-    > :global(#bodyModel) {
-      display: block;
-      --wipe: 100%;
 
-      :global(#r_finger_pos),
-      :global(#l_armpit_touch_pts),
-      { .flash() }
+/************* Base styles ****************/
+
+:global {
+  #efferenceCopy {
+    .titleText();
+    color: @pink;
+    --typewriter-cursor-color: @pink;
+    display: none;
+    position: absolute;
+    transition: opacity 1s, transform 1s, transform-origin 1s;
+    opacity: 0;
+    transform-origin: bottom left;
+    transform: translateZ(0);
+  }
+
+  #fingersDidMove,
+  #armpitWasTickled,
+  {
+    .absoluteCenter();
+    background: white;
+    color: black;
+    padding: 9px;
+    font-size: 8vh;
+    display: none;
+    transition: transform 1s;
+    transform-origin: center center;
+    text-align: center;
+  }
+
+  #bodyModel {
+    display: none;
+    .fixed();
+    columns: 3;
+    font-size: 16px;
+    transition: 2s;
+  }
+
+  body-model {
+    --wipe: 0%;
+
+    .param {
+      .cell(@pink);
+    }
+
+    .value {
+      .cell(@translucent-electric-blue);
+      border: thin solid @electric-blue;
     }
   }
-}
 
-:global(.stonesLifeGoesOn) {
-  :global(#titleWriter) { display: none; }
-  > :global(#stones) {
-    > :global(#bodyModel) {
-      display: block;
-      --wipe: 100%;
+  .cell(@bg) {
+    display: inline-block;
+    padding: 4px;
+    background: @bg;
+    color: white;
+    transition: clip-path 1s, opacity 2s;
+  }
+
+  .wipe-east-west {
+    clip-path: polygon(
+      0 0,
+      var(--wipe) 0,
+      var(--wipe) 100%,
+      0 100%
+    );
+  }
+
+  .wipe-west-east {
+    clip-path: polygon(
+      calc(100% - var(--wipe)) 0,
+      100% 0,
+      100% 100%,
+      calc(100% - var(--wipe)) 100%
+    );
+  }
+
+  .wipe-north-south {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% var(--wipe),
+      0 var(--wipe)
+    );
+  }
+
+  .wipe-south-north {
+    clip-path: polygon(
+      0 calc(100% - var(--wipe)),
+      100% calc(100% - var(--wipe)),
+      100% 100%,
+      0 100%
+    );
+  }
+
+  @keyframes send-up {
+    0% {
+      top: 50%;
+      transform: scaleY(1) translate(-50%, -50%);
     }
-    > :global(#fingersDidMove) {
-      display: block;
+
+    30% {
+      top: 50%;
+      transform: scaleY(0.6) translate(-50%, -30%);
+    }
+
+    40% {    
+      transform: scaleY(1.2) translate(-50%, -50%);
+    }
+
+    50% {    
+      transform: scaleY(1) translate(-50%, -50%);
+    }
+
+    100% {
       top: -20vh;
     }
   }
-}
 
-:global(.stonesFingersDidMove) {
-  :global(#titleWriter) { display: none; }
-  > :global(#stones) {
-    > :global(#efferenceCopy) {
-      .absoluteCenter();
-      display: block;
-      color: white;
-      opacity: 0;
-      transform: translate(-50%, -50%);
-    }
-    > :global(#bodyModel) {
-      display: block;
-      --wipe: 100%;
-    }
-    > :global(#fingersDidMove) {
-      animation-name: send-up;
-      animation-duration: 0.5s;
-      animation-direction: reverse;
-      display: block;
-    }
-  }
-}
-
-:global(.stonesFingersDidMoveAttenuated) {
-  :global(#titleWriter) { display: none; }
-  > :global(#stones) {
-    > :global(#bodyModel) {
-      display: block;
-      --wipe: 100%;
-    }
-    > :global(#fingersDidMove) {      
-      display: block;
-      transform: translate(-50%, -50%) scale(0.1);
-    }
-  }
-}
-
-:global(.stonesLifeGoesOnAgain) {
-  :global(#titleWriter) { display: none; }
-  > :global(#stones) {
-    > :global(#bodyModel) {
-      display: block;
-      --wipe: 100%;
-    }
-    > :global(#fingersDidMove) {
-      display: block;
-      opacity: 0;
-    }
-  }
-}
-
-:global(.stonesArmpitWasTickled) {
-  :global(#titleWriter) { display: none; }
-  > :global(#stones) {
-    > :global(#bodyModel) {
-      display: block;
-      --wipe: 100%;
-    }
-    > :global(#armpitWasTickled) {
-      animation:
-        send-up 0.5s reverse,
-        shrink 1s ease-in 1s forwards
-        ;
-      display: block;
-    }
-    > :global(#grayCerebellum) { display: block; }
-  }
-}
-
-:global(.stonesInTheCerebellum) {
-  :global(#titleWriter) { display: none; }
-  > :global(#stones) {
-    > :global(#bodyModel) {      
-      display: block;
-      --wipe: 0%;
-      transform: translate(-12vw, -10vh) scale(0.2);
-      border: 5px solid fuchsia;
-      backdrop-filter: brightness(200%);
-
-    }
-    > :global(#grayCerebellum) {
-      display: block;
-      opacity: 1;
-    }
-    > :global(#soboCerebellum) {
-      display: block;
-    }
-  }
-}
-
-:global(.stonesCerebellumWider) {
-  :global(#titleWriter) { display: none; }
-  > :global(#stones) {
-    > :global(#bodyModel) {
-      display: block;
-      --wipe: 0%;
-      transform: translate(7vw, -10vh) scale(0.2);
-      border: 5px solid fuchsia;
-      backdrop-filter: brightness(200%) hue-rotate(257deg);
-    }
-    > :global(#grayCerebellum) {
-      display: block;
-      opacity: 1;
-      transform: translate(0, -50%);
-    }
-    > :global(#soboCerebellum) {
-      display: block;
-      transform: translate(-85%, -50%) rotate(90deg);
-    }
-  }
-}
-
-
-// ----
-
-:global(#efferenceCopy) {
-  .titleText();
-  color: @pink;
-  --typewriter-cursor-color: @pink;
-  display: none;
-  position: absolute;
-  transition: opacity 1s, transform 1s, transform-origin 1s;
-  opacity: 0;
-  transform-origin: bottom left;
-  transform: translateZ(0);
-}
-
-:global(#fingersDidMove),
-:global(#armpitWasTickled),
-{
-  .absoluteCenter();
-  background: white;
-  color: black;
-  padding: 9px;
-  font-size: 8vh;
-  display: none;
-  transition: transform 1s;
-  transform-origin: center center;
-  text-align: center;
-}
-
-:global(#bodyModel) {
-  display: none;
-  .fixed();
-  columns: 3;
-  font-size: 16px;
-  transition: 2s;
-}
-
-body-model {
-  --wipe: 0%;
-
-  :global(.param) {
-    .cell(@pink);
+  @keyframes shrink {
+    from { transform: translate(-50%, -50%) scale(1); }
+    to { transform:  translate(-50%, -50%) scale(0); }
   }
 
-  :global(.value) {
-    .cell(@translucent-electric-blue);
-    border: thin solid @electric-blue;
-  }
-}
-
-.cell(@bg) {
-  display: inline-block;
-  padding: 4px;
-  background: @bg;
-  color: white;
-  transition: clip-path 1s, opacity 2s;
-}
-
-:global(.wipe-east-west) {
-  clip-path: polygon(
-    0 0,
-    var(--wipe) 0,
-    var(--wipe) 100%,
-    0 100%
-  );
-}
-
-:global(.wipe-west-east) {
-  clip-path: polygon(
-    calc(100% - var(--wipe)) 0,
-    100% 0,
-    100% 100%,
-    calc(100% - var(--wipe)) 100%
-  );
-}
-
-:global(.wipe-north-south) {
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% var(--wipe),
-    0 var(--wipe)
-  );
-}
-
-:global(.wipe-south-north) {
-  clip-path: polygon(
-    0 calc(100% - var(--wipe)),
-    100% calc(100% - var(--wipe)),
-    100% 100%,
-    0 100%
-  );
-}
-
-@keyframes send-up {
-  0% {
-    top: 50%;
-    transform: scaleY(1) translate(-50%, -50%);
+  @keyframes shrink-no-tr {
+    from { transform: scale(1); }
+    to { transform:  scale(0); }
   }
 
-  30% {
-    top: 50%;
-    transform: scaleY(0.6) translate(-50%, -30%);
+
+  #grayCerebellum {
+    .absoluteCenter();
+    z-index: -100;
+    display: none;
+    opacity: 0;
+    transition: opacity 1s, transform 1s;
+    height: 100vh;
   }
 
-  40% {    
-    transform: scaleY(1.2) translate(-50%, -50%);
-  }
-
-  50% {    
-    transform: scaleY(1) translate(-50%, -50%);
-  }
-
-  100% {
-    top: -20vh;
+  #soboCerebellum {
+    .absoluteCenter();
+    z-index: -100;
+    transform: translate(calc(-100vw - 50%), -50%) rotate(90deg);
+    transition: transform 1s;
+    width: 100vh;
+    filter: brightness(200%) hue-rotate(257deg);
   }
 }
-
-@keyframes shrink {
-  from { transform: translate(-50%, -50%) scale(1); }
-  to { transform:  translate(-50%, -50%) scale(0); }
-}
-
-@keyframes shrink-no-tr {
-  from { transform: scale(1); }
-  to { transform:  scale(0); }
-}
-
-.flash(@period: 1s, @count: 4) {
-  & :global(.value) {
-    animation: flash @period @count;
-  }
-}
-
-:global(#grayCerebellum) {
-  .absoluteCenter();
-  z-index: -100;
-  display: none;
-  opacity: 0;
-  transition: opacity 1s, transform 1s;
-  height: 100vh;
-}
-
-:global(#soboCerebellum) {
-  .absoluteCenter();
-  z-index: -100;
-  transform: translate(calc(-100vw - 50%), -50%) rotate(90deg);
-  transition: transform 1s;
-  width: 100vh;
-  filter: brightness(200%) hue-rotate(257deg);
-}
-
 
 @keyframes flash {
   0% { background: @translucent-electric-blue; }
   50% { background: fuchsia; }
   100% { background: @translucent-electric-blue; }
+}  
+
+.flash(@period: 1s, @count: 4) {
+  & .value:local {
+    animation: flash @period @count;
+  }
 }
