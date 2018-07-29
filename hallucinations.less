@@ -144,7 +144,8 @@
   }
 }
 
-:global(.dreamFullscreenPlayingAgain #hallucinations) {
+body[data-current-build^="dreamFullscreen"] :global(#hallucinations),
+{
   .fullscreen-black();
 }
 

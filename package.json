@@ -6,7 +6,9 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "fetch": "./fetch.sh",
+    "assets:fetch": "./fetch.sh",
+    "assets:deploy": "gsutil -m rsync -c assets gs://lfm.ashi.io/assets",
+    "fetch": "npm run assets:fetch",
     "deploy": "npm run build && gsutil -m rsync -c -r dist gs://lfm.ashi.io"
   },
   "keywords": [],

@@ -19,6 +19,13 @@
 <!-- Introduction -->
 <div id=titleCard class=vbox>
   <type-writer id=titleWriter></type-writer>
+  <script>
+    When().withName('update title card')
+      .changed((_, current) =>
+        'title' in current.dataset &&
+          (titleWriter.text = current.dataset.title)
+      )
+  </script>    
 </div>
 <build-note id=titleBlank            data-title="">
   Hi.
@@ -27,34 +34,38 @@
   I'm Ashi Krishnan
 </build-note>  
 <build-note id=titleLfm              data-title="learning from machines">
-  (introduction tk)
-  For years, I've been fascinated by cognition.
-  How we think. How we perceive. How the machinery of our perception creates
-  experiences.
+  Today, I'd like to share with you some things I've learned
+  at the intersection of computational neuroscience
+  and artificial intelligence.
+
+  For years, I've been fascinated by how we think.
+  How we perceive.
+  How the machinery of our bodies result in qualitative experiences.
   Why our experiences are shaped like this and not that.
   Why we suffer.
-  And for years, I've been fascinated by AI.
+
+  And for years, I've been fascinated by AI. We're watching these machines begin
+  to approximate the tasks of our cognition in unsettling
+
   Today, I want to share with you some of what I've learned.
-  Some of this is solid research.
-  Some of it is solid... speculation.
-  But all of it is grounded.
+  Some solid research. Some solid speculation.  
+
+  All of it speaks to a truth I have come to believe:
+  our brains are computers
+  and we are their computations.
+
   Let's begin.
 </build-note>
 <build-note id=titleLfmErased        data-title=""></build-note>
-<script>
-  When()
-    .withName('titleWriter')
-    .changed((_, current, prev) => {
-      if (current.dataset.title)
-        return titleWriter.text = current.dataset.title
-      titleWriter.text = ''
-    })
-</script>
 
 <!-- 1. hallucinations -->
 <div id=hallucinations class=seed>
-  <build-note id=title1                data-title="1. "></build-note>
-  <build-note id=title1Hallucinations  data-title="1. hallucinations"></build-note>      
+  <build-note id=title1                data-title="1. ">
+    Part one.
+  </build-note>
+  <build-note id=title1Hallucinations  data-title="1. hallucinations">
+    Hallucinations.
+  </build-note>      
   
   <!-- 1a. the inception neural network -->
   <img id=inceptionDiagram src=inception-diagram.svg>
@@ -66,7 +77,7 @@
     <span class=P>toaster</span>
     </div>
   <video id=skully src=assets/brain-skull-to-vision.m4v is=seekable-video preload></video>
-  <video id=deepDream src=assets/miquel_pn_deep_dream.mp4 preload></video>
+  <video id=deepDream src=assets/miquel_pn_deep_dream.mp4 preload is=seekable-video></video>
   <type-writer id=miquel></type-writer>
   <div id=deepDreamLayers class=stopped>
     <type-writer id=deepDreamCurrentLayer></type-writer>
@@ -101,37 +112,141 @@
     }
   </script>
   <script src=inception.js></script>
-  <build-note id=dreamFullscreenPaused></build-note>
-  <build-note id=dreamFullscreenMiquel></build-note>
+  <build-note id=dreamFullscreenPaused>
+    This person is
+  </build-note>
+  <build-note id=dreamFullscreenMiquel>
+    Miquel Perelló Nieto
+    And he has something to show us.
+  </build-note>
   <script>
     When(dreamFullscreenMiquel)
       .start(() => miquel.text = 'Miquel Perelló Nieto')
       .end(() => miquel.text = '')
   </script>
-  <build-note id=dreamFullscreenPlaying></build-note>
-  <build-note id=dreamFullscreenShowLayer></build-note>
-  <build-note id=inception></build-note>
-  <build-note id=inceptionFromInput></build-note>
-  <build-note id=inceptionToOutput></build-note>
-  <build-note id=inceptionConv></build-note>
-  <build-note id=inceptionConvForward></build-note>
-  <build-note id=inceptionConvTraining></build-note>
-  <build-note id=inceptionIncepting></build-note>
-  <build-note id=inceptionPanDiagram></build-note>
-  <build-note id=dreamFullscreenPlayingAgain></build-note>
-  <script>
+  <build-note id=dreamFullscreenPlaying>
+    It starts with simple patterns — splotches of light and dark.
+    These give way to lines and colors.
+    And then curves, more complex shapes.
+    This one: the crystalline farm fields of an alien world.
+    These: plant cells.
+    And here, the suggestion of many tiny eyes watching you.
+  </build-note>
+  <build-note id=dreamFullscreenShowLayer>
+    We're diving through the layers of the Inception image classifier
+    To understand how, let's look inside...
+  </build-note>
+  <build-note id=inception>
+    The job of an image classifier is to reshape its input    
+  </build-note>
+  <build-note id=inceptionFromInput>
+    ...a square of pixels
+    Into its output...
+  </build-note>
+  <build-note id=inceptionToOutput>
+    ...a probability distribution.
+    The probability that the image contains a cat.
+    The probability of a dog, a banana, a toaster.
+  </build-note>
+  <build-note id=inceptionConv>
+    It performs this reshaping through a series of
+    convolutional filters.  
+  </build-note>
+  <build-note id=inceptionConvForward>
+    Convolutional filters are basically photoshop filters.
+    Each neuron in a convolutional layer has a <i>receptive field</i>.
+    This is a small patch of the previous layer from which it takes its input.
+  </build-note>
+  <build-note id=inceptionConvTraining>
+    Each convolutional layer applies a filter.
+    Specifically, it applies an image kernel.
+    A kernel is matrix of numbers, where each number represents the weight of
+    the corresponding input neuron.
+    Each pixel in each neuron's receptive field is multiplied by this weight, and then
+    we sum them all to produce this neuron's value.
+
+    The same filter is applied for every neuron across a layer.
+    And the values in that filter are learned during training.
+
+    We feed the classifier a labeled image
+    something where we know what's in it
+    it outputs predictions,
+    we math to figure out how wrong that prediction was
+    and then we math again, nudging each and every single filter in the direction that would have produced a better result
+    the term for that is: gradient descent
+  </build-note>
+  <build-note id=inceptionIncepting>
+    The deep dream process inverts this.
+
+    This visualization is recursive.
+    To compute the next frame, we feed the current frame into the network.
+    We run it through the network's many layers until we activate the layer we're interested in
+
+    Then we math: how could we adjust the <i>input image</i> to make this layer activate <i>more</i>?
+    And we adjust the image in that direction.
+    The term for that is: gradient <i>ascent</i>.
+
+    Finally, we scale the image up very slightly before feeding it back into the network.
+    This keeps the network from just enhancing the same patterns in the same places
+    It also creates the wild zooming effect.
+  </build-note>
+  <build-note id=inceptionPanDiagram>
+    Every 100 frames, we move to a deeper layer.
+    Or a layer to the side.
+    Inception has a lot of layers.
+  </build-note>
+  <build-note id=dreamFullscreenPlayingAgain data-time=3>
+    And that gives us this.
+    We started with these basic shapes,
+  </build-note>
+  <build-note id=dreamFullscreenKodamas data-time=126>
+    And now we sortof have a city-of-Kodamas situation happening
+    Then we enter spider observation area, in which spiders observe you.
+    But it's okay, because soon we the spiders become corgis.
+    In the 60s.
+  </build-note>
+  <build-note id=dreamFullscreenNearlyHuman data-time=260>
+    Later, we will find a space of nearly-human eyes
+    Which become dog slugs
+    Space ships
+    Robots and stuff
+  </build-note>  
+  <build-note id=dreamFullscreenSaxophonist data-time=403>
+    Unfortunate saxophonist teleporter accident
+  </build-note>
+  <build-note id=dreamFullscreenFleshZones data-time=426>
+    And finally, the flesh zones, with a side of lizards.
+
+    When I first saw this, I thought it looked like Donald Trump.
+    And I resolved to never tell anyone until my best friend said the exact same thing.
+    Which I think says more about the state of <i>our</i> neural networks than this one.
+    (I think it's the lizard juxtaposition.)
+
+    But I do want you to think notice just how white all this skin is.
+    
+    And this is all... <i>preeeety trippy</i>.
+
+    Why is that? What does it mean, for something to be trippy?
+
+    To figure that out, let's take a look inside...
+  </build-note>
+<script>
     When(dreamFullscreenPaused)
       .start(() => {
         deepDream.currentTime = 0
         deepDream.pause()
       })
-    When(buildInRange(dreamFullscreenMiquel, dreamFullscreenPlayingAgain))
+    When(buildInRange(dreamFullscreenMiquel, dreamFullscreenFleshZones))
       .start(() => {
         deepDream.play()
       })
-      .frame(() => {
+      .frame((_, current, prev) => {
         if (!deepDream.timeline) return
         deepDreamCurrentLayer.text = deepDream.timeline(deepDream).layer
+        if (current !== prev && current.dataset.time) {
+          console.log('seek', current.dataset.time)
+          deepDream.seekTo({time: +current.dataset.time, duration: 2, playbackRate: 1})
+        }
       })
 
     inceptionPixelsViz(
@@ -152,23 +267,149 @@
   </script>  
   
   <!-- 1b. The human visual system -->
-  <build-note id=inside></build-note>
-  <build-note id=insideEnterSkully></build-note>
-  <build-note id=insideLessCruft></build-note>
-  <build-note id=insideRetina></build-note>
-  <build-note id=insideRetinaGanglions></build-note>
-  <build-note id=insideRetinaEtc></build-note>
-  <build-note id=insideRetinaPhotoreceptors></build-note>
-  <build-note id=insideRetinaLightGoesIn></build-note>
-  <build-note id=insideRetinaSignalComesOut></build-note>
-  <build-note id=insideRetinaOpticNerve></build-note>
-  <build-note id=insideRetinaReceptiveField></build-note>
-  <build-note id=insideRetinaReceptiveFieldFiringWeakly></build-note>
-  <build-note id=insideRetinaReceptiveFieldOffCenterFiring></build-note>
-  <build-note id=insideRetinaReceptiveFieldOffCenterDead></build-note>
-  <build-note id=insideRetinaReceptiveFieldOnCenterFiring></build-note>
-  <build-note id=insideThroughTheBrain></build-note>
-  <build-note id=insideVisualCortex></build-note>
+  <build-note id=inside>    
+  </build-note>
+  <build-note id=insideEnterSkully>
+    ...ourselves.
+  </build-note>
+  <build-note id=insideLessCruft>
+    We don't need some of this cruft.
+    We're just looking at the human visual system.
+    Which starts here
+  </build-note>
+  <build-note id=insideRetina>
+    In the retina.
+    Your retina, our retinas... are weird.
+    Light comes into them, and immediately hits a membrane.
+  </build-note>
+  <build-note id=insideRetinaGanglions>
+    Then there's a layer of ganglions, which are not generally
+    photosensitive—though some of them are a little.
+  </build-note>
+  <build-note id=insideRetinaEtc>
+    There's a layer of some more stuff that does important things
+  </build-note>
+  <build-note id=insideRetinaPhotoreceptors>
+    And then at the back of your retina are your photoreceptors.
+    Rods and cones. Rods sense luminance, cones color
+    Way more rods than cones.
+  </build-note>
+  <build-note id=insideRetinaLightGoesIn>
+    So light comes in
+    winds its way through four layers of tissue and hits a photoreceptor    
+  </build-note>
+  <build-note id=insideRetinaSignalComesOut>
+    That photoreceptor gets excited. It sends out a signal to its ganglions
+    Which send it... where?
+  </build-note>
+  <build-note id=insideRetinaOpticNerve>
+    Oh, right. To the optic nerve which is routed right through the center of our eye.
+    We mounted the sensor backwards
+    And drilled a hole through the center
+    It's okay. We can patch it up in software.
+
+    There's a couple of other problems here too:
+    One, our retinas have 120M luminance receptors—rods, and 6M color receptors—cones.    
+    There are about 10 times fewer ganglions.
+  
+    Two:
+    Our optic nerve can carry about <a href=https://www.newscientist.com/article/dn9633-calculating-the-speed-of-sight>10mbps</a>.
+    
+    So we're trying to stream the video from this hundred-megapixel camera through a pipe that's slower than WiFi.
+    
+    Our retinas do what you might, if faced with such a problem: they compress the data.    
+  </build-note>
+  <build-note id=insideRetinaReceptiveField>
+    Each ganglion connects to a patch of 100 or so photoreceptor cells—its *receptive field*.
+    divided into an central disk and the surrounding region. In, and out. Center & surround.
+    When there's no light on the entire field, the ganglion doesn't fire.
+  </build-note>
+  <build-note id=insideRetinaReceptiveFieldFiringWeakly>
+    When the whole field is illuminated, it fires weakly.
+  </build-note>
+  <build-note id=insideRetinaReceptiveFieldOffCenterFiring>
+    When only the surround is illuminated, about half the ganglions fire rapidly
+  </build-note>
+  <build-note id=insideRetinaReceptiveFieldOffCenterDead>
+    And half don't fire at all.
+  </build-note>
+  <build-note id=insideRetinaReceptiveFieldOnCenterFiring>
+    The other half of ganglions behave in exactly the opposite way:
+    They fire wildly only when their center field is illuminated, and their
+    surround is dark.
+
+    Taken together, these ganglions constitute an edge detection filter.
+    Which lets us downsample the signal from our photoreceptors a hundred times
+    While retaining vitally important information: where the boundaries of objects are.
+  </build-note>
+  <build-note id=insideThroughTheBrain>
+    Then the signal goes through the brain
+    It hits the optical chiasma, where the data streams from your left and right eyes cross
+    The left field of view from both eyes is taken to one side of the brain—the right side, as it happens
+    And the right field of view from both eyes is taken to the left
+    This gives those brain regions stereo depth information about their field of view.
+
+    That information is processed in the lateral geniculate nucleus, which does a whole mess of things,
+    including some basic object tagging, and controlling the focus of our eyes.
+
+    Each step of this signal pathway does a little bit of processing, extracting
+    progressively higher-level features.
+
+    And that's all before we get to...
+  </build-note>
+  <build-note id=insideVisualCortex>
+    Ths visual cortex. All the way around here in the back.
+    
+    TODO: add visual-cortex.jpg
+    THE HUMAN VISUAL CORTEX
+    Kalanit Grill-Spector and Rafael Malach
+    Annual Review of Neuroscience 2004 27:1, 649-677 
+
+    Our visual cortex is arranged into a stack of neuronal layers.
+    
+    The signal stays relatively spatially oriented through the visual cortex
+    So there's some slice of tissue in the back of the brain that's responsible for pulling
+    faces out of <i>this</i> particular chunk of your visual field
+
+    —with, obviously, the redundancies and slop that we've come to expect from any
+    NN, whether artificial or biological—
+
+    Each neuron in a layer has a receptive field—some chunk of the entire visual field that it’s “looking at”.
+    Neurons in a given layer respond the same way to signals within their receptive field.
+    That operation, distributed over a whole layer of receptive fields, extracts features
+    from the visual signal.
+    
+    first simple features, like lines, and curves, and edges, and then more complex ones
+    like gradients and surfaces and objects, eyes, and faces.
+    
+    It’s no accident that we see the same behavior in Inception—
+    convolutional neural networks were inspired by
+    the structure of our visual cortex.
+    
+    Our visual cortex is ofc different from Inception in... many ways
+
+    TODO: Add image vis-heirarchy-macaque.gif
+    CEREBRAL CORTEX
+    Felleman, D. J. and Van Essen, D. C. (1991)
+    1:1-47.
+
+    A key difference is that our visual cortex contains <i>feedback loops</i>—pyramidal cells that connect deeper layers to earlier ones.
+    These feedback loops allow the results of deeper layers to inform the behavior of earlier ones, for instance by turning up the gain on edge detection along the boundary of a region that was later detected as an object. It lets our visual system adapt and focus—not optically, but attentionally. It gives it the ability to ruminate on visual input, well before we become conciously aware of it, improving predictions over time.
+    
+    You know this feeling: thinking you see one thing, and then realizing it’s something else.
+    
+    Inception, by contrast, is a straight shot through.
+
+    These loopback pyramidal cells in our visual cortex are covered in serotonin receptors. Different kinds of pyramidal cells respond to serotonin differently, but generally, they find it exciting (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3630391/) (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5810041/). And don’t we all? You might be familiar with serotonin from its starring role as the target of typical antidepressants, which are serotonin reuptake inhibitors—when serotonin gets released into your brain, they make it stick around longer, thereby treating depression (some side effects may occur).
+
+    Interestingly, most serotonin is located in your gut, where it controls bowel movement. Specifically, it’s what signals to your digestive system that it’s got food in it and should go on and do what it does to food. This seems to be what the molecule seems to signal, throughout your body: resource availability. And for animals with complex societies, like us, resources can be very abstract—covering social resources as well as energetic ones.
+    
+    That your pyramidal cells respond excitedly to serotonin suggests that we focus on that which we believe will nourish us.    
+
+    It’s not correct, as a blanket statement, to say that pyramidal cells are excited by serotonin. In fact, there are different kinds of serotonin receptors, and their binding produces different effects. 5-HT1A receptors tend to actually inhibit their firing. 5-HT3 receptors throughout your body tend to cause anxiety and vommiting. They’re in your brain, where they’re associated with a sensation of queasiness, and anxiety, and they’re in your gut, where they make it run… backwards. Anti-nausea drugs are frequently 5-HT3 antagonists.
+
+    There’s another serotonin receptor, one that the pyramidal cells in your brain find particularly exciting.    
+  </build-note>
   <script>
     insideEnterSkully.skully = {time: 0, paused: true}
     insideLessCruft.skully = {time: 14.8, duration: 5, paused: true}
@@ -199,8 +440,51 @@
     <type-writer id=ht2aLSDTitle></type-writer>
     <img src=assets/lsd-binding-lid.png>
   </div>  
-  <build-note id=inside5ht2a></build-note>
-  <build-note id=inside5ht2aLSDBinding></build-note>
+  <build-note id=inside5ht2a>
+      That’s the 5-HT2A receptor.
+      This receptor is the primary target for every known psychedelic drug.
+      It is what enables our brain to create psychedelic experiences.
+
+      So you go to a show and you eat a little piece of paper,
+      and that piece of paper makes its way down into your stomach,
+      where it dissolves, releasing molecules of LSD into your gut.
+      
+      LSD doesn’t bind to 5-HT3 receptors,
+      so if you feel butterflies in your stomach,
+      it’s likely just because you’re excited for what’s going to happen.
+
+      What’s about to happen is: LSD will diffuse into your blood.
+      LSD is a tiny molecule. It has no trouble crossing the blood brain
+      barrier and diffusing deep into your brain, perhaps into your visual cortex,
+      where it finds a pyramidal 5-HT2A receptor and locks into place.
+  </build-note>
+  <build-note id=inside5ht2aLSDBinding>
+    The LSD molecule stays bound for around 221 minutes(https://www.cell.com/cell/pdf/S0092-8674(16)31749-4.pdf).
+    4 hours
+    That’s an astonishingly long time.
+    They think a couple of proteins snap in and form a lid over top of the receptor, trapping the LSD inside.
+    This would help explain why LSD is so very potent, with typical doses around a thousand times smaller than most drugs.
+
+    And while it rattles around in there, our little LSD is stimulating a feedback loop in your visual cortex.
+    It sends the signal: what you’re looking at is interesting.
+    It may be nourishing. Pay attention.
+    The pattern finding machinery in your cortex to starts to run overtime, and at different rates.
+    In one moment, the pattern in a tapestry seems to extend into the world beyond it; in the next,
+    it is the trees that are growing and breathing, the perception of movement a visual hypothesis allowed to grow wild.
+    
+    With Deep Dream, we asked what would excite some layer of Inception, and then we adjusted the input image in that direction.
+    There’s no comparable gradient ascent process in biological psychedelic experience.
+    That’s because we aren’t looking at a source image—we’re looking at the output of the network.
+    We <i>are</i> the output of the network. The output of your visual cortex is a signal carrying visual perceptions,
+    —proto qualia—
+    which will be integrated by other circuits to produce your next moment of experience.
+
+    Inception never gets that far.
+    We never even run it all the way to the classification stage—we never ask it what it sees in all this.
+    
+    But we could. In fact,Inception never gets that far. We never even run it all the way to the classification stage—we never ask it what it sees in all this. But we could. In fact, we could perform the amplification process on a final result, rather than an intermediate one. We could ask, “what would it take to get you to see a dog in this photo of two skiiers?” Or, “Say, doesn’t this banana look like a toaster?"
+    we could perform the amplification process on a final result, rather than an intermediate one.    
+  </build-note>
   <script>
     When(buildInRange(inside5ht2a, inside5ht2aLSDBinding))
       .start(() => {
@@ -219,10 +503,68 @@
   </div>
   <div id=adversarialSkiiers>
     <type-writer id=skiiersTitle></type-writer>
-    <img src=assets/adversarial-skiiers.gif>  
+    <img src=assets/adversarial-skiiers.gif>
   </div>
-  <build-note id=insideAdversarialSticker></build-note>
-  <build-note id=insideAdversarialSkiiers></build-note>
+  <build-note id=insideAdversarialSticker>
+    Maybe we ask, “what would it take for you to see this banana as a toaster?"
+  </build-note>
+  <build-note id=insideAdversarialSkiiers>
+    Or, “Say, don't these skiiers look like a dog?"
+
+    These are adversarials—images tuned to give classifiers <i>frank hallucinations</i>.
+    The confident belief that they're seeing something that just isn't there.
+
+    They’re not completely wild, these robot delusions.
+
+    I mean, that sticker really does look like a toaster. And it's so shiny.
+
+    And these skiiers do kindof look like a dog if you squint. See? There’s the head, there’s the body…
+
+    A person might look at this and—if they’re tired, far away, and drunk—think for a moment that it’s a big dog.
+    But they probably wouldn’t conclude it’s a big dog.
+    The recurrent properties of our visual cortex—not to mention much of the rest of our brain—means
+    that our sense of the world is stateful. It’s a continually refined hypothesis,
+    whose state is held by the state of our neurons.
+    
+    "A parse tree is carved out of a fixed multilayer neural network like a sculpture is carved from a rock” ([Sabour 2017](https://arxiv.org/pdf/1710.09829.pdf)).
+    
+    Our perceptions are a process of continuous refinement.
+
+    This may point the way towards more robust recognition architectures.
+    Recurrent convolutional networks that ruminate upon images,
+    possibly operating with greater accuracy,
+    or providing a signal that something is off about an input.
+    
+    There are adversarial examples for the human visual system, after all, and we call them optical illusions.
+    And they <i>feel weird</i> to look at.
+    
+    TODO: box-illusion-cube.png
+    In this image we can feel our sensory interpretation of the scene flipping between three alternatives
+      a little box in front of a big one
+      a box in a corner
+      and a box missing one
+    
+    TODO: confetti
+    And in this one, we can feel something scintillating about the colors—which are, incidentally, all the same.
+        
+    If we design CNNs with recurrence, they could exhibit such behavior as well
+    —which maybe doesn't sound like such a good thing, on the face of it.
+    
+    Let's make our image classifiers vascillating. Uncertain.
+    But our ability to hem and haw and reconsider our own perceptions at many levels gives our perceptual system
+    tremendous robustness.
+    
+    Paradoxically, being able to second-guess ourselves allows us greater confidence in the accuracy of our predictions.
+    
+    We are doing science in every moment, at the cellular level, our brains continuously reconsidering and refining
+    a shifting hypotheses about the state of the world.
+    
+    This gives us the ability to adapt and operate within a pretty extreme range of conditions
+    
+    Even while tripping face.
+
+    Or...
+  </build-note>
   <script>
     When(buildInRange(inside5ht2a, insideAdversarialSkiiers))
       .end(() => ht2aTitle.text = ht2aLSDTitle.text = stickerTitle.text = skiiersTitle.text = '')
@@ -232,7 +574,9 @@
       .start(() => skiiersTitle.text = 'Black-box adversarial example (arXiv:1712.07113v2)')
   </script>
 
-  <build-note id=hallucinationsToSleep></build-note>
+  <build-note id=hallucinationsToSleep>
+    ...while asleep.
+  </build-note>
   <script>
     let hallucinationBuilds =
       [...hallucinations.getElementsByTagName('build-note')]
@@ -252,8 +596,8 @@
 
 <!-- 2. dreams -->
 <div id=dreams>
-  <build-note id=title2             data-title='2. '></build-note>
-  <build-note id=title2Dreams       data-title='2. dreams'></build-note>
+  <build-note id=title2             data-title='2. '>Two.</build-note>
+  <build-note id=title2Dreams       data-title='2. dreams'>Dreams.</build-note>
 
   <build-note id=title2DreamsBlur data-time=10 data-paused></build-note>
   <div id=faces>
@@ -263,12 +607,104 @@
       const gen = createLayers({prefix: 'gen', className: 'gen-layer', count: 10})
     </script>
   </div>
-  <build-note id=dreamsPlaying data-time=10></build-note>
-  <build-note id=dreamsTraining data-duration=1 data-time=51 data-playback-rate=0.5></build-note>
-  <build-note id=dreamsTrainingExpand data-duration=10 data-playback-rate=0.1></build-note>
-  <build-note id=dreamsTrainingDiscriminator data-duration=10 data-playback-rate=0.1></build-note>
-  <build-note id=dreamsTrainingFeedback data-duration=10 data-playback-rate=0.1></build-note>
-  <build-note id=dreamsInterpolation data-duration=2 data-time=85.5></build-note>    
+  <build-note id=dreamsPlaying data-time=10>
+    ...
+    These are not real people.
+    These are the photos of fake celebrities, dreamt up by a generative adversarial network.
+    A pair of networks
+    Which are particularly... creative.
+  </build-note>
+  <build-note id=dreamsTraining data-duration=1 data-time=51 data-playback-rate=0.5>
+    The networks get better through continuous, mutual refinement.
+    It works like this:
+  </build-note>
+  <build-note id=dreamsTrainingExpand data-duration=10 data-playback-rate=0.1>
+    On the one side, we have the Creator.
+    This is a deep learning network not unlike Inception, but trained to run in reverse.
+    This network, we feed with noise. Literally, just a bunch of random numbers
+    And it learns to generate images.
+
+    But it has no way to learn how to play this game
+    —In the technical parlance, it lacks a gradient—
+    Without another network
+    Without an opponent
+  </build-note>
+  <build-note id=dreamsTrainingDiscriminator data-duration=10 data-playback-rate=0.1>
+    The Adversary.
+
+    The Adversary is an image classifier, like Inception, but trained on only two classes:
+    YES and NO
+    REAL and FAKE
+  
+    Its job is to distinguish the Creator's forgeries from true faces.
+    We feed <i>this</i> network with ground truth
+    with actual examples of celebrity faces.
+    And the Adversary learns.
+
+    And then, we use those results to train the Creator.
+
+    If it makes a satisfying forgery, it's doing well.
+
+    If its forgeries are detected,
+  </build-note>
+  <build-note id=dreamsTrainingFeedback data-duration=10 data-playback-rate=0.1>
+    we backpropagate the failure, so it may learn.
+
+    I should say that the canonical terms for these networks are the Generator and the Discriminator.
+
+    Don't know why I renamed them. Must've misspoke.
+
+    This is an incredibly powerful training methodology.
+    A semi-supervised learning technique.
+    Because, see, we haven't found every possible image that the generator might make
+    and labeled them PLAUSIBLE and IMPLAUSIBLE
+
+    Instead, there is this process of recursive co-training
+    In which these two circuits play this <i>game</i>
+    Ruminating on a space of possibilities
+    And so extracting value from a relatively small amount of training data
+
+    A process that is perhaps helpful for neural circuits of all kinds.
+
+    TODO: GAN problems? Counting?
+
+    One interesting thing about this training methodology is that the Creator—sorry, Generator is being fed noise
+
+    A vector of noise—some random point in a high-dimensional space.
+
+    So it learns a mapping from the space of all noise it could receive
+    onto its generation target—in this case, faces.
+    And if we take a point in that space and <i>drag it around</i>...
+  </build-note>
+  <build-note id=dreamsInterpolation data-duration=2 data-time=85.5>
+    We get this.
+
+    This... is also quite trippy, no?
+
+    It resembles the things that I've seen...
+      ...the things that Someone Who Isn't Me has seen...
+    on acid.
+
+    It resembles the sorts of things you may have seen,
+    in long-forgotten dreams.
+
+    I don't have a magic schoolbus voyage to take us on to understand why that is.
+
+    But I have a theory:
+    When we see a face, a bunch of neurons in our brain light up
+    And begin resonating a signal which <i>is</i> the feeling of looking at that
+    particular face. Taken together, all the neurons involved in face detection
+    produce a vector embedding of faces
+    a mapping from faces
+    to positions in a high-dimensional space.
+
+    And as we drag around the generator's vector here,
+    so are we dragging around our own.
+    A novel sensation.
+
+    This is a wild theory
+    But not without neurocognitive precedent.
+  </build-note>
   <script>
     When(buildInRange(title2DreamsBlur, dreamsInterpolation))
       .changed((_, {dataset: {time, duration=0, paused, playbackRate=1}}) =>
@@ -340,10 +776,41 @@
   </script>
 
   <grid-cells id=grid></grid-cells>  
-  <build-note id=dreamsGrid></build-note>
-  <build-note id=dreamsGridFaster></build-note>
-  <build-note id=dreamsGridFlashing></build-note>
-  <build-note id=dreamsGridZoom></build-note>
+  <build-note id=dreamsGrid>
+    This is a rat in a cage
+
+    We've hooked an electrode up to a particular neuron in the rat's brain
+    And those pink dots are the locations where it fires.    
+  </build-note>
+  <build-note id=dreamsGridFaster>
+    If we speed it up...
+  </build-note>
+  <build-note id=dreamsGridFlashing>
+    ...A pattern begins to emerge.
+
+    This neuron is a grid cell
+    TODO: citation, actual experimental image
+    So named because the centers of its firing fields produce a triangular grid.
+    There are lots of grid cells in your brain
+    Each aligning to a different grid
+
+    They collect data from your visual system
+    from head direction cells, which encode the current quaternion for your head
+
+    And together, these cells seem to construct a vector encoding
+    our position in 2D Euclidian space.
+  </build-note>
+  <build-note id=dreamsGridZoom>
+    Something which you knew existed, if you think about it.
+
+    After all, you know where you are in space.
+    You <i>have a sense</i> of space as you move through it.
+    And it's likely
+      —even <i>necessary</i>, if we believe that cognition is computation—
+    That our qualitative sense of position has a neurocognitive precursor
+    
+    A signal in the web that tells us where we're at
+  </build-note>
 
   <script>
     When(dreamsGrid)
@@ -354,13 +821,17 @@
       .end(() => grid.playbackRate = 0)
   </script>
 
-  <build-note id=dreamsEnd></build-note>    
+  <build-note id=dreamsEnd>
+    In many senses of the word.
+  </build-note>    
 </div>
 
 <!-- 3. stones -->
 <div id=stones>
-  <build-note id=title3 data-title='3. '></build-note>
+  <build-note id=title3 data-title='3. '>Part three.</build-note>
   <build-note id=title3sticksAndStones data-title='3. sticks and stones'>
+    Sticks and stones.
+    
     They say you can't tickle yourself because you know it's coming.
     Specifically, when your brain sends an action command to your muscles...
   </build-note>

@@ -32,7 +32,7 @@
 
   .stonesEfferenceSend
   {
-    #titleWriter {
+    #titleWriter:local {
       animation: send-up 1s forwards;
     }
     > #stones {
@@ -115,7 +115,7 @@
         display: block;
         --wipe: 100%;
       }
-      > #fingersDidMove {
+      > #fingersDidMove:local {
         animation-name: send-up;
         animation-duration: 0.5s;
         animation-direction: reverse;
@@ -162,7 +162,7 @@
         display: block;
         --wipe: 100%;
       }
-      > #armpitWasTickled {
+      > #armpitWasTickled:local {
         animation:
           send-up 0.5s reverse,
           shrink 1s ease-in 1s forwards
@@ -312,7 +312,7 @@
       0 100%
     );
   }
-
+  
   @keyframes send-up {
     0% {
       top: 50%;

@@ -53,7 +53,7 @@ In the retina, the light stimulates photoreceptor cells to fire. These photorece
 
 [Show ganglions: 10x fewer]
 
-Problem:
+Problems:
 
 Our retinas have 120M luminance receptors—rods, and 6M color receptors—cones.
 
