@@ -19,18 +19,22 @@
 <!-- Introduction -->
 <div id=titleCard class=vbox>
   <type-writer id=titleWriter></type-writer>
+  <type-writer id=subTitleWriter></type-writer>
   <script>
     When().withName('update title card')
-      .changed((_, current) =>
+      .changed((_, current) => {
         'title' in current.dataset &&
           (titleWriter.text = current.dataset.title)
-      )
-  </script>    
+        'subtitle' in current.dataset
+          ? (subTitleWriter.text = current.dataset.subtitle)
+          : subTitleWriter.text = ''
+      })
+  </script>  
 </div>
 <build-note id=titleBlank            data-title="">
   Hi.
 </build-note>
-<build-note id=titleAshi             data-title="ashi krishnan">
+<build-note id=titleAshi             data-title="ashi krishnan" data-subtitle="@rakshesha &nbsp;&nbsp;&nbsp; ashi.io">
   I'm Ashi Krishnan
 </build-note>  
 <build-note id=titleLfm              data-title="learning from machines">
@@ -1057,4 +1061,6 @@
     in your head
 </build-note>
 <build-note id=titleThanks data-title='thank you.'></build-note>
-  
+<build-note id=titleEnd data-title="ashi krishnan" data-subtitle="@rakshesha &nbsp;&nbsp;&nbsp; ashi.io"></build-note>
+
+<div id=bug><span class=at>@</span>rakshesha</div>

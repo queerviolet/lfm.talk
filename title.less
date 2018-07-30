@@ -1,18 +1,57 @@
 @import "./base.less";
 
-:global(#titleCard) {
-  display: block;
-  .absolute();
+:global {
+  #titleCard {
+    display: block;
+    .absolute();
 
-  > :global(#titleWriter) {
-    .absoluteCenter();
-    .titleText();
-    white-space: pre;
+    > #titleWriter {
+      .absoluteCenter();
+      .titleText();
+      white-space: pre;
+    }
+
+    > #subTitleWriter {
+      position: absolute;
+      top: 60vh; left: 50%;
+      .titleText(@pink);
+      font-size: 5vh;
+      transform: translate(-50%);
+      transition: opacity 1s;
+      opacity: 0;
+    }
+  }
+
+  #bug {
+    position: fixed;
+    bottom: 4.5px; right: 4.5px;
+    color: darkgray;
+    // background: rgba(0, 0, 0, 0.5);
+    // text-shadow: 2px 2px 4px white;
+    border: thin solid darkgray;
+    padding: 4px;
+    padding-left: 7px;
+    // transform: rotate(-45deg);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+    > .at {
+      position: relative;
+      top: 3px;
+      left: -3px;
+    }
+  }
+
+  .titleAshi,
+  .titleEnd {
+    > #titleCard > #subTitleWriter {
+      opacity: 1;
+    }
   }
 }
 
-.titleText {
-  color: @electric-blue;
+.titleText(@color: @blue) {
+  color: @color;
+  --typewriter-cursor-color: @color;
   font-size: 10vh;
   text-align: center;
   --typewriter-typing-rate: 14;
