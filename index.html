@@ -34,9 +34,7 @@
   I'm Ashi Krishnan
 </build-note>  
 <build-note id=titleLfm              data-title="learning from machines">
-  Today, I'd like to share with you some things I've learned
-  at the intersection of computational neuroscience
-  and artificial intelligence.
+  Today, I'd like to share with you some things I've learned at the intersection of computational neuroscience and artificial intelligence.
 
   For years, I've been fascinated by how we think.
   How we perceive.
@@ -44,15 +42,13 @@
   Why our experiences are shaped like this and not that.
   Why we suffer.
 
-  And for years, I've been fascinated by AI. We're watching these machines begin
-  to approximate the tasks of our cognition in unsettling
+  And for years, I've been fascinated by AI. We're watching these machines begin to approximate the tasks of our cognition, in sometimes unsettling ways.
 
-  Today, I want to share with you some of what I've learned.
-  Some solid research. Some solid speculation.  
+  Today, I want to share with you some of what I've learned. Some solid research. Some solid speculation.  
 
   All of it speaks to a truth I have come to believe:
-  our brains are computers
-  and we are their computations.
+    our brains are computers
+    and we are their computations.
 
   Let's begin.
 </build-note>
@@ -113,10 +109,10 @@
   </script>
   <script src=inception.js></script>
   <build-note id=dreamFullscreenPaused>
-    This person is
+    This person is...
   </build-note>
   <build-note id=dreamFullscreenMiquel>
-    Miquel Perelló Nieto
+    ...Miquel Perelló Nieto
     And he has something to show us.
   </build-note>
   <script>
@@ -128,19 +124,20 @@
     It starts with simple patterns — splotches of light and dark.
     These give way to lines and colors.
     And then curves, more complex shapes.
-    This one: the crystalline farm fields of an alien world.
-    These: plant cells.
-    And here, the suggestion of many tiny eyes watching you.
   </build-note>
   <build-note id=dreamFullscreenShowLayer>
     We're diving through the layers of the Inception image classifier
-    To understand how, let's look inside...
+    And it seems there are worlds in here.
+    Shaded, multichromatic hatches.
+    The crystalline farm fields of an alien world.
+    Plant cells.
+    To understand where these visuals are coming from, let's look inside...
   </build-note>
   <build-note id=inception>
     The job of an image classifier is to reshape its input    
   </build-note>
   <build-note id=inceptionFromInput>
-    ...a square of pixels
+    ...which is a square of pixels
     Into its output...
   </build-note>
   <build-note id=inceptionToOutput>
@@ -149,8 +146,7 @@
     The probability of a dog, a banana, a toaster.
   </build-note>
   <build-note id=inceptionConv>
-    It performs this reshaping through a series of
-    convolutional filters.  
+    It performs this reshaping through a series of convolutional filters.  
   </build-note>
   <build-note id=inceptionConvForward>
     Convolutional filters are basically photoshop filters.
@@ -158,18 +154,15 @@
     This is a small patch of the previous layer from which it takes its input.
   </build-note>
   <build-note id=inceptionConvTraining>
-    Each convolutional layer applies a filter.
-    Specifically, it applies an image kernel.
-    A kernel is matrix of numbers, where each number represents the weight of
-    the corresponding input neuron.
-    Each pixel in each neuron's receptive field is multiplied by this weight, and then
-    we sum them all to produce this neuron's value.
+    Each convolutional layer applies a filter. Specifically, it applies an image kernel.
+    A kernel is matrix of numbers, where each number represents the weight of the corresponding input neuron.
+    Each pixel in each neuron's receptive field is multiplied by this weight, and then we sum them all to produce this neuron's value.
 
     The same filter is applied for every neuron across a layer.
     And the values in that filter are learned during training.
 
     We feed the classifier a labeled image
-    something where we know what's in it
+      —something where we know what's in it—
     it outputs predictions,
     we math to figure out how wrong that prediction was
     and then we math again, nudging each and every single filter in the direction that would have produced a better result
@@ -202,14 +195,13 @@
   <build-note id=dreamFullscreenKodamas data-time=126>
     And now we sortof have a city-of-Kodamas situation happening
     Then we enter spider observation area, in which spiders observe you.
-    But it's okay, because soon we the spiders become corgis.
-    In the 60s.
+    But it's okay, because soon the spiders become corgis.
+    And the corgis become the 70s.
   </build-note>
   <build-note id=dreamFullscreenNearlyHuman data-time=260>
     Later, we will find a space of nearly-human eyes
     Which become dog slugs
-    Space ships
-    Robots and stuff
+    And dog birds
   </build-note>  
   <build-note id=dreamFullscreenSaxophonist data-time=403>
     Unfortunate saxophonist teleporter accident
@@ -218,13 +210,14 @@
     And finally, the flesh zones, with a side of lizards.
 
     When I first saw this, I thought it looked like Donald Trump.
+
     And I resolved to never tell anyone until my best friend said the exact same thing.
-    Which I think says more about the state of <i>our</i> neural networks than this one.
-    (I think it's the lizard juxtaposition.)
+    
+    Says more about the state of <i>our</i> neural networks than this one. (I think it's the lizard juxtaposition.)
 
     But I do want you to think notice just how white all this skin is.
     
-    And this is all... <i>preeeety trippy</i>.
+    So this is all... <i>preeeety trippy</i>.
 
     Why is that? What does it mean, for something to be trippy?
 
@@ -244,7 +237,6 @@
         if (!deepDream.timeline) return
         deepDreamCurrentLayer.text = deepDream.timeline(deepDream).layer
         if (current !== prev && current.dataset.time) {
-          console.log('seek', current.dataset.time)
           deepDream.seekTo({time: +current.dataset.time, duration: 2, playbackRate: 1})
         }
       })
@@ -283,20 +275,17 @@
     Light comes into them, and immediately hits a membrane.
   </build-note>
   <build-note id=insideRetinaGanglions>
-    Then there's a layer of ganglions, which are not generally
-    photosensitive—though some of them are a little.
+    Then there's a layer of ganglions, which are not generally photosensitive—though some of them are a little.
   </build-note>
   <build-note id=insideRetinaEtc>
     There's a layer of some more stuff that does important things
   </build-note>
   <build-note id=insideRetinaPhotoreceptors>
-    And then at the back of your retina are your photoreceptors.
-    Rods and cones. Rods sense luminance, cones color
-    Way more rods than cones.
+    And then at the back of your retina are your photoreceptors: rods and cones.
   </build-note>
   <build-note id=insideRetinaLightGoesIn>
     So light comes in
-    winds its way through four layers of tissue and hits a photoreceptor    
+    winds its way through four layers of tissue and hits a photoreceptor
   </build-note>
   <build-note id=insideRetinaSignalComesOut>
     That photoreceptor gets excited. It sends out a signal to its ganglions
@@ -309,18 +298,20 @@
     It's okay. We can patch it up in software.
 
     There's a couple of other problems here too:
-    One, our retinas have 120M luminance receptors—rods, and 6M color receptors—cones.    
+
+    One, our retinas have 120M luminance receptors—rods, and 6M color receptors—cones.
+    
     There are about 10 times fewer ganglions.
   
     Two:
-    Our optic nerve can carry about <a href=https://www.newscientist.com/article/dn9633-calculating-the-speed-of-sight>10mbps</a>.
+    Our optic nerve has about <a href=https://www.newscientist.com/article/dn9633-calculating-the-speed-of-sight>10mbps</a> of bandwidth.
     
     So we're trying to stream the video from this hundred-megapixel camera through a pipe that's slower than WiFi.
     
     Our retinas do what you might, if faced with such a problem: they compress the data.    
   </build-note>
   <build-note id=insideRetinaReceptiveField>
-    Each ganglion connects to a patch of 100 or so photoreceptor cells—its *receptive field*.
+    Each ganglion connects to a patch of 100 or so photoreceptor cells—its <i>receptive field</i>
     divided into an central disk and the surrounding region. In, and out. Center & surround.
     When there's no light on the entire field, the ganglion doesn't fire.
   </build-note>
@@ -339,8 +330,12 @@
     surround is dark.
 
     Taken together, these ganglions constitute an edge detection filter.
-    Which lets us downsample the signal from our photoreceptors a hundred times
-    While retaining vitally important information: where the boundaries of objects are.
+
+    We are doing processing even in our eyeballs.
+
+    This processing lets us downsample the signal from our photoreceptors a hundred times
+
+    while retaining vitally important information: where the boundaries of objects are.
   </build-note>
   <build-note id=insideBrain>
     Then the signal goes through the brain
@@ -351,11 +346,9 @@
     giving us 3d stereo vision
   </build-note>
   <build-note id=insideThalamus>
-    It's processed by the Thalamus, which is responsible, amongst other things,
-    for running our autofocus.
+    It's processed by the Thalamus, which is responsible, amongst other things, for running our eyes' autofocus.
 
-    Each step of this signal pathway does a little bit of processing, extracting
-    progressively higher-level features.
+    Each step of this signal pathway is performing signal a little bit of processing, extracting progressively higher-level features.
 
     And that's all before we get to...
   </build-note>
@@ -367,23 +360,20 @@
     <img src=assets/visual-cortex.jpg></img>
   </div>  
   <build-note id=insideVisualCortexLayers>
+    Our visual cortex is arranged into a stack of neuronal layers.
     <!-- Figure: THE HUMAN VISUAL CORTEX
     Kalanit Grill-Spector and Rafael Malach
     Annual Review of Neuroscience 2004 27:1, 649-677  -->
-
-    Our visual cortex is arranged into a stack of neuronal layers.
     
     The signal stays relatively spatially oriented through the visual cortex
     So there's some slice of tissue in the back of the brain that's responsible for pulling
     faces out of <i>this</i> particular chunk of your visual field
 
-    —with, obviously, the redundancies and slop that we've come to expect from any
-    NN, whether artificial or biological—
+    —with, obviously, the redundancies and slop that we've come to expect from any NN, whether artificial or biological—
 
     Each neuron in a layer has a receptive field—some chunk of the entire visual field that it’s “looking at”.
     Neurons in a given layer respond the same way to signals within their receptive field.
-    That operation, distributed over a whole layer of receptive fields, extracts features
-    from the visual signal.
+    That operation, distributed over a whole layer of receptive fields, extracts features from the visual signal.
     
     first simple features, like lines, and curves, and edges, and then more complex ones
     like gradients and surfaces and objects, eyes, and faces.
@@ -462,7 +452,7 @@
     <img src=assets/lsd-binding-lid.png>
   </div>  
   <build-note id=inside5ht2a>
-      That’s the 5-HT2A receptor.
+      This is the 5-HT2A receptor.
       This receptor is the primary target for every known psychedelic drug.
       It is what enables our brain to create psychedelic experiences.
 
@@ -475,28 +465,30 @@
       it’s likely just because you’re excited for what’s going to happen.
 
       What’s about to happen is: LSD will diffuse into your blood.
-      LSD is a tiny molecule. It has no trouble crossing the blood brain
-      barrier and diffusing deep into your brain, perhaps into your visual cortex,
-      where it finds a pyramidal 5-HT2A receptor and locks into place.
+
+      LSD is a tiny molecule. It has no trouble crossing the blood brain barrier and diffusing deep into your brain, perhaps into your visual cortex, where it finds a pyramidal 5-HT2A receptor and locks into place.
   </build-note>
   <build-note id=inside5ht2aLSDBinding>
     The LSD molecule stays bound for around 221 minutes(https://www.cell.com/cell/pdf/S0092-8674(16)31749-4.pdf).
     4 hours
     That’s an astonishingly long time.
     They think a couple of proteins snap in and form a lid over top of the receptor, trapping the LSD inside.
+    
     This would help explain why LSD is so very potent, with typical doses around a thousand times smaller than most drugs.
 
     And while it rattles around in there, our little LSD is stimulating a feedback loop in your visual cortex.
     It sends the signal: what you’re looking at is interesting.
-    It may be nourishing. Pay attention.
+    It may be nourishing.
+    Pay attention.
     The pattern finding machinery in your cortex to starts to run overtime, and at different rates.
-    In one moment, the pattern in a tapestry seems to extend into the world beyond it; in the next,
-    it is the trees that are growing and breathing, the perception of movement a visual hypothesis allowed to grow wild.
+    
+    In one moment, the pattern in a tapestry seems to extend into the world beyond it; in the next, it is the trees that are growing and breathing, the perception of movement a visual hypothesis allowed to grow wild.
     
     With Deep Dream, we asked what would excite some layer of Inception, and then we adjusted the input image in that direction.
+
     There’s no comparable gradient ascent process in biological psychedelic experience.
-    That’s because we aren’t looking at a source image—we’re looking at the output of the network.
-    We <i>are</i> the output of the network. The output of your visual cortex is a signal carrying visual perceptions,
+
+    That’s because we aren’t looking at a source image—we’re looking at the output of the network. We <i>are</i> the output of the network. The output of your visual cortex is a signal carrying visual perceptions,
     —proto qualia—
     which will be integrated by other circuits to produce your next moment of experience.
 
@@ -504,8 +496,7 @@
     We never even run it all the way to the classification stage—we never ask it what it sees in all this.
     
     But we could.
-    We could perform the amplification process on a final result,
-    rather than an intermediate one.    
+    We could perform the amplification process on a final result, rather than an intermediate one.    
   </build-note>
   <script>
     When(buildInRange(inside5ht2a, inside5ht2aLSDBinding))
@@ -538,8 +529,7 @@
     Or, “Say, don't these skiiers look like a dog?"
 
     These are adversarial examples.
-    Images tuned to give classifiers <i>frank hallucinations</i>.
-    The confident belief that they're seeing something that just isn't there.
+    Images tuned to give classifiers <i>frank hallucinations</i>. The confident belief that they're seeing something that just isn't there.
 
     They’re not completely wild, these robot delusions.
 
@@ -549,18 +539,13 @@
 
     A person might look at this and—if they’re tired, far away, and drunk—think for a moment that it’s a big dog.
     But they probably wouldn’t conclude it’s a big dog.
-    The recurrent properties of our visual cortex—not to mention much of the rest of our brain—means
-    that our sense of the world is stateful. It’s a continually refined hypothesis,
-    whose state is held by the state of our neurons.
+    The recurrent properties of our visual cortex—not to mention much of the rest of our brain—means that our sense of the world is stateful. It’s a continually refined hypothesis, whose state is held by the state of our neurons.
     
-    "A parse tree is carved out of a fixed multilayer neural network like a sculpture is carved from a rock” ([Sabour 2017](https://arxiv.org/pdf/1710.09829.pdf)).
+    Lisa Sabour: "A parse tree is carved out of a fixed multilayer neural network like a sculpture is carved from a rock” ([Sabour 2017](https://arxiv.org/pdf/1710.09829.pdf)).
     
     Our perceptions are a process of continuous refinement.
 
-    This may point the way towards more robust recognition architectures.
-    Recurrent convolutional networks that ruminate upon images,
-    possibly operating with greater accuracy,
-    or providing a signal that something is off about an input.
+    This may point the way towards more robust recognition architectures. Recurrent convolutional networks that ruminate upon images, possibly operating with greater accuracy, or providing a signal that something is off about an input.
     
     There are adversarial examples for the human visual system, after all, and we call them optical illusions.
     And they <i>feel weird</i> to look at.
@@ -574,18 +559,16 @@
     <img src=assets/munker-confetti.jpg_large>
   </div>  
   <build-note id=insideBoxIllusion>
-    TODO: box-illusion-cube.png
     In this image we can feel our sensory interpretation of the scene flipping between three alternatives
       a little box in front of a big one
       a box in a corner
       and a box missing one
   </build-note>
   <build-note id=insideConfettiIllusion>
-    TODO: confetti
-    And in this one, we can feel something scintillating about the colors—which are, incidentally, all the same.
+    And in this Munker illusion, we can feel something scintillating about the colors of the dots—which are, incidentally, all the same.
         
     If we design CNNs with recurrence, they could exhibit such behavior as well
-    —which maybe doesn't sound like such a good thing, on the face of it.
+    which maybe doesn't sound like such a good thing, on the face of it.
     
     Let's make our image classifiers vascillating. Uncertain.
     But our ability to hem and haw and reconsider our own perceptions at many levels gives our perceptual system
@@ -675,6 +658,7 @@
     REAL and FAKE
   
     Its job is to distinguish the Creator's forgeries from true faces.
+
     We feed <i>this</i> network with ground truth
     with actual examples of celebrity faces.
     And the Adversary learns.
@@ -694,8 +678,7 @@
 
     This is an incredibly powerful training methodology.
     A semi-supervised learning technique.
-    Because, see, we haven't found every possible image that the generator might make
-    and labeled them PLAUSIBLE and IMPLAUSIBLE
+    Because, see, we haven't found every possible image that the generator might make and labeled them PLAUSIBLE and IMPLAUSIBLE
 
     Instead, there is this process of recursive co-training
     In which these two circuits play this <i>game</i>
@@ -815,7 +798,7 @@
 
   <grid-cells id=grid></grid-cells>  
   <build-note id=dreamsGrid>
-    This is a rat in a cage
+    Here we have a rat in a cage
 
     We've hooked an electrode up to a particular neuron in the rat's brain
     And those pink dots are the locations where it fires.    
@@ -835,8 +818,7 @@
     They collect data from your visual system
     from head direction cells, which encode the current quaternion for your head
 
-    And together, these cells seem to construct a vector encoding
-    our position in 2D Euclidian space.
+    And together, these cells construct an encoding of our position in 2D Euclidian space.
   </build-note>
   <build-note id=dreamsGridZoom>
     Something which you knew existed, if you think about it.
@@ -1019,7 +1001,7 @@
     They are both shatterings
     Illuminations of discontinuities
     Paradoxes: things which cannot be
-    and yet are
+      and yet are
 
     Which we must revist again and again, churning
     As the machinery of our brains tries to make sense
