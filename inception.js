@@ -14,7 +14,7 @@ global.inceptionPixelsViz = (condition, video, canvas) => {
   }
 
   return When(condition)
-    .start(() => ctx.imageSmoothingEnabled = false)
+    .start(() => ctx.imageSmoothingEnabled = true)
     .frame(() => {
       resize()
       ctx.drawImage(video, 0, 0, 32, 32, 0, 0, width, height)  

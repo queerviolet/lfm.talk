@@ -261,3 +261,6 @@ Or while asleep.
   - Cognition seems to be computation
   - Overtraining
   - Expert stagnation
+
+## Feedback
+  - define: ganglion, pyramidal cell (call it pyramidal neuron)

@@ -1,9 +1,9 @@
 import Timeline from './timeline'
 global.Timeline = Timeline
 
-import Builds from './builds'
+// import Builds from './builds'
 
-global.Builds = Builds
+// global.Builds = Builds
 
 import {When, For, buildInRange, runAnimatorStep, always, match, lerp, every, sec, any} from './when'
 Object.assign(global, {When, For, buildInRange, always, every, sec, lerp, any})

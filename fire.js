@@ -20,7 +20,7 @@ const watchFirebase = () =>
     if (hash) window.location.hash = hash
   })
 
-global.__host || watchFirebase()
+// global.__host || watchFirebase()
 
 import {When} from './when'
-When().changed((_, build) => global.__host && hashRef.set(build.id))
+// When().changed((_, build) => global.__host && hashRef.set(build.id))
