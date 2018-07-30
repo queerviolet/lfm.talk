@@ -367,10 +367,9 @@
     <img src=assets/visual-cortex.jpg></img>
   </div>  
   <build-note id=insideVisualCortexLayers>
-    TODO: add visual-cortex.jpg
-    THE HUMAN VISUAL CORTEX
+    <!-- Figure: THE HUMAN VISUAL CORTEX
     Kalanit Grill-Spector and Rafael Malach
-    Annual Review of Neuroscience 2004 27:1, 649-677 
+    Annual Review of Neuroscience 2004 27:1, 649-677  -->
 
     Our visual cortex is arranged into a stack of neuronal layers.
     
@@ -404,10 +403,9 @@
   <build-note id=insideVisualCortexRecurrent>    
     Our visual cortex is ofc different from Inception in... many ways
 
-    TODO: Add image vis-heirarchy-macaque.gif
-    CEREBRAL CORTEX
+    <!-- Figure: CEREBRAL CORTEX
     Felleman, D. J. and Van Essen, D. C. (1991)
-    1:1-47.
+    1:1-47. -->
 
     A key difference is that our visual cortex contains <i>feedback loops</i>—pyramidal cells that connect deeper layers to earlier ones.
     These feedback loops allow the results of deeper layers to inform the behavior of earlier ones, for instance by turning up the gain on edge detection along the boundary of a region that was later detected as an object. It lets our visual system adapt and focus—not optically, but attentionally. It gives it the ability to ruminate on visual input, well before we become conciously aware of it, improving predictions over time.
@@ -566,13 +564,23 @@
     
     There are adversarial examples for the human visual system, after all, and we call them optical illusions.
     And they <i>feel weird</i> to look at.
-    
+  </build-note>
+  <div id=boxIllusion>
+    <type-writer id=boxIllusionTitle></type-writer>
+    <img src=assets/box-illusion-cube.png>
+  </div>
+  <div id=confettiIllusion>
+    <type-writer id=confettiIllusionTitle></type-writer>
+    <img src=assets/munker-confetti.jpg_large>
+  </div>  
+  <build-note id=insideBoxIllusion>
     TODO: box-illusion-cube.png
     In this image we can feel our sensory interpretation of the scene flipping between three alternatives
       a little box in front of a big one
       a box in a corner
       and a box missing one
-    
+  </build-note>
+  <build-note id=insideConfettiIllusion>
     TODO: confetti
     And in this one, we can feel something scintillating about the colors—which are, incidentally, all the same.
         
@@ -612,7 +620,7 @@
         .filter(x => !x.skully)
     When(hallucinationsToSleep)
       .start(() => titleWriter.text = '')
-      .frame(every(0.1[sec]) ((_, i) => {
+      .frame(every(0.2[sec]) ((_, i) => {
         const lastBuild = hallucinationBuilds[hallucinationBuilds.length - i - 2]
         const nextBuild = hallucinationBuilds[hallucinationBuilds.length - i - 3]
         if (!nextBuild) return

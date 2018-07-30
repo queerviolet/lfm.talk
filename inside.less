@@ -176,11 +176,36 @@
   }
 }
 
+
+:global(.insideBoxIllusion #hallucinations),
+{
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+  :global(#boxIllusion) {
+    transform:  translate(-50%, -50%) scale(1);
+  }
+}
+
+:global(.insideConfettiIllusion #hallucinations),
+{
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+
+  :global(#boxIllusion) {
+    transform: translate(calc(-100% + 10vw), -50%) scale(1);
+  }
+  :global(#confettiIllusion) {
+    transform: translate(-5vw, -50%) scale(1);
+  }
+}
+
 :global(.hallucinationsToSleep #hallucinations),
 {
   .gray-full();
   animation-name: glow-zonk-out;
-  animation-duration: 2.5s;
+  animation-duration: 3s;
   animation-fill-mode: forwards;
 }
 
@@ -240,6 +265,8 @@
 :global(#adversarialSkiiers),
 :global(#visualCortexLayers),
 :global(#visualCortexMap),
+:global(#boxIllusion),
+:global(#confettiIllusion),
 {
   .window();
   > type-writer { .type-writer-title(); }
