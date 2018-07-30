@@ -12,6 +12,7 @@ import './type-writer'
 import './seek-able'
 import './rat'
 import './body-model'
+import './oscill-o-scope'
 import { resolve } from 'when';
 // import './sketch'
 

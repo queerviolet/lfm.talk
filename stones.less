@@ -194,7 +194,8 @@
     }
   }
   
-  .stonesCerebellumWider
+  .stonesCerebellumWider,
+  .stonesCerebellumLanguage
   {
     #titleWriter { display: none; }
     > #stones {
@@ -213,6 +214,32 @@
       > #soboCerebellum {
         display: block;
         transform: translate(-85%, -50%) rotate(90deg);
+      }
+    }
+  }
+
+  .stonesLaughter
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #bodyModel {
+        display: block;
+        --wipe: 0%;
+        transform: translate(7vw, -10vh) scale(0.2);
+        border: 5px solid fuchsia;
+        backdrop-filter: brightness(200%) hue-rotate(257deg);
+      }
+      > #grayCerebellum {
+        display: block;
+        opacity: 1;
+        transform: translate(0, -50%);
+      }
+      > #soboCerebellum {
+        display: block;
+        transform: translate(-85%, -50%) rotate(90deg);
+      }
+      > oscill-o-scope {
+        
       }
     }
   }
@@ -254,6 +281,12 @@
     columns: 3;
     font-size: 16px;
     transition: 2s;
+  }
+
+  oscill-o-scope {
+    display: block;
+    .fixed();
+    border: thin solid fuchsia;
   }
 
   body-model {
