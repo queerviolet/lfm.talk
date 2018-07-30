@@ -158,17 +158,23 @@ body[data-current-build^="dreamFullscreen"] :global(#hallucinations),
   background: black;
   perspective: 100vh;
   transform: scale(0);
+  filter: blur(50px);
+  opacity: 0;
 }
 
 .fullscreen-black {
   display: block;
   background: black;
-  transform: scale(1);  
+  transform: scale(1);
+  filter: none;
+  opacity: 1;
 }
 
 .fullscreen-gray {
   background: @light-gray;
   transform: scale(1);
+  filter: none;
+  opacity: 1;  
 }
 
 :global(#miquel) {
