@@ -210,6 +210,7 @@
         display: block;
         opacity: 1;
         transform: translate(0, -50%);
+
       }
       > #soboCerebellum {
         display: block;
@@ -228,18 +229,73 @@
         transform: translate(7vw, -10vh) scale(0.2);
         border: 5px solid fuchsia;
         backdrop-filter: brightness(200%) hue-rotate(257deg);
+        opacity: 0;
       }
       > #grayCerebellum {
         display: block;
         opacity: 1;
         transform: translate(0, -50%);
+        .wipe-vertical-center();
+        --wipe: 100%;
       }
       > #soboCerebellum {
         display: block;
         transform: translate(-85%, -50%) rotate(90deg);
+        transition: clip-path 4s;
+        .wipe-horizontal-center();
+        --wipe: 100%;
       }
       > oscill-o-scope {
-        
+        display: block
+      }
+    }
+  }
+
+  .stonesSobbing,
+  {
+    #titleWriter { display: none; }
+    > #stones {
+      > #grayCerebellum {
+        display: block;
+        opacity: 1;
+        transform: translate(0, -50%);        
+        .wipe-vertical-center();
+        --wipe: 0%;
+      }
+      > #soboCerebellum {
+        display: block;
+        transform: translate(-85%, -50%) rotate(90deg);
+        .wipe-horizontal-center();
+        --wipe: 0%;
+      }
+      > oscill-o-scope {
+        display: block
+      }
+    }
+  }
+
+  .stonesStopSobbing, .titleConclusion1
+  {
+    #titleWriter { display: block; opacity: 0; }
+    > #stones {
+      > oscill-o-scope {
+        display: block;
+        .wipe-horizontal-center();
+        transition: clip-path 15s;
+        --wipe: 100%;
+      }
+    }
+  }
+
+  .titleConclusion2,
+  {
+    #titleWriter { display: block; opacity: 0; }
+    > #stones {
+      > oscill-o-scope {
+        display: block;
+        .wipe-horizontal-center();
+        transition: clip-path 15s;
+        --wipe: 0%;
       }
     }
   }
@@ -284,9 +340,9 @@
   }
 
   oscill-o-scope {
-    display: block;
     .fixed();
     border: thin solid fuchsia;
+    display: none;
   }
 
   body-model {
@@ -392,6 +448,7 @@
 
   #soboCerebellum {
     .absoluteCenter();
+    display: none;
     z-index: -100;
     transform: translate(calc(-100vw - 50%), -50%) rotate(90deg);
     transition: transform 1s;
@@ -410,4 +467,24 @@
   & .value:local {
     animation: flash @period @count;
   }
+}
+
+.wipe-vertical-center {
+  transition: clip-path 4s;
+  clip-path: polygon(
+    0 calc(50% - var(--wipe) / 2),
+    100% calc(50% - var(--wipe) / 2),
+    100% calc(50% + var(--wipe) / 2),
+    0 calc(50% + var(--wipe) / 2)
+  );
+}
+
+.wipe-horizontal-center {
+  transition: clip-path 4s;
+  clip-path: polygon(
+    calc(50% - var(--wipe) / 2) 0,
+    calc(50% - var(--wipe) / 2) 100%,
+    calc(50% + var(--wipe) / 2) 100%,
+    calc(50% + var(--wipe) / 2) 0 
+  );
 }

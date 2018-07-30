@@ -1008,11 +1008,10 @@
     <audio id=laugh2 src=assets/man-laugh.wav data-stroke=cyan></audio>
     <audio id=sob src=assets/sobbing.wav data-stroke=red></audio>
   </oscill-o-scope>    
-  <build-note id=stonesLaughter>
-    We laugh.
-    Or: we cry.
-
+  <build-note id=stonesLaughter></build-note>
+  <build-note id=stonesSobbing>
     The structure of these acts is not so different.
+
     Visceral. Gutteral.
 
     And neither is the shape of jokes so different from the shape of trauma.
@@ -1025,13 +1024,32 @@
     As the machinery of our brains tries to make sense
     Of a world that resists it.
   </build-note>
+  <build-note id=stonesStopSobbing>    
+  </build-note>
   <script>
+    oscillo.setup()
     When(any(stonesLifeGoesOn, buildInRange(stonesLifeGoesOnAgain, stonesInTheCerebellum)))
       .frame(every(0.1[sec])(() => bodyModel.update()))
+
+    When(stonesLaughter)
+      .start(() => {
+        laugh1.currentTime = 0
+        laugh2.currentTime = 0
+        laugh1.play()
+        laugh2.play()
+      })
+
+    When(stonesSobbing)
+      .start(() => {
+        sob.volume = 1
+        sob.currentTime = 0
+        sob.play()
+      })
+      .end(() => sob.pause())
   </script>
 </div>
 
-<build-note id=titleConclusion data-title=''>
+<build-note id=titleConclusion1 data-title=''>
   Preparing this talk has been a challenging time for me.
   I didn't think I could do it.
   The world appears to be falling apart.
@@ -1044,7 +1062,8 @@
   
   Our worlds are engineered creations
   Of ourselves
-  
+</build-note>
+<build-note id=titleConclusion2>  
   And everything you have ever known
     every place you have ever been
     every god you have ever believed in

@@ -2,7 +2,7 @@ import {When, sec, lerp, every, addAnimator, removeAnimator} from './when'
 
 import path from './ratpath'
 
-const {sin, cos, floor, acos, random, PI} = Math
+const {random} = Math
 
 class OscillOScope extends HTMLElement {
   constructor() {
@@ -48,7 +48,7 @@ class OscillOScope extends HTMLElement {
         analyser.fftSize = 2048
         const bufferLength = analyser.frequencyBinCount
         const data = new Uint8Array(bufferLength)
-        return {analyser, data, strokeStyle: audio.dataset.stroke}
+        return {analyser, data, audio, strokeStyle: audio.dataset.stroke}
       })
   }
 
@@ -61,9 +61,11 @@ class OscillOScope extends HTMLElement {
     }
   }
 
-  draw({analyser, data, strokeStyle}) {
+  draw({analyser, data, audio, strokeStyle}) {
     const {ctx, width, height} = this
-    analyser.getByteTimeDomainData(data)
+    audio.paused
+      ? fillNoise(data)
+      : analyser.getByteTimeDomainData(data)
     ctx.strokeStyle = strokeStyle
     ctx.lineWidth = 2
     const step = width / data.length
@@ -81,6 +83,16 @@ class OscillOScope extends HTMLElement {
     ctx.stroke()
   }
 }
+
+const fillNoise = data => {
+  let v = randomSample()
+  let {length: i} = data; while (i --> 0) {
+    if (random() < 0.2) v = randomSample()
+    data[i] = v
+  }
+}
+
+const randomSample = (range=2) => 128 + random() * range
 
 const fit = (canvas, ctx, box) => {
   const width = box.width * devicePixelRatio
