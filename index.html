@@ -13,7 +13,7 @@
 <script src=main.js></script>
 <script src=create.js></script>
 <script>
-  const {min, max} = Math
+  const {floor, random} = Math
 </script>
 
 <!-- Introduction -->
@@ -252,7 +252,7 @@
     ))
 
     const randomRow = w => () => new Array(w).fill(0)
-      .map((() => Math.random().toString().substr(0, 3) + ' '))
+      .map((() => random().toString().substr(0, 3) + ' '))
       .join('') + '\n'
     const randomMatrix = (w, h) =>
       '[\n' + new Array(h).fill(0).map(randomRow(w)).join('') + ']'
@@ -734,7 +734,7 @@
     When(buildInRange(dreamsTraining, dreamsTrainingFeedback))
       .frame(function() {
         this.lastTime = this.lastTime || 0
-        const now = Math.floor(facesVideo.currentTime * 10)
+        const now = floor(facesVideo.currentTime * 10)
         if (this.lastTime !== now) {
           gen_9.innerHTML = `<pre>${randomMatrix(5, 5)}</pre>`
           gen_9.style.opacity = 1

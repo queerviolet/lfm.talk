@@ -2,7 +2,7 @@ import {When, sec, lerp, every, addAnimator, removeAnimator} from './when'
 
 import path from './ratpath'
 
-const {sin, cos, floor, acos, random, PI} = Math
+const {min, floor, acos, random, PI} = Math
 
 class GridCells extends HTMLElement {
   // static get observedAttributes() { return ['text'] }

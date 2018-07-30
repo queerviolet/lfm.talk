@@ -1,6 +1,4 @@
-import {When, sec, lerp, every, addAnimator, removeAnimator} from './when'
-
-import path from './ratpath'
+import {addAnimator, removeAnimator} from './when'
 
 const {random} = Math
 
