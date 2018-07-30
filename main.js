@@ -14,7 +14,7 @@ import './rat'
 import './body-model'
 import './oscill-o-scope'
 
-import './fire'
+// import './fire'
 
 function collectBuilds() {
   const all = Array.from(document.getElementsByTagName('build-note'))
