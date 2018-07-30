@@ -13,8 +13,6 @@ import './seek-able'
 import './rat'
 import './body-model'
 import './oscill-o-scope'
-import { resolve } from 'when';
-// import './sketch'
 
 function collectBuilds() {
   const all = Array.from(document.getElementsByTagName('build-note'))
@@ -33,7 +31,6 @@ const getBuildIdFromHash = () => window.location.hash.substr(1)
 const getCurrentBuild = () => document.getElementById(getBuildIdFromHash())
 const setCurrentBuild = build => {
   build && (window.location.hash = '#' + build.id)
-  console.log('writing current build=', build.id)
   localStorage.currentBuild = build.id
 }
 
