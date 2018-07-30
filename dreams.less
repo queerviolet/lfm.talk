@@ -36,7 +36,7 @@ body[data-current-build^="title2"] :global(#hallucinations),
     > :global(#faces) {
       .full();
       > :global(.gen-layer) {
-        .animate-layers();
+        .animate-layers(pulse-blue);
         opacity: 1
       }
     }
@@ -49,11 +49,11 @@ body[data-current-build^="title2"] :global(#hallucinations),
     > :global(#faces) {
       .full();
       > :global(.gen-layer) {
-        .animate-layers();
+        .animate-layers(pulse-blue);
         opacity: 1;
       }
       > :global(.discrim-layer) {
-        .animate-layers(pulse-blue, @t: calc(1 - var(--layer-t)));
+        .animate-layers(pulse, @t: calc(1 - var(--layer-t)));
         opacity: 1;
       }
     }
@@ -67,11 +67,11 @@ body[data-current-build^="title2"] :global(#hallucinations),
       .full();
       transform: scale(1.8) translateY(15vh);
       > :global(.gen-layer) {
-        .animate-layers();
+        .animate-layers(pulse-blue);
         opacity: 1;
       }
       > :global(.discrim-layer) {
-        .animate-layers(pulse-blue, @t: calc(1 - var(--layer-t)));
+        .animate-layers(pulse, @t: calc(1 - var(--layer-t)));
         opacity: 1;
       }
     }
@@ -293,7 +293,7 @@ grid-cells {
     @from-height: 100%, @to-height: 50%,
     @from-z: 0vw, @to-z: 15vw);
   transition: opacity 1s;
-  border: 3px solid @pink;
+  border: 3px solid @blue;
   color: white;
   display: flex;
   align-items: center;
@@ -310,7 +310,7 @@ grid-cells {
     @from-z: 0vw, @to-z: -15vw);
   transition: opacity 1s;
   opacity: 0;
-  border: 3px solid @electric-blue;
+  border: 3px solid fuchsia;
   color: white;
   display: flex;
   align-items: center;

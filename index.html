@@ -627,7 +627,8 @@
         document.body.classList.remove(lastBuild.id)
         document.body.classList.add(nextBuild.id)
       }))
-      .end(() => document.body.classList.remove(hallucinationBuilds[0].id))
+      .end(() => hallucinationBuilds.forEach(b =>        
+        document.body.classList.remove(b.id)))
   </script>
 </div>
 
@@ -858,7 +859,7 @@
       .end(() => grid.playbackRate = 0)
   </script>
 
-  <build-note id=dreamsEnd>
+  <build-note id=dreamsEnd data-title=''>
     In many senses of the word.
   </build-note>    
 </div>
@@ -1027,12 +1028,12 @@
   <build-note id=stonesStopSobbing>    
   </build-note>
   <script>
-    oscillo.setup()
     When(any(stonesLifeGoesOn, buildInRange(stonesLifeGoesOnAgain, stonesInTheCerebellum)))
       .frame(every(0.1[sec])(() => bodyModel.update()))
 
     When(stonesLaughter)
       .start(() => {
+        oscillo.setup()
         laugh1.currentTime = 0
         laugh2.currentTime = 0
         laugh1.play()
@@ -1063,7 +1064,7 @@
   Our worlds are engineered creations
   Of ourselves
 </build-note>
-<build-note id=titleConclusion2>  
+<build-note id=titleConclusion2 data-title=''> 
   And everything you have ever known
     every place you have ever been
     every god you have ever believed in
