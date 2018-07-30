@@ -5,8 +5,6 @@ import path from './ratpath'
 const {min, floor, acos, random, PI} = Math
 
 class GridCells extends HTMLElement {
-  // static get observedAttributes() { return ['text'] }
-
   constructor() {
     super()
 
