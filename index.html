@@ -342,15 +342,17 @@
     Which lets us downsample the signal from our photoreceptors a hundred times
     While retaining vitally important information: where the boundaries of objects are.
   </build-note>
-  <build-note id=insideThroughTheBrain>
+  <build-note id=insideBrain>
     Then the signal goes through the brain
-    It hits the optical chiasma, where the data streams from your left and right eyes cross
-    The left field of view from both eyes is taken to one side of the brain—the right side, as it happens
-    And the right field of view from both eyes is taken to the left
-    This gives those brain regions stereo depth information about their field of view.
-
-    That information is processed in the lateral geniculate nucleus, which does a whole mess of things,
-    including some basic object tagging, and controlling the focus of our eyes.
+  </build-note>
+  <div id=highlightBox></div>
+  <build-note id=insideChiasma>
+    It hits the optic chiasma, where the data streams from your left and right eyes cross,
+    giving us 3d stereo vision
+  </build-note>
+  <build-note id=insideThalamus>
+    It's processed by the Thalamus, which is responsible, amongst other things,
+    for running our autofocus.
 
     Each step of this signal pathway does a little bit of processing, extracting
     progressively higher-level features.
@@ -359,7 +361,12 @@
   </build-note>
   <build-note id=insideVisualCortex>
     Ths visual cortex. All the way around here in the back.
-    
+  </build-note>
+  <div id=visualCortexLayers>
+    <type-writer id=visualCortexLayersTitle></type-writer>
+    <img src=assets/visual-cortex.jpg></img>
+  </div>  
+  <build-note id=insideVisualCortexLayers>
     TODO: add visual-cortex.jpg
     THE HUMAN VISUAL CORTEX
     Kalanit Grill-Spector and Rafael Malach
@@ -385,7 +392,16 @@
     It’s no accident that we see the same behavior in Inception—
     convolutional neural networks were inspired by
     the structure of our visual cortex.
-    
+  </build-note>
+  <script>
+    When(insideVisualCortexLayers)  
+      .start(() => visualCortexLayersTitle.text = 'Human Visual Cortex (Grill-Spector 2004)')
+  </script>
+  <div id=visualCortexMap>
+    <type-writer id=visualCortexMapTitle></type-writer>
+    <img src=assets/vis-heirarchy-macaque.gif>
+  </div>    
+  <build-note id=insideVisualCortexRecurrent>    
     Our visual cortex is ofc different from Inception in... many ways
 
     TODO: Add image vis-heirarchy-macaque.gif
@@ -411,6 +427,11 @@
     There’s another serotonin receptor, one that the pyramidal cells in your brain find particularly exciting.    
   </build-note>
   <script>
+    When(insideVisualCortexRecurrent)  
+      .start(() =>
+        visualCortexMapTitle.text = 'Visual heirarchy (Felleman 1991)')
+  </script>  
+  <script>
     insideEnterSkully.skully = {time: 0, paused: true}
     insideLessCruft.skully = {time: 14.8, duration: 5, paused: true}
     insideRetina.skully = {time: 20, duration: 20 - 14.8, paused: true}
@@ -425,7 +446,9 @@
     insideRetinaReceptiveFieldOffCenterFiring.skully = {time: 51.5, duration: 3, paused: true}
     insideRetinaReceptiveFieldOffCenterDead.skully = {time: 51.63, duration: 1, paused: true}
     insideRetinaReceptiveFieldOnCenterFiring.skully = {time: 51.8, duration: 1, paused: true}
-    insideThroughTheBrain.skully = {time: 65, duration: 3, paused: true}
+    insideBrain.skully = {time: 65, duration: 3, paused: true}
+    insideChiasma.skully = {time: 65, duration: 3, paused: true}
+    insideThalamus.skully = {time: 65, duration: 3, paused: true}
     insideVisualCortex.skully = {time: 86, duration: 5, paused: true}
 
     When(buildInRange(insideEnterSkully, insideVisualCortex))
@@ -482,8 +505,9 @@
     Inception never gets that far.
     We never even run it all the way to the classification stage—we never ask it what it sees in all this.
     
-    But we could. In fact,Inception never gets that far. We never even run it all the way to the classification stage—we never ask it what it sees in all this. But we could. In fact, we could perform the amplification process on a final result, rather than an intermediate one. We could ask, “what would it take to get you to see a dog in this photo of two skiiers?” Or, “Say, doesn’t this banana look like a toaster?"
-    we could perform the amplification process on a final result, rather than an intermediate one.    
+    But we could.
+    We could perform the amplification process on a final result,
+    rather than an intermediate one.    
   </build-note>
   <script>
     When(buildInRange(inside5ht2a, inside5ht2aLSDBinding))
@@ -499,7 +523,7 @@
 
   <div id=adversarialSticker>
     <type-writer id=stickerTitle></type-writer>
-    <video src=assets/adversarial-sticker.m4v loop autoplay preload>
+    <video id=stickerVideo src=assets/adversarial-sticker.m4v loop autoplay preload>
   </div>
   <div id=adversarialSkiiers>
     <type-writer id=skiiersTitle></type-writer>
@@ -508,10 +532,15 @@
   <build-note id=insideAdversarialSticker>
     Maybe we ask, “what would it take for you to see this banana as a toaster?"
   </build-note>
+  <script>
+    When(insideAdversarialSticker)
+      .start(() => stickerVideo.play())
+  </script>
   <build-note id=insideAdversarialSkiiers>
     Or, “Say, don't these skiiers look like a dog?"
 
-    These are adversarials—images tuned to give classifiers <i>frank hallucinations</i>.
+    These are adversarial examples.
+    Images tuned to give classifiers <i>frank hallucinations</i>.
     The confident belief that they're seeing something that just isn't there.
 
     They’re not completely wild, these robot delusions.
@@ -831,8 +860,9 @@
   <build-note id=title3 data-title='3. '>Part three.</build-note>
   <build-note id=title3sticksAndStones data-title='3. sticks and stones'>
     Sticks and stones.
-    
+
     They say you can't tickle yourself because you know it's coming.
+
     Specifically, when your brain sends an action command to your muscles...
   </build-note>
 
@@ -890,7 +920,7 @@
     sensory data to come back, to tell what happened. Where <i>is</i> our
     hand right now?
 
-    But if we did that, we'd face the same problem as trying to play
+    Then we'd face the same problem as trying to play
     a twitchy video game over a totally crap connection. Signals take TKms
     to travel from our brain to our periphery, and another TKms to travel
     back. It's just not that low-latency or high-bandwidth, this body of ours,
@@ -924,10 +954,8 @@
   <build-note id=stonesArmpitWasTickled>
     This attenuation applies to sense of touch, when that touch is an
     expected consequence of our own movement.
-    Pieces of this model exist throughout the brain. That's what your brain is about,
-    really.
-
-    But one part of our brain in particular is implicated in an awful lot of prediction.
+    Aspects of this forward model are likely distributed throughout our brain
+    But there's one place that's particularly important in maintaining it
   </build-note>
   <img id=grayCerebellum src=assets/gray-cerebellum-pink.png>
   <img id=soboCerebellum src=assets/sobo-cerebellum-pink.png>
@@ -935,9 +963,81 @@
     The cerebellum.
   </build-note>
   <build-note id=stonesCerebellumWider>
+    The cerebellum is quite special.
+    It contains half the neurons in our nervous system. TODO: Build w figure &amp; cite
+    All action commands from the brain to the body route through it
+    All sensations from the body to the brain, too
+    It has long been recognized as vitally important to our motor coordination.
+    Like this: <b>touch end of clicker</b>
+    People with cerebellar damage have difficulty performing this action smoothly.
+    With cerebellar damage, our movements become jerky
+    laggy
+    It's theorized (TODO: cite) that the cerebellum acts as a Smith predictor.
+    our brain's controller for our latency-distant bodies
+    able to estimate the body's current state
+    integrate sensory feedback to update that model
+    and decompose gross actions generated elsewhere in the brain
+    into a fine-tuned, continuously adjusted control signal
+
+    Once you've evolved it, such a thing has many uses.
+  </build-note>
+  <build-note id=stonesCerebellumLanguage>
+    There's a growing body of evidence implicating the cerebellum in language. TODO: Cites
+
+    Which makes sense, if you think about it. Utterance is, after all, a kind of movement.
+    And language—she said, gesticulating wildly—is not limited to utterance.
+
+    The work of moving words is not so different from the work of moving the body.
+    They are both transformations—from the space of internal states, efferents and ideas,
+    to the space of space of world coordinates and external sense impressions
+    and back again.
+
+    And what happens when this predictor encounters a problem?
+    When there is an irreconcileable discontinuity in the model?  
+  </build-note>
+  <build-note id=stonesLaughter>
+    We laugh.
+    Or: we cry.
+
+    The structure of these acts is not so different.
+    Visceral. Gutteral.
+
+    And neither is the shape of jokes so different from the shape of trauma.
+    They are both shatterings
+    Illuminations of discontinuities
+    Paradoxes: things which cannot be
+    and yet are
+
+    Which we must revist again and again, churning
+    As the machinery of our brains tries to make sense
+    Of a world that resists it.
   </build-note>
   <script>
     When(any(stonesLifeGoesOn, buildInRange(stonesLifeGoesOnAgain, stonesInTheCerebellum)))
       .frame(every(0.1[sec])(() => bodyModel.update()))
   </script>
 </div>
+
+<build-note id=titleConclusion data-title=''>
+  Preparing this talk has been a challenging time for me.
+  I didn't think I could do it.
+  The world appears to be falling apart.
+  And I got dumped, which didn't help.
+
+  What did help was thoroughly marveling at the power of my brain
+    to create exquisite joy
+    and exquisite suffering
+    and everything else
+  Allowing the power of that to sink in fully
+  
+  Everything you have ever known
+    every place you have ever been
+    every god you have ever believed in
+    every person you have ever loved
+    and the boundaries between them and you
+    and the stars and the sea
+    are all
+    in your head
+</build-note>
+<build-note id=titleThanks data-title='thank you.'></build-note>
+  

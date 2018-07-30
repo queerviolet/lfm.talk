@@ -38,13 +38,85 @@
   :global(#skully)  { .skully-visible(); }
 }
 
-:global(.insideThroughTheBrain #hallucinations),
-:global(.insideVisualCortex #hallucinations),
+:global(.insideBrain #hallucinations)
 {
   .gray-full();
   :global(#deepDream) { display: none; }
   :global(#skully)   { .skully-visible(); }
 }
+
+:global(.insideChiasma #hallucinations)
+{
+  > :global(#highlightBox) {
+    opacity: 1;
+    top: 55vh; left: 45vw;
+    width: 10vw; height: 10vh;
+  }
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+}
+
+:global(.insideThalamus #hallucinations)
+{
+  > :global(#highlightBox) {
+    opacity: 1;
+    top: 44vh; left: 47vw;
+    width: 20vw; height: 20vh;
+  }
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+}
+
+:global(.insideVisualCortex #hallucinations),
+{
+  > :global(#highlightBox) {
+    opacity: 1;
+    top: 34vh; left: 24vw;
+    width: 30vw; height: 55vh;
+    backdrop-filter: brightness(110%);
+  }
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+}
+
+:global(.insideVisualCortexLayers #hallucinations),
+{
+  > :global(#highlightBox) {
+    opacity: 1;
+    top: 34vh; left: 24vw;
+    width: 30vw; height: 55vh;
+    backdrop-filter: brightness(110%);
+  }
+  > :global(#visualCortexLayers) {
+    transform: translate(-110%, -55%) scale(0.5);
+  }
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+}
+
+:global(.insideVisualCortexRecurrent #hallucinations),
+{
+  > :global(#highlightBox) {
+    opacity: 1;
+    top: 34vh; left: 24vw;
+    width: 30vw; height: 55vh;
+    backdrop-filter: brightness(110%);
+  }
+  > :global(#visualCortexLayers) {
+    transform: translate(-110%, -55%) scale(0.5);
+  }
+  > :global(#visualCortexMap) {
+    transform: translate(0%, -50%) scale(0.75);
+  }
+  .gray-full();
+  :global(#deepDream) { display: none; }
+  :global(#skully)   { .skully-visible(); }
+}
+
 
 :global(.inside5ht2a #hallucinations),
 {
@@ -145,6 +217,15 @@
 
 // ---
 
+:global(#highlightBox) {
+  .fixed();
+  border: 2px solid @pink;
+  transition: 1s;
+  opacity: 0;
+  z-index: 0;
+  backdrop-filter: brightness(150%);
+}
+
 :global(#ht2a) {
   .window();
   > type-writer { .type-writer-title(); }
@@ -157,6 +238,8 @@
 :global(#ht2aLSDBinding),
 :global(#adversarialSticker),
 :global(#adversarialSkiiers),
+:global(#visualCortexLayers),
+:global(#visualCortexMap),
 {
   .window();
   > type-writer { .type-writer-title(); }
