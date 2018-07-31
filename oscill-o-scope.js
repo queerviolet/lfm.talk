@@ -12,6 +12,7 @@ class OscillOScope extends HTMLElement {
 
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')
+    this.onResize = this.onResize.bind(this)
   }
 
   connectedCallback() {
@@ -85,7 +86,7 @@ class OscillOScope extends HTMLElement {
 const fillNoise = data => {
   let v = randomSample()
   let {length: i} = data; while (i --> 0) {
-    if (random() < 0.2) v = randomSample()
+    if (random() < 0.1) v = randomSample()
     data[i] = v
   }
 }
