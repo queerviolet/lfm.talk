@@ -1,72 +1,70 @@
 @import "colors.less";
 
-:global {  
-  body {
-    display: flex;
-    flex-flow: column nowrap;
-    font-family: Monaco;
-    margin: 0;
-    background: rgb(243, 243, 243);
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: Monaco;
+  margin: 0;
+  background: rgb(243, 243, 243);
 
-    font-size: 12pt;
+  font-size: 12pt;
+}
+
+button.timer {
+  position: fixed;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  top: 9px; right: 9px;
+  padding: 8px;
+  font-size: 18px;
+  z-index: 100;
+  outline: none;
+  font-family: Monaco;
+
+  &:active {
+    border: thin solid @blue;
   }
 
-  button.timer {
-    position: fixed;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    top: 9px; right: 9px;
-    padding: 8px;
-    font-size: 18px;
-    z-index: 100;
-    outline: none;
-    font-family: Monaco;
-
-    &:active {
-      border: thin solid @blue;
-    }
-
-    &.running {
-      border: thin solid fuchsia;
-      color: fuchsia;
-    }
+  &.running {
+    border: thin solid fuchsia;
+    color: fuchsia;
   }
+}
 
-  build-note {
-    display: block;
-    position: relative;
-    margin: 0;
-    padding: 16px;
-    border-bottom: thin solid darkgray;
+build-note {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 16px;
+  border-bottom: thin solid darkgray;
 
-    &.current {
-      > .title,
-      > .timer {
-        color: white;
-      }
-      color: white;
-      border-color: fuchsia;
-      background: deeppink;
-    }
-
-    > .title {
-      font-size: 16px;
-      font-weight: bold;
-      padding: 6px;
-      color: @electric-blue;
-      display: inline-block;
-      border-radius: 6px;
-    }
-
+  &.current {
+    > .title,
     > .timer {
-      position: absolute;
-      top: 9px; right: 9px;
-      color: black;
+      color: white;
     }
+    color: white;
+    border-color: fuchsia;
+    background: deeppink;
+  }
 
-    > .note {
-      white-space: pre-line;
-    }
+  > .title {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px;
+    color: @electric-blue;
+    display: inline-block;
+    border-radius: 6px;
+  }
+
+  > .timer {
+    position: absolute;
+    top: 9px; right: 9px;
+    color: black;
+  }
+
+  > .note {
+    white-space: pre-line;
   }
 }

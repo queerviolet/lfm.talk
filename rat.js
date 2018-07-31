@@ -58,7 +58,6 @@ class GridCells extends HTMLElement {
     const box = this.getBoundingClientRect()
     if (this.width !== box.width || this.height !== box.height) {
       ;[this.width, this.height] = fit(this.canvas, this.ctx, box)
-      this.center = scale([this.width, this.height], 0.5)
       fit(this.trailCanvas, this.trailCtx, box)
       this.buildGrid()
     }
@@ -93,7 +92,8 @@ class GridCells extends HTMLElement {
         this.width * x + (random() - 0.5) * this.gridSize * min(this.playbackRate / 10, 1),
         this.height * y + (random() - 0.5) * this.gridSize * min(this.playbackRate / 10, 1)
       ]
-      trail.push(pos)     
+      // This trail is only up to 50% for some reason :(
+      trail.push(scale(pos, 2))
     } while(ourT * this.playbackRate > mediaT)
 
     const {ctx, trailCtx} = this
@@ -181,7 +181,7 @@ class GridCells extends HTMLElement {
     ctx.strokeStyle = `rgb(73, 140, 248, 1)`
     ctx.lineWidth = 1
     ctx.stroke(grid)
-    if (this._grid) {
+    if (this._grid && this._grid.parentElement) {
       this.container.removeChild(this._grid)
     }
       // this._grid = gridCanvas
@@ -288,11 +288,11 @@ const fit = (canvas, ctx, box) => {
     height: box.height + 'px'
   })
   ctx.scale(devicePixelRatio, devicePixelRatio)
-  return [width, height]
+  return [width / devicePixelRatio, height / devicePixelRatio]
 }
 
 GridCells.style = `
-canvas.firingCanvas, canvas.trailCanvas {
+canvas {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
