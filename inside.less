@@ -144,7 +144,10 @@
     transform:  translate(calc(-100% + 10vw), -50%) scale(1);
   }
   #ht2aLSDBinding {
-    transform: translate(-5vw, -50%) scale(1);
+    transform: translate(-5vw, -100%) scale(1);
+  }
+  #ht2aLSDBindingDetail {
+    transform: translate(-5vw, 0%) scale(1);
   }
 }
 
@@ -255,16 +258,9 @@
   backdrop-filter: brightness(150%);
 }
 
-#ht2a {
-  .window();
-  > type-writer { .type-writer-title(); }
-  > video {
-    .window-content();
-    width: 50vw;
-  }
-}
-
+#ht2a,
 #ht2aLSDBinding,
+#ht2aLSDBindingDetail,
 #adversarialSticker,
 #adversarialSkiiers,
 #visualCortexLayers,

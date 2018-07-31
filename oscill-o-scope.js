@@ -86,12 +86,13 @@ class OscillOScope extends HTMLElement {
 const fillNoise = data => {
   let v = randomSample()
   let {length: i} = data; while (i --> 0) {
-    if (random() < 0.1) v = randomSample()
+    //if (random() < 0.5)
+     v = randomSample()
     data[i] = v
   }
 }
 
-const randomSample = (range=2) => 128 + random() * range
+const randomSample = (range=0.5) => 128 + (random() + random() + random() - 3) * range
 
 const fit = (canvas, ctx, box) => {
   const width = box.width * devicePixelRatio

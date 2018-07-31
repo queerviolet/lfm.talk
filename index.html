@@ -478,6 +478,10 @@
   <div id=ht2aLSDBinding>
     <type-writer id=ht2aLSDTitle></type-writer>
     <img src=assets/lsd-binding-lid.png>
+  </div>
+  <div id=ht2aLSDBindingDetail>
+    <type-writer id=ht2aLSDBindingDetailTitle></type-writer>
+    <img src=lsd-el2-interaction.jpg>
   </div>  
   <build-note id=inside5ht2a>
       This is the 5-HT2A receptor.
@@ -535,7 +539,10 @@
         ht2aVideo.play()
       })
     When(inside5ht2aLSDBinding)
-      .start(() => ht2aLSDTitle.text = 'LSD 5-ht2a binding - EL2 "lid"')
+      .start(() => {
+        ht2aLSDTitle.text = 'LSD 5-ht2a binding - EL2 "lid"'
+        ht2aLSDBindingDetailTitle.text = 'LSD ↔ EL2 (L209) hydrophobic binding'
+      })
   </script>
 
   <div id=adversarialSticker>
@@ -579,11 +586,9 @@
     And they <i>feel weird</i> to look at.
   </build-note>
   <div id=boxIllusion>
-    <type-writer id=boxIllusionTitle></type-writer>
     <img src=assets/box-illusion-cube.png>
   </div>
   <div id=confettiIllusion>
-    <type-writer id=confettiIllusionTitle></type-writer>
     <img src=assets/munker-confetti.jpg_large>
   </div>  
   <build-note id=insideBoxIllusion>
@@ -1066,15 +1071,17 @@
   The world appears to be falling apart.
   And I got dumped, which didn't help.
 
-  What did help was thoroughly marveling my own power
-    our power
-    to create the exquisite:
-      exquisite joy
-      and exquisite suffering
-      and everything else
+  What did help was appreciating that
+  I am a process
+  We are stories telling ourselves
+  Sea water, understanding itself
+  Creating every exquisite moment:
+    exquisite joy
+    exquisite agony
+    and everything else
   
   We contain multitudes
-  We contain universes
+  You contain universes
 </build-note>
 <build-note id=titleConclusion2 data-title=''> 
   Everything you have ever known
