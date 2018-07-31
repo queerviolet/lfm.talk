@@ -7,6 +7,8 @@ class BodyModel extends HTMLElement {
   disconnectedCallback() {
     this.innerHTML = ''
   }
+
+  get paramPath() { return [] }
 }
 
 const {random: num} = Math
@@ -33,19 +35,35 @@ const mat8_2 = Vec(8)(vec2)
 const params = {
   l: {
     upper_arm_pos: vec4,  
-    l_forearm_pos: vec4,
-    l_hand_pos: vec4,
-    l_finger_pos: mat4,
-    l_arm_pos: vec4,
-    l_armpit_touch_pts: mat8_2,
+    forearm_pos: vec4,
+    hand_pos: vec4,
+    finger_pos: mat4,
+    arm_pos: vec4,
+    armpit_touch_pts: mat8_2,
+    upper_leg_pos: vec4,
+    lower_leg_pos: vec4,
+    knee_angle: num,
+    knee_skew: num,
+    foot_pos: vec4,
+    toe_pos: mat4,
   },
 
-  r_upper_arm_pos: vec4,  
-  r_forearm_pos: vec4,
-  r_hand_pos: vec4,
-  r_finger_pos: mat4,
-  r_arm_pos: vec4,
-  r_armpit_touch_pts: mat8_2,
+  torso_rot: vec2,
+
+  r: {
+    upper_arm_pos: vec4,  
+    forearm_pos: vec4,
+    hand_pos: vec4,
+    finger_pos: mat4,
+    arm_pos: vec4,
+    armpit_touch_pts: mat8_2,
+    upper_leg_pos: vec4,
+    lower_leg_pos: vec4,
+    knee_angle: num,
+    knee_skew: num,
+    foot_pos: vec4,
+    toe_pos: mat4,
+  },
   
   stomach_acid: num,
   __deprecated_appendix_t: num,
@@ -76,12 +94,17 @@ const fill = (parent, p=params) => {
   const children = Object.entries(p)
     .map(([param, gen]) => {
       const child = span()
+      console.log(parent, parent.paramPath)
+      const paramPath = parent.paramPath.concat(param)
+      const path = paramPath.join('_')
+      console.log(path)
       parent.appendChild(child)
-      const p = paramElement(param)
-      const v = valueElement(param)        
+      const p = paramElement(path)
+      const v = valueElement(path)
+      v.paramPath = paramPath
       child.appendChild(p)
       child.appendChild(v)
-      child.id = param
+      child.id = path
       if (typeof gen === 'function') {
         return child.update = () => v.textContent = gen()
       }

@@ -332,10 +332,11 @@
 
 #bodyModel {
   display: none;
-  .fixed();
+  .fixed(@top: 0, @left: 0, @bottom: 0, @right: 0, @width: auto, @height: auto);
   columns: 3;
   font-size: 16px;
   transition: 2s;
+  padding: 9px;
 }
 
 oscill-o-scope {
