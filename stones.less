@@ -1,26 +1,39 @@
 @import "title.less";
 
 /**************** Builds ***************/
-:global {
-  .stonesEfferenceCopy
-  > #stones {
-    > #efferenceCopy {
-      display: block;
-      opacity: 1.0;
-    }
+.stonesEfferenceCopy
+> #stones {
+  > #efferenceCopy {
+    display: block;
+    opacity: 1.0;
   }
+}
 
-  .stonesEfferenceReflection
-  > #stones {
-    > #efferenceCopy {
-      display: block;
-      opacity: 1;
-      transform: rotateX(180deg);
-    }
+.stonesEfferenceReflection
+> #stones {
+  > #efferenceCopy {
+    display: block;
+    opacity: 1;
+    transform: rotateX(180deg);
   }
+}
 
-  
-  .stonesEfferenceMove
+
+.stonesEfferenceMove
+> #stones {
+  > #efferenceCopy {
+    .absoluteCenter();
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, 0) rotateX(180deg);
+  }
+}
+
+.stonesEfferenceSend
+{
+  #titleWriter {
+    animation: send-up 1s forwards;
+  }
   > #stones {
     > #efferenceCopy {
       .absoluteCenter();
@@ -29,431 +42,416 @@
       transform: translate(-50%, 0) rotateX(180deg);
     }
   }
+}
 
-  .stonesEfferenceSend
-  {
-    #titleWriter:local {
-      animation: send-up 1s forwards;
+.stonesTransformCopy
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #efferenceCopy {
+      .absoluteCenter();
+      color: white;
+      display: block;
+      opacity: 1;
+      transform: translate(-50%, -50%) rotateX(0deg);
+      transform-origin: center;
     }
-    > #stones {
-      > #efferenceCopy {
-        .absoluteCenter();
-        display: block;
-        opacity: 1;
-        transform: translate(-50%, 0) rotateX(180deg);
-      }
+    > #bodyModel {
+      display: block;
     }
   }
+}
 
-  .stonesTransformCopy
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #efferenceCopy {
-        .absoluteCenter();
-        color: white;
-        display: block;
-        opacity: 1;
-        transform: translate(-50%, -50%) rotateX(0deg);
-        transform-origin: center;
-      }
-      > #bodyModel {
-        display: block;
-      }
+.stonesApplyCopy
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #efferenceCopy {
+      .absoluteCenter();
+      display: block;
+      color: white;
+      opacity: 0;
+      transform: translate(-50%, -50%);
     }
-  }
-  
-  .stonesApplyCopy
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #efferenceCopy {
-        .absoluteCenter();
-        display: block;
-        color: white;
-        opacity: 0;
-        transform: translate(-50%, -50%);
-      }
-      > #bodyModel {
-        display: block;
-        --wipe: 100%;
+    > #bodyModel {
+      display: block;
+      --wipe: 100%;
 
-        #r_finger_pos,
-        #l_armpit_touch_pts,
-        { .flash(); }
-      }
+      #r_finger_pos,
+      #l_armpit_touch_pts,
+      { .flash(); }
     }
   }
+}
 
-  .stonesLifeGoesOn
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #bodyModel {
-        display: block;
-        --wipe: 100%;
-      }
-      > #fingersDidMove {
-        display: block;
-        top: -20vh;
-      }
+.stonesLifeGoesOn
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #bodyModel {
+      display: block;
+      --wipe: 100%;
+    }
+    > #fingersDidMove {
+      display: block;
+      top: -20vh;
     }
   }
-  
-  .stonesFingersDidMove
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #efferenceCopy {
-        .absoluteCenter();
-        display: block;
-        color: white;
-        opacity: 0;
-        transform: translate(-50%, -50%);
-      }
-      > #bodyModel {
-        display: block;
-        --wipe: 100%;
-      }
-      > #fingersDidMove:local {
-        animation-name: send-up;
-        animation-duration: 0.5s;
-        animation-direction: reverse;
-        display: block;
-      }
-    }
-  }
-  
-  .stonesFingersDidMoveAttenuated
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #bodyModel {
-        display: block;
-        --wipe: 100%;
-      }
-      > #fingersDidMove {      
-        display: block;
-        transform: translate(-50%, -50%) scale(0.1);
-      }
-    }
-  }
-  
-  .stonesLifeGoesOnAgain
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #bodyModel {
-        display: block;
-        --wipe: 100%;
-      }
-      > #fingersDidMove {
-        display: block;
-        opacity: 0;
-      }
-    }
-  }
-  
-  .stonesArmpitWasTickled
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #bodyModel {
-        display: block;
-        --wipe: 100%;
-      }
-      > #armpitWasTickled:local {
-        animation:
-          send-up 0.5s reverse,
-          shrink 1s ease-in 1s forwards
-          ;
-        display: block;
-      }
-      > #grayCerebellum { display: block; }
-    }
-  }
-  
-  .stonesInTheCerebellum
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #bodyModel {      
-        display: block;
-        --wipe: 0%;
-        transform: translate(-12vw, -10vh) scale(0.2);
-        border: 5px solid fuchsia;
-        backdrop-filter: brightness(200%);
-      }
-      > #grayCerebellum {
-        display: block;
-        opacity: 1;
-      }
-      > #soboCerebellum {
-        display: block;
-      }
-    }
-  }
-  
-  .stonesCerebellumWider,
-  .stonesCerebellumLanguage
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #bodyModel {
-        display: block;
-        --wipe: 0%;
-        transform: translate(7vw, -10vh) scale(0.2);
-        border: 5px solid fuchsia;
-        backdrop-filter: brightness(200%) hue-rotate(257deg);
-      }
-      > #grayCerebellum {
-        display: block;
-        opacity: 1;
-        transform: translate(0, -50%);
+}
 
-      }
-      > #soboCerebellum {
-        display: block;
-        transform: translate(-85%, -50%) rotate(90deg);
-      }
+.stonesFingersDidMove
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #efferenceCopy {
+      .absoluteCenter();
+      display: block;
+      color: white;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+    > #bodyModel {
+      display: block;
+      --wipe: 100%;
+    }
+    > #fingersDidMove {
+      animation-name: send-up;
+      animation-duration: 0.5s;
+      animation-direction: reverse;
+      display: block;
     }
   }
+}
 
-  .stonesLaughter
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #bodyModel {
-        display: block;
-        --wipe: 0%;
-        transform: translate(7vw, -10vh) scale(0.2);
-        border: 5px solid fuchsia;
-        backdrop-filter: brightness(200%) hue-rotate(257deg);
-        opacity: 0;
-      }
-      > #grayCerebellum {
-        display: block;
-        opacity: 1;
-        transform: translate(0, -50%);
-        .wipe-vertical-center();
-        --wipe: 100%;
-      }
-      > #soboCerebellum {
-        display: block;
-        transform: translate(-85%, -50%) rotate(90deg);
-        transition: clip-path 4s;
-        .wipe-horizontal-center();
-        --wipe: 100%;
-      }
-      > oscill-o-scope {
-        display: block
-      }
+.stonesFingersDidMoveAttenuated
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #bodyModel {
+      display: block;
+      --wipe: 100%;
+    }
+    > #fingersDidMove {      
+      display: block;
+      transform: translate(-50%, -50%) scale(0.1);
     }
   }
+}
 
-  .stonesSobbing,
-  {
-    #titleWriter { display: none; }
-    > #stones {
-      > #grayCerebellum {
-        display: block;
-        opacity: 1;
-        transform: translate(0, -50%);        
-        .wipe-vertical-center();
-        --wipe: 0%;
-      }
-      > #soboCerebellum {
-        display: block;
-        transform: translate(-85%, -50%) rotate(90deg);
-        .wipe-horizontal-center();
-        --wipe: 0%;
-      }
-      > oscill-o-scope {
-        display: block
-      }
+.stonesLifeGoesOnAgain
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #bodyModel {
+      display: block;
+      --wipe: 100%;
+    }
+    > #fingersDidMove {
+      display: block;
+      opacity: 0;
     }
   }
+}
 
-  .stonesStopSobbing, .titleConclusion1
-  {
-    #titleWriter { display: block; opacity: 0; }
-    > #stones {
-      > oscill-o-scope {
-        display: block;
-        .wipe-horizontal-center();
-        transition: clip-path 15s;
-        --wipe: 100%;
-      }
+.stonesArmpitWasTickled
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #bodyModel {
+      display: block;
+      --wipe: 100%;
+    }
+    > #armpitWasTickled {
+      animation:
+        send-up 0.5s reverse,
+        shrink 1s ease-in 1s forwards
+        ;
+      display: block;
+    }
+    > #grayCerebellum { display: block; }
+  }
+}
+
+.stonesInTheCerebellum
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #bodyModel {      
+      display: block;
+      --wipe: 0%;
+      transform: translate(-12vw, -10vh) scale(0.2);
+      border: 5px solid fuchsia;
+      backdrop-filter: brightness(200%);
+    }
+    > #grayCerebellum {
+      display: block;
+      opacity: 1;
+    }
+    > #soboCerebellum {
+      display: block;
     }
   }
+}
 
-  .titleConclusion2,
-  {
-    #titleWriter { display: block; opacity: 0; }
-    > #stones {
-      > oscill-o-scope {
-        display: block;
-        .wipe-horizontal-center();
-        transition: clip-path 15s;
-        --wipe: 0.1%;
-      }
+.stonesCerebellumWider,
+.stonesCerebellumLanguage
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #bodyModel {
+      display: block;
+      --wipe: 0%;
+      transform: translate(7vw, -10vh) scale(0.2);
+      border: 5px solid fuchsia;
+      backdrop-filter: brightness(200%) hue-rotate(257deg);
+    }
+    > #grayCerebellum {
+      display: block;
+      opacity: 1;
+      transform: translate(0, -50%);
+
+    }
+    > #soboCerebellum {
+      display: block;
+      transform: translate(-85%, -50%) rotate(90deg);
+    }
+  }
+}
+
+.stonesLaughter
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #bodyModel {
+      display: block;
+      --wipe: 0%;
+      transform: translate(7vw, -10vh) scale(0.2);
+      border: 5px solid fuchsia;
+      backdrop-filter: brightness(200%) hue-rotate(257deg);
+      opacity: 0;
+    }
+    > #grayCerebellum {
+      display: block;
+      opacity: 1;
+      transform: translate(0, -50%);
+      .wipe-vertical-center();
+      --wipe: 100%;
+    }
+    > #soboCerebellum {
+      display: block;
+      transform: translate(-85%, -50%) rotate(90deg);
+      transition: clip-path 4s;
+      .wipe-horizontal-center();
+      --wipe: 100%;
+    }
+    > oscill-o-scope {
+      display: block
+    }
+  }
+}
+
+.stonesSobbing,
+{
+  #titleWriter { display: none; }
+  > #stones {
+    > #grayCerebellum {
+      display: block;
+      opacity: 1;
+      transform: translate(0, -50%);        
+      .wipe-vertical-center();
+      --wipe: 0%;
+    }
+    > #soboCerebellum {
+      display: block;
+      transform: translate(-85%, -50%) rotate(90deg);
+      .wipe-horizontal-center();
+      --wipe: 0%;
+    }
+    > oscill-o-scope {
+      display: block
+    }
+  }
+}
+
+.stonesStopSobbing, .titleConclusion1
+{
+  #titleWriter { display: block; opacity: 0; }
+  > #stones {
+    > oscill-o-scope {
+      display: block;
+      .wipe-horizontal-center();
+      transition: clip-path 15s;
+      --wipe: 100%;
+    }
+  }
+}
+
+.titleConclusion2,
+{
+  #titleWriter { display: block; opacity: 0; }
+  > #stones {
+    > oscill-o-scope {
+      display: block;
+      .wipe-horizontal-center();
+      transition: clip-path 15s;
+      --wipe: 0.1%;
     }
   }
 }
 
 
+
 /************* Base styles ****************/
 
-:global {
-  #efferenceCopy {
-    .titleText();
-    color: @pink;
-    --typewriter-cursor-color: @pink;
-    display: none;
-    position: absolute;
-    transition: opacity 1s, transform 1s, transform-origin 1s;
-    opacity: 0;
-    transform-origin: bottom left;
-    transform: translateZ(0);
+
+#efferenceCopy {
+  .titleText();
+  color: @pink;
+  --typewriter-cursor-color: @pink;
+  display: none;
+  position: absolute;
+  transition: opacity 1s, transform 1s, transform-origin 1s;
+  opacity: 0;
+  transform-origin: bottom left;
+  transform: translateZ(0);
+}
+
+#fingersDidMove,
+#armpitWasTickled,
+{
+  .absoluteCenter();
+  background: white;
+  color: black;
+  padding: 9px;
+  font-size: 8vh;
+  display: none;
+  transition: transform 1s;
+  transform-origin: center center;
+  text-align: center;
+}
+
+#bodyModel {
+  display: none;
+  .fixed();
+  columns: 3;
+  font-size: 16px;
+  transition: 2s;
+}
+
+oscill-o-scope {
+  .fixed();
+  display: none;
+}
+
+body-model {
+  --wipe: 0%;
+
+  .param {
+    .cell(@pink);
   }
 
-  #fingersDidMove,
-  #armpitWasTickled,
-  {
-    .absoluteCenter();
-    background: white;
-    color: black;
-    padding: 9px;
-    font-size: 8vh;
-    display: none;
-    transition: transform 1s;
-    transform-origin: center center;
-    text-align: center;
+  .value {
+    .cell(@translucent-electric-blue);
+    border: thin solid @electric-blue;
+  }
+}
+
+.cell(@bg) {
+  display: inline-block;
+  padding: 4px;
+  background: @bg;
+  color: white;
+  transition: clip-path 1s, opacity 2s;
+}
+
+.wipe-east-west {
+  clip-path: polygon(
+    0 0,
+    var(--wipe) 0,
+    var(--wipe) 100%,
+    0 100%
+  );
+}
+
+.wipe-west-east {
+  clip-path: polygon(
+    calc(100% - var(--wipe)) 0,
+    100% 0,
+    100% 100%,
+    calc(100% - var(--wipe)) 100%
+  );
+}
+
+.wipe-north-south {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% var(--wipe),
+    0 var(--wipe)
+  );
+}
+
+.wipe-south-north {
+  clip-path: polygon(
+    0 calc(100% - var(--wipe)),
+    100% calc(100% - var(--wipe)),
+    100% 100%,
+    0 100%
+  );
+}
+
+@keyframes send-up {
+  0% {
+    top: 50%;
+    transform: scaleY(1) translate(-50%, -50%);
   }
 
-  #bodyModel {
-    display: none;
-    .fixed();
-    columns: 3;
-    font-size: 16px;
-    transition: 2s;
+  30% {
+    top: 50%;
+    transform: scaleY(0.6) translate(-50%, -30%);
   }
 
-  oscill-o-scope {
-    .fixed();
-    display: none;
+  40% {    
+    transform: scaleY(1.2) translate(-50%, -50%);
   }
 
-  body-model {
-    --wipe: 0%;
-
-    .param {
-      .cell(@pink);
-    }
-
-    .value {
-      .cell(@translucent-electric-blue);
-      border: thin solid @electric-blue;
-    }
+  50% {    
+    transform: scaleY(1) translate(-50%, -50%);
   }
 
-  .cell(@bg) {
-    display: inline-block;
-    padding: 4px;
-    background: @bg;
-    color: white;
-    transition: clip-path 1s, opacity 2s;
+  100% {
+    top: -20vh;
   }
+}
 
-  .wipe-east-west {
-    clip-path: polygon(
-      0 0,
-      var(--wipe) 0,
-      var(--wipe) 100%,
-      0 100%
-    );
-  }
+@keyframes shrink {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to { transform:  translate(-50%, -50%) scale(0); }
+}
 
-  .wipe-west-east {
-    clip-path: polygon(
-      calc(100% - var(--wipe)) 0,
-      100% 0,
-      100% 100%,
-      calc(100% - var(--wipe)) 100%
-    );
-  }
-
-  .wipe-north-south {
-    clip-path: polygon(
-      0 0,
-      100% 0,
-      100% var(--wipe),
-      0 var(--wipe)
-    );
-  }
-
-  .wipe-south-north {
-    clip-path: polygon(
-      0 calc(100% - var(--wipe)),
-      100% calc(100% - var(--wipe)),
-      100% 100%,
-      0 100%
-    );
-  }
-  
-  @keyframes send-up {
-    0% {
-      top: 50%;
-      transform: scaleY(1) translate(-50%, -50%);
-    }
-
-    30% {
-      top: 50%;
-      transform: scaleY(0.6) translate(-50%, -30%);
-    }
-
-    40% {    
-      transform: scaleY(1.2) translate(-50%, -50%);
-    }
-
-    50% {    
-      transform: scaleY(1) translate(-50%, -50%);
-    }
-
-    100% {
-      top: -20vh;
-    }
-  }
-
-  @keyframes shrink {
-    from { transform: translate(-50%, -50%) scale(1); }
-    to { transform:  translate(-50%, -50%) scale(0); }
-  }
-
-  @keyframes shrink-no-tr {
-    from { transform: scale(1); }
-    to { transform:  scale(0); }
-  }
+@keyframes shrink-no-tr {
+  from { transform: scale(1); }
+  to { transform:  scale(0); }
+}
 
 
-  #grayCerebellum {
-    .absoluteCenter();
-    z-index: -100;
-    display: none;
-    opacity: 0;
-    transition: opacity 1s, transform 1s;
-    height: 100vh;
-  }
+#grayCerebellum {
+  .absoluteCenter();
+  z-index: -100;
+  display: none;
+  opacity: 0;
+  transition: opacity 1s, transform 1s;
+  height: 100vh;
+}
 
-  #soboCerebellum {
-    .absoluteCenter();
-    display: none;
-    z-index: -100;
-    transform: translate(calc(-100vw - 50%), -50%) rotate(90deg);
-    transition: transform 1s;
-    width: 100vh;
-    filter: brightness(200%) hue-rotate(257deg);
-  }
+#soboCerebellum {
+  .absoluteCenter();
+  display: none;
+  z-index: -100;
+  transform: translate(calc(-100vw - 50%), -50%) rotate(90deg);
+  transition: transform 1s;
+  width: 100vh;
+  filter: brightness(200%) hue-rotate(257deg);
 }
 
 @keyframes flash {
@@ -463,7 +461,7 @@
 }  
 
 .flash(@period: 1s, @count: 4) {
-  & .value:local {
+  & .value {
     animation: flash @period @count;
   }
 }

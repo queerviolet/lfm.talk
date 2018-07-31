@@ -1,52 +1,50 @@
 @import "./base.less";
 
-:global {
-  #titleCard {
-    display: block;
-    .absolute();
+#titleCard {
+  display: block;
+  .absolute();
 
-    > #titleWriter {
-      .absoluteCenter();
-      .titleText();
-      white-space: pre;
-    }
-
-    > #subTitleWriter {
-      position: absolute;
-      top: 60vh; left: 50%;
-      .titleText(@pink);
-      font-size: 5vh;
-      transform: translate(-50%);
-      transition: opacity 1s;
-      opacity: 0;
-    }
+  > #titleWriter {
+    .absoluteCenter();
+    .titleText();
+    white-space: pre;
   }
 
-  #bug {
-    position: fixed;
-    bottom: 4.5px; right: 4.5px;
-    color: darkgray;
-    // background: rgba(0, 0, 0, 0.5);
-    // text-shadow: 2px 2px 4px white;
-    border: thin solid darkgray;
-    padding: 4px;
-    padding-left: 7px;
-    // transform: rotate(-45deg);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    z-index: 1000;
-
-    > .at {
-      position: relative;
-      top: 3px;
-      left: -3px;
-    }
+  > #subTitleWriter {
+    position: absolute;
+    top: 60vh; left: 50%;
+    .titleText(@pink);
+    font-size: 5vh;
+    transform: translate(-50%);
+    transition: opacity 1s;
+    opacity: 0;
   }
+}
 
-  .titleAshi,
-  .titleEnd {
-    > #titleCard > #subTitleWriter {
-      opacity: 1;
-    }
+#bug {
+  position: fixed;
+  bottom: 4.5px; right: 4.5px;
+  color: darkgray;
+  // background: rgba(0, 0, 0, 0.5);
+  // text-shadow: 2px 2px 4px white;
+  border: thin solid darkgray;
+  padding: 4px;
+  padding-left: 7px;
+  // transform: rotate(-45deg);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  z-index: 1000;
+
+  > .at {
+    position: relative;
+    top: 3px;
+    left: -3px;
+  }
+}
+
+.titleAshi,
+.titleEnd {
+  > #titleCard > #subTitleWriter {
+    opacity: 1;
   }
 }
 

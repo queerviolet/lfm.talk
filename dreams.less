@@ -1,13 +1,13 @@
 @import 'base.less';
 
-body[data-current-build^="dreams"] :global(#hallucinations),
-body[data-current-build^="title2"] :global(#hallucinations),
+body[data-current-build^="dreams"] #hallucinations,
+body[data-current-build^="title2"] #hallucinations,
 { display: none; transform: scale(0); }
 
-:global(.title2DreamsBlur) {
-  > :global(#titleCard) { .fixed(); .blurred() }
-  > :global(#dreams) {
-    > :global(#faces) {
+.title2DreamsBlur {
+  > #titleCard { .fixed(); .blurred() }
+  > #dreams {
+    > #faces {
       .fixed();
       display: block;
       .blurred(@transform: scale(0.8));
@@ -17,116 +17,116 @@ body[data-current-build^="title2"] :global(#hallucinations),
   }
 }
 
-:global(.dreamsPlaying)
+.dreamsPlaying
 {
-  > :global(#titleCard) { .fixed(); .blurred() }  
-  > :global(#dreams) > :global(#faces) { .full() }
+  > #titleCard { .fixed(); .blurred() }  
+  > #dreams > #faces { .full() }
 }
 
-:global(.dreamsTraining),
+.dreamsTraining,
 {
-  > :global(#titleCard) { display: none; }
-  > :global(#dreams) > :global(#faces) { .full() }
+  > #titleCard { display: none; }
+  > #dreams > #faces { .full() }
 }
 
-:global(.dreamsTrainingExpand),
+.dreamsTrainingExpand,
 {
-  > :global(#titleCard) { display: none; }
-  > :global(#dreams)
-    > :global(#faces) {
+  > #titleCard { display: none; }
+  > #dreams
+    > #faces {
       .full();
-      > :global(.gen-layer) {
+      > .gen-layer {
         .animate-layers(pulse-blue);
         opacity: 1
       }
     }
 }
 
-:global(.dreamsTrainingDiscriminator),
+.dreamsTrainingDiscriminator,
 {
-  > :global(#titleCard) { display: none; }
-  > :global(#dreams)
-    > :global(#faces) {
+  > #titleCard { display: none; }
+  > #dreams
+    > #faces {
       .full();
-      > :global(.gen-layer) {
+      > .gen-layer {
         .animate-layers(pulse-blue);
         opacity: 1;
       }
-      > :global(.discrim-layer) {
+      > .discrim-layer {
         .animate-layers(pulse, @t: calc(1 - var(--layer-t)));
         opacity: 1;
       }
     }
 }
 
-:global(.dreamsTrainingFeedback),
+.dreamsTrainingFeedback,
 {
-  > :global(#titleCard) { display: none; }
-  > :global(#dreams)
-    > :global(#faces) {
+  > #titleCard { display: none; }
+  > #dreams
+    > #faces {
       .full();
       transform: scale(1.8) translateY(15vh);
-      > :global(.gen-layer) {
+      > .gen-layer {
         .animate-layers(pulse-blue);
         opacity: 1;
       }
-      > :global(.discrim-layer) {
+      > .discrim-layer {
         .animate-layers(pulse, @t: calc(1 - var(--layer-t)));
         opacity: 1;
       }
     }
 }
 
-:global(.dreamsInterpolation),
+.dreamsInterpolation,
 {
-  > :global(#titleCard) { display: none; }
-  > :global(#dreams) {
-    > :global(#faces) {
+  > #titleCard { display: none; }
+  > #dreams {
+    > #faces {
       .full();
     }
-    > :global(#grid) {
+    > #grid {
       display: block;
     }
   }
 }
 
-:global(.dreamsGrid),
+.dreamsGrid,
 {
-  > :global(#titleCard) { display: none; }
-  > :global(#dreams) {
-    > :global(#faces) {
+  > #titleCard { display: none; }
+  > #dreams {
+    > #faces {
       .full();
       opacity: 0;
     }
-    > :global(#grid) {
+    > #grid {
       display: block;
       .full();  
     }  
   }
 }
 
-:global(.dreamsGridFaster),
+.dreamsGridFaster,
 {
-  > :global(#titleCard) { display: none; }
-  > :global(#dreams) {
-    > :global(#faces) { display: none; }
-    > :global(#grid) {
+  > #titleCard { display: none; }
+  > #dreams {
+    > #faces { display: none; }
+    > #grid {
       display: block;
       .full();
     }
   }
 }
 
-:global(.dreamsGridFlashing),
+.dreamsGridFlashing,
 {
-  > :global(#titleCard) { display: none; }
-  > :global(#dreams) {
-    > :global(#faces) { display: none; }
-    > :global(#grid) {
+  > #titleCard { display: none; }
+  > #dreams {
+    > #faces { display: none; }
+    > #grid {
       display: block;
       .full();
       canvas { transition: transform 4s; }
-      :global(.grid) {
+      .grid {
         animation: pulse-opacity 2s infinite;
         transition: transform 4s;
       }
@@ -134,19 +134,19 @@ body[data-current-build^="title2"] :global(#hallucinations),
   }
 }
 
-:global(.dreamsGridZoom),
+.dreamsGridZoom,
 {
-  > :global(#titleCard) { display: none; }
-  > :global(#dreams) {
-    > :global(#faces) { display: none; }
-    > :global(#grid) {
+  > #titleCard { display: none; }
+  > #dreams {
+    > #faces { display: none; }
+    > #grid {
       display: block;
       .full();
       --rotate-x: 60deg;
       --zoom: 0.4;
       canvas {opacity: 0}
       transition: opacity 4s;
-      :global(.grid) {
+      .grid {
         animation:
           pulse-opacity 2s infinite,          
           scroll-grid 2s linear 10s infinite;
@@ -155,11 +155,11 @@ body[data-current-build^="title2"] :global(#hallucinations),
   }
 }
 
-:global(.dreamsEnd)
+.dreamsEnd
 {
-  > :global(#dreams) {
-    > :global(#faces) { display: none; }
-    > :global(#grid) {      
+  > #dreams {
+    > #faces { display: none; }
+    > #grid {      
       display: block;      
       .full();
       transition: opacity 4s;
@@ -167,7 +167,7 @@ body[data-current-build^="title2"] :global(#hallucinations),
       --rotate-x: 60deg;
       --zoom: 0.4;
       canvas {opacity: 0}
-      :global(.grid) {
+      .grid {
         animation:
           pulse-opacity 2s infinite,
           scroll-grid 2s linear infinite;
@@ -227,7 +227,7 @@ grid-cells {
     transition: transform 10s linear, opacity 5s;
     transform: rotateX(var(--rotate-x)) scale(var(--zoom));
   }
-  :global(.grid) {
+  .grid {
     transition: transform 10s linear;
     transform: rotateX(var(--rotate-x)) scale(var(--zoom));
   }
@@ -258,7 +258,7 @@ grid-cells {
   filter: blur(0);
 }
 
-:global(#faces) {
+#faces {
   display: none;
   transition: transform 4s, opacity 2s;
   transform: scale(1);
@@ -276,7 +276,7 @@ grid-cells {
   --discrim-stack-expand: 1;
 }
 
-:global(#facesVideo) {
+#facesVideo {
   .absolute(@width: 100%, @height: 100%);
   transition: none;
   --layer-t: 0;
@@ -287,7 +287,7 @@ grid-cells {
   .layer();
 }
 
-:global(.gen-layer) {
+.gen-layer {
   .layer(
     @from-width: 50%, @to-width: 30%,
     @from-height: 100%, @to-height: 50%,
@@ -303,7 +303,7 @@ grid-cells {
   opacity: 0;
 }
 
-:global(.discrim-layer) {
+.discrim-layer {
   .layer(
     @from-width: 50%, @to-width: 30%,
     @from-height: 100%, @to-height: 30%,
@@ -319,7 +319,6 @@ grid-cells {
   --stack-skew-x-to: 10deg;
   --stack-expand: var(--discrim-stack-expand);
 }
-
 
 @keyframes pulse {
   0% { background: rgba(255, 0, 255, 0); }

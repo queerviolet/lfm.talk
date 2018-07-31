@@ -1,79 +1,81 @@
 @import "base.less";
 
-:global(.inside #hallucinations) {
+.inside #hallucinations {
   .gray-full();
-  :global(#deepDream) { .being-watched(@x: -30vw, @rotate: 80deg, @scale: 1); }
+  #deepDream {
+    .being-watched(@x: -30vw, @rotate: 80deg, @scale: 1);
+  }
 }
 
-:global(.insideEnterSkully #hallucinations),
+.insideEnterSkully #hallucinations,
 {
   .gray-full();
-  :global(#deepDream) { .being-watched(); }
-  :global(#skully) { .skully-visible(); }
+  #deepDream { .being-watched(); }
+  #skully { .skully-visible(); }
 }
 
-:global(.insideLessCruft #hallucinations),
+.insideLessCruft #hallucinations,
 {
   .gray-full();
-  :global(#deepDream) { .being-watched(@x: -100vw); opacity: 0; }
-  :global(#skully) { .skully-visible(); }
+  #deepDream { .being-watched(@x: -100vw); opacity: 0; }
+  #skully { .skully-visible(); }
 }
 
-:global(.insideRetina #hallucinations),
-:global(.insideRetinaGanglions #hallucinations),
-:global(.insideRetinaEtc #hallucinations),
-:global(.insideRetinaPhotoreceptors #hallucinations),
-:global(.insideRetinaLightGoesIn #hallucinations),
-:global(.insideRetinaSignalComesOut #hallucinations),
-:global(.insideRetinaOpticNerve #hallucinations),
-:global(.insideRetinaReceptiveField #hallucinations),
-:global(.insideRetinaReceptiveFieldFiringWeakly #hallucinations),
-:global(.insideRetinaReceptiveFieldOffCenterFiring #hallucinations),
-:global(.insideRetinaReceptiveFieldOffCenterDead #hallucinations),
-:global(.insideRetinaReceptiveFieldOnCenterFiring #hallucinations),
+.insideRetina #hallucinations,
+.insideRetinaGanglions #hallucinations,
+.insideRetinaEtc #hallucinations,
+.insideRetinaPhotoreceptors #hallucinations,
+.insideRetinaLightGoesIn #hallucinations,
+.insideRetinaSignalComesOut #hallucinations,
+.insideRetinaOpticNerve #hallucinations,
+.insideRetinaReceptiveField #hallucinations,
+.insideRetinaReceptiveFieldFiringWeakly #hallucinations,
+.insideRetinaReceptiveFieldOffCenterFiring #hallucinations,
+.insideRetinaReceptiveFieldOffCenterDead #hallucinations,
+.insideRetinaReceptiveFieldOnCenterFiring #hallucinations,
 {
   .gray-full();
   background: white;
-  :global(#deepDream) { display: none; }
-  :global(#skully)  { .skully-visible(); }
+  #deepDream { display: none; }
+  #skully  { .skully-visible(); }
 }
 
-:global(.insideBrain #hallucinations)
+.insideBrain #hallucinations
 {
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
 }
 
-:global(.insideChiasma #hallucinations)
+.insideChiasma #hallucinations
 {
-  > :global(#highlightBox) {
+  > #highlightBox {
     display: block;
     opacity: 1;
     top: 55vh; left: 45vw;
     width: 10vw; height: 10vh;
   }
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
 }
 
-:global(.insideThalamus #hallucinations)
+.insideThalamus #hallucinations
 {
-  > :global(#highlightBox) {
+  > #highlightBox {
     display: block;
     opacity: 1;
     top: 44vh; left: 47vw;
     width: 20vw; height: 20vh;
   }
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
 }
 
-:global(.insideVisualCortex #hallucinations),
+.insideVisualCortex #hallucinations,
 {
-  > :global(#highlightBox) {
+  > #highlightBox {
     display: block;
     opacity: 1;
     top: 34vh; left: 24vw;
@@ -81,131 +83,131 @@
     backdrop-filter: brightness(110%);
   }
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
 }
 
-:global(.insideVisualCortexLayers #hallucinations),
+.insideVisualCortexLayers #hallucinations,
 {
-  > :global(#highlightBox) {
+  > #highlightBox {
     display: block;
     opacity: 1;
     top: 34vh; left: 24vw;
     width: 30vw; height: 55vh;
     backdrop-filter: brightness(110%);
   }
-  > :global(#visualCortexLayers) {
+  > #visualCortexLayers {
     transform: translate(-110%, -55%) scale(0.5);
   }
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
 }
 
-:global(.insideVisualCortexRecurrent #hallucinations),
+.insideVisualCortexRecurrent #hallucinations,
 {
-  > :global(#highlightBox) {
+  > #highlightBox {
     display: block;
     opacity: 1;
     top: 34vh; left: 24vw;
     width: 30vw; height: 55vh;
     backdrop-filter: brightness(110%);
   }
-  > :global(#visualCortexLayers) {
+  > #visualCortexLayers {
     transform: translate(-110%, -55%) scale(0.5);
   }
-  > :global(#visualCortexMap) {
+  > #visualCortexMap {
     transform: translate(0%, -50%) scale(0.75);
   }
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
 }
 
 
-:global(.inside5ht2a #hallucinations),
+.inside5ht2a #hallucinations,
 {
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
-  :global(#ht2a) {
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
+  #ht2a {
     transform:  translate(-50%, -50%) scale(1);
   }
 }
 
-:global(.inside5ht2aLSDBinding #hallucinations),
+.inside5ht2aLSDBinding #hallucinations,
 {
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
-  :global(#ht2a) {
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
+  #ht2a {
     transform:  translate(calc(-100% + 10vw), -50%) scale(1);
   }
-  :global(#ht2aLSDBinding) {
+  #ht2aLSDBinding {
     transform: translate(-5vw, -50%) scale(1);
   }
 }
 
-:global(.insideAdversarialSticker #hallucinations),
+.insideAdversarialSticker #hallucinations,
 {
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
-  :global(#ht2a) {
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
+  #ht2a {
     transform:  translate(calc(-100% + 10vw), -50%) scale(1);
   }
-  :global(#ht2aLSDBinding) {
+  #ht2aLSDBinding {
     transform: translate(-5vw, -50%) scale(1);
   }
-  :global(#adversarialSticker) {
+  #adversarialSticker {
     transform: translate(-40vw, -25vw) scale(1);
   }
 }
 
-:global(.insideAdversarialSkiiers #hallucinations),
+.insideAdversarialSkiiers #hallucinations,
 {
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
-  :global(#ht2a) {
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
+  #ht2a {
     transform:  translate(calc(-100% + 10vw), -50%) scale(1);
   }
-  :global(#ht2aLSDBinding) {
+  #ht2aLSDBinding {
     transform: translate(-5vw, -50%) scale(1);
   }
-  :global(#adversarialSticker) {
+  #adversarialSticker {
     transform: translate(-40vw, -25vw) scale(1);
   }
-  :global(#adversarialSkiiers) {
+  #adversarialSkiiers {
     transform: translate(-10vw, -10vh) scale(1);
   }
 }
 
-:global(.insideBoxIllusion #hallucinations),
+.insideBoxIllusion #hallucinations,
 {
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
-  :global(#boxIllusion) {
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
+  #boxIllusion {
     transform:  translate(-50%, -50%) scale(1);
   }
 }
 
-:global(.insideConfettiIllusion #hallucinations),
+.insideConfettiIllusion #hallucinations,
 {
   .gray-full();
-  :global(#deepDream) { display: none; }
-  :global(#skully)   { .skully-visible(); }
+  #deepDream { display: none; }
+  #skully   { .skully-visible(); }
 
-  :global(#boxIllusion) {
+  #boxIllusion {
     transform: translate(calc(-100% + 10vw), -50%) scale(1);
   }
-  :global(#confettiIllusion) {
+  #confettiIllusion {
     transform: translate(-5vw, -50%) scale(1);
   }
 }
 
-:global(.hallucinationsToSleep #hallucinations),
+.hallucinationsToSleep #hallucinations,
 {
   .gray-full();
   animation-name: glow-zonk-out;
@@ -243,7 +245,7 @@
 
 // ---
 
-:global(#highlightBox) {
+#highlightBox {
   .fixed();
   border: 2px solid @pink;
   transition: 1s;
@@ -253,7 +255,7 @@
   backdrop-filter: brightness(150%);
 }
 
-:global(#ht2a) {
+#ht2a {
   .window();
   > type-writer { .type-writer-title(); }
   > video {
@@ -262,13 +264,13 @@
   }
 }
 
-:global(#ht2aLSDBinding),
-:global(#adversarialSticker),
-:global(#adversarialSkiiers),
-:global(#visualCortexLayers),
-:global(#visualCortexMap),
-:global(#boxIllusion),
-:global(#confettiIllusion),
+#ht2aLSDBinding,
+#adversarialSticker,
+#adversarialSkiiers,
+#visualCortexLayers,
+#visualCortexMap,
+#boxIllusion,
+#confettiIllusion,
 {
   .window();
   > type-writer { .type-writer-title(); }
@@ -282,7 +284,7 @@
   }
 }
 
-:global(#adversarialStickers) {
+#adversarialStickers {
   z-index: 100;
 }
 
@@ -308,7 +310,7 @@
   padding: 0 9px;
 }
 
-:global(#skully) {
+#skully {
   position: absolute;
   height: 100vh;
   transform: translateX(100%);  // skully enters from the right
