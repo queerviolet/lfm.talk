@@ -94,10 +94,8 @@ const fill = (parent, p=params) => {
   const children = Object.entries(p)
     .map(([param, gen]) => {
       const child = span()
-      console.log(parent, parent.paramPath)
       const paramPath = parent.paramPath.concat(param)
       const path = paramPath.join('_')
-      console.log(path)
       parent.appendChild(child)
       const p = paramElement(path)
       const v = valueElement(path)
