@@ -881,6 +881,7 @@
   </build-note>
 
   <script>
+    grid.playbackRate = 0
     When(dreamsGrid)
       .start(() => { grid.onResize(); grid.playbackRate = 1 })
 
@@ -960,8 +961,8 @@
     hand right now?
 
     Then we'd face the same problem as trying to play
-    a twitchy video game over a totally crap connection. Signals take TKms
-    to travel from our brain to our periphery, and another TKms to travel
+    a twitchy video game over a totally crap connection. Signals take 10ms
+    to travel from our brain to our periphery, and another 10ms to travel
     back. It's just not that low-latency or high-bandwidth, this body of ours,
     at least not neurologically.
 
