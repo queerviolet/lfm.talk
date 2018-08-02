@@ -528,7 +528,8 @@
     The pattern finding machinery in your cortex to starts to run overtime, and at different rates.
     
     In one moment, the pattern in a tapestry seems to extend into the world beyond it; in the next, it is the trees that are growing and breathing, the perception of movement a visual hypothesis allowed to grow wild.
-    
+  </build-note>
+  <build-note id=insideWeAreTheOutput>
     With Deep Dream, we asked what would excite some layer of Inception, and then we adjusted the input image in that direction.
 
     There’s no comparable gradient ascent process in biological psychedelic experience.
@@ -544,7 +545,7 @@
     We could perform the amplification process on a final result, rather than an intermediate one.    
   </build-note>
   <script>
-    When(buildInRange(inside5ht2a, inside5ht2aLSDBinding))
+    When(buildInRange(inside5ht2a, insideWeAreTheOutput))
       .start(() => {
         ht2aTitle.text = '5-HT2 receptor subtype A'
         ht2aVideo.currentTime = 0
@@ -587,6 +588,8 @@
 
     A person might look at this and—if they’re tired, far away, and drunk—think for a moment that it’s a big dog.
     But they probably wouldn’t conclude it’s a big dog.
+  </build-note>
+  <build-note id=insideAdversarialContinuousRefinement>
     The recurrent properties of our visual cortex—not to mention much of the rest of our brain—means that our sense of the world is stateful. It’s a continually refined hypothesis, whose state is held by the state of our neurons.
     
     Lisa Sabour: "A parse tree is carved out of a fixed multilayer neural network like a sculpture is carved from a rock” ([Sabour 2017](https://arxiv.org/pdf/1710.09829.pdf)).
@@ -632,7 +635,7 @@
     Or...
   </build-note>
   <script>
-    When(buildInRange(inside5ht2a, insideAdversarialSkiiers))
+    When(buildInRange(inside5ht2a, insideAdversarialContinuousRefinement))
       .end(() => ht2aTitle.text = ht2aLSDTitle.text = stickerTitle.text = skiiersTitle.text = '')
     When(insideAdversarialSticker)
       .start(() => stickerTitle.text = 'Adversarial patch (arXiv:1712.09665v2)')
