@@ -70,7 +70,7 @@ const updateNotes = (notes=JSON.parse(localStorage.buildNotes)) => {
 const updateScroll = (id=localStorage.currentBuild) => {
   const e = document.getElementById(id)
   if (!e) return
-  process.nextTick(() => e.scrollIntoView({behavior: 'smooth'}))
+  process.nextTick(() => e.scrollIntoView({block: 'start', behavior: 'smooth'}))
   const current = document.querySelector('build-note.current')
   current && current.classList.remove('current')
   e.classList.add('current')
