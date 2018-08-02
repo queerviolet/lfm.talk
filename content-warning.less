@@ -18,7 +18,7 @@
 
   > p {
     width: 90%;
-    margin: 5vmin;
+    margin: 2vmin;
     font-size: 5vmin;
     text-align: center;
   }
@@ -34,8 +34,10 @@
       align-items: center;
     }
 
-    > li:before {
-      margin: 18px;
+    > li:before, > li > .many-eyes {
+      margin: 1vh;
+      margin-right: 18px;
+      transform: scale(0.8);
     }
 
     > .cw-seizure:before {
@@ -46,20 +48,28 @@
       align-items: center;
       font-size:48px;
       width: 64px; height: 64px;
-      background: url('cw-brain.jpg');
-      // background-blend-mode: multiply;
+      background: url('cw-brain.jpg') white;
       background-size: 64px 64px;
       filter: invert(100%) hue-rotate(180deg);
       animation: seizure-notice 5s infinite;
     }
 
+    > .cw-drugs:before {
+      content: '💊';
+      color: white;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size:48px;
+      width: 64px; height: 64px;
+      animation: trippy 5s infinite;
+    }
 
     > .cw-skull:before {
       content: '';
       display: inline-block;      
       width: 64px; height: 64px;
-      background: url('cw-skull.jpg');
-      // background-blend-mode: multiply;
+      background: url('cw-skull.jpg') white;
       background-size: 64px 64px;
       filter: invert(100%);
       animation: flickery 5s infinite;
@@ -91,7 +101,7 @@
       display: inline-block;      
       width: 64px; height: 64px;
       position: relative;     
-      margin: 18px;
+      // margin: 18px;
 
       .eye {
         width: 22px;
