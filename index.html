@@ -445,7 +445,7 @@
     Most serotonin is located in your gut, where it controls bowel movement.
       - Signals that it’s got food in it and should go on and do what it does to food.
     
-    What the molecule signals throughout your body: resource availability. And for animals with complex societies, like us, resources can be very abstract—covering social resources as well as energetic ones.    
+    What the molecule signals throughout your body: resource availability. And for animals with complex societies, like us, resources can be very abstract—social resources as well as energetic ones.    
     That your pyramidal cells respond excitedly to serotonin suggests that we focus on that which we believe will nourish us.    
 
     It’s not correct, as a blanket statement, to say that pyramidal cells are excited by serotonin. In fact, there are different kinds of serotonin receptors, and their binding produces different effects.
@@ -511,7 +511,9 @@
 
     What’s about to happen is: LSD will diffuse into your blood.
 
-    LSD is a tiny molecule. It has no trouble crossing the blood brain barrier and diffusing deep into your brain, perhaps into your visual cortex, where it finds a pyramidal 5-HT2A receptor and locks into place.
+    LSD has no trouble crossing the blood brain barrier.
+    It is tiny, but POWERFUL. Like you.
+    It will diffuse deep into your brain, perhaps into your visual cortex, where it finds a pyramidal 5-HT2A receptor and locks into place.
   </build-note>
   <build-note id=inside5ht2aLSDBinding>
     The LSD molecule stays bound for around 221 minutes(https://www.cell.com/cell/pdf/S0092-8674(16)31749-4.pdf).
@@ -596,7 +598,8 @@
     
     Our perceptions are a process of continuous refinement.
 
-    This may point the way towards more robust recognition architectures. Recurrent convolutional networks that ruminate upon images, possibly operating with greater accuracy, or providing a signal that something is off about an input.
+    This may point the way towards more robust recognition architectures.
+    Recurrent convolutional networks that ruminate upon images, making better classifications, or providing a signal that something is off about an input.
     
     There are adversarial examples for the human visual system, after all, and we call them optical illusions.
     And they <i>feel weird</i> to look at.
@@ -614,24 +617,20 @@
       and a box missing one
   </build-note>
   <build-note id=insideConfettiIllusion>
-    And in this Munker illusion, we can feel something scintillating about the colors of the dots—which are, incidentally, all the same.
-        
+    This Munker illusion: something scintillating in the color of the dots
+
     If we design CNNs with recurrence, they could exhibit such behavior as well
-    which maybe doesn't sound like such a good thing, on the face of it.
-    
+    --maybe doesn't sound like such a good thing, on the face of it.--
     Let's make our image classifiers vascillating. Uncertain.
     But our ability to hem and haw and reconsider our own perceptions at many levels gives our perceptual system
     tremendous robustness.
     
-    Paradoxically, being able to second-guess ourselves allows us greater confidence in the accuracy of our predictions.
-    
-    We are doing science in every moment, at the cellular level, our brains continuously reconsidering and refining
+    Paradoxically, being able to second-guess ourselves allows us greater confidence in our predictions.
+    We are doing science in every moment, the cells of our brains continuously reconsidering and refining
     a shifting hypotheses about the state of the world.
     
-    This gives us the ability to adapt and operate within a pretty extreme range of conditions
-    
+    This gives us the ability to adapt and operate within a pretty extreme range of conditions    
     Even while tripping face.
-
     Or...
   </build-note>
   <script>
@@ -677,12 +676,15 @@
       const gen = createLayers({prefix: 'gen', className: 'gen-layer', count: 10})
     </script>
   </div>
-  <build-note id=dreamsPlaying data-time=10>
-    ...
+  <build-note id=dreamsPlaying data-title="" data-subtitle="" data-time=10>
     These are not real people.
+  </build-note>
+  <build-note id=dreamsCitation data-title="" data-subtitle="Progressive Growing of GANs
+for Improved Quality, Stability, and Variation
+(arXiv:1710.10196)">
     These are the photos of fake celebrities, dreamt up by a generative adversarial network.
     A pair of networks
-    Which are particularly... creative.
+    Which are particularly... creative.  
   </build-note>
   <build-note id=dreamsTraining data-duration=1 data-time=51 data-playback-rate=0.5>
     The networks get better through continuous, mutual refinement.
@@ -719,37 +721,23 @@
   </build-note>
   <build-note id=dreamsTrainingFeedback data-duration=10 data-playback-rate=0.1>
     we backpropagate the failure, so it may learn.
-
-    I should say that the canonical terms for these networks are the Generator and the Discriminator.
-
-    Don't know why I renamed them. Must've misspoke.
-
-    This is an incredibly powerful training methodology.
-    A semi-supervised learning technique.
-    Because, see, we haven't found every possible image that the generator might make and labeled them PLAUSIBLE and IMPLAUSIBLE
-
+    Technical terms: Generator and the Discriminator.
+    This is an incredibly powerful training methodology. A semi-supervised learning technique.<!-- Because, see, we haven't found every possible image that the generator might make and labeled them PLAUSIBLE and IMPLAUSIBLE -->
     Instead, there is this process of recursive co-training
     In which these two circuits play this <i>game</i>
     Ruminating on a space of possibilities
     And so extracting value from a relatively small amount of training data
-
-    A process that is perhaps helpful for neural circuits of all kinds.
-
-    TODO: GAN problems? Counting?
-
+    A process that is perhaps helpful for neural circuits of all kinds. <!-- TODO: GAN problems? Counting? -->
+    
     One interesting thing about this training methodology is that the Creator—sorry, Generator is being fed noise
-
     A vector of noise—some random point in a high-dimensional space.
-
     So it learns a mapping from the space of all noise it could receive
     onto its generation target—in this case, faces.
     And if we take a point in that space and <i>drag it around</i>...
   </build-note>
   <build-note id=dreamsInterpolation data-duration=2 data-time=85.5>
     We get this.
-
     This... is also quite trippy, no?
-
     It resembles the things that I've seen...
       ...the things that Someone Who Isn't Me has seen...
     on acid.
@@ -763,16 +751,13 @@
     When we see a face, a bunch of neurons in our brain light up
     And begin resonating a signal which <i>is</i> the feeling of looking at that
     particular face. Taken together, all the neurons involved in face detection
-    produce a vector embedding of faces
-    a mapping from faces
-    to positions in a high-dimensional space.
+    produce a vector embedding
+    a mapping from faces to positions in a high-dimensional space.
 
-    And as we drag around the generator's vector here,
-    so are we dragging around our own.
+    And as we drag around the generator's vector here, so are we dragging around our own.
     A novel sensation.
 
-    This is a wild theory
-    But not without neurocognitive precedent.
+    This is a wild theory. But not without neurocognitive precedent.
   </build-note>
   <script>
     When(buildInRange(title2DreamsBlur, dreamsInterpolation))
@@ -857,8 +842,7 @@
   <build-note id=dreamsGridFlashing>
     ...A pattern begins to emerge.
 
-    This neuron is a grid cell
-    TODO: citation, actual experimental image
+    This neuron is a grid cell<!-- TODO: citation, actual experimental image -->
     So named because the centers of its firing fields produce a triangular grid.
     There are lots of grid cells in your brain
     Each aligning to a different grid
@@ -1096,7 +1080,8 @@
     exquisite agony
     and everything else
   
-  We contain multitudes
+  The I of us a hallucination
+  For we contain multitudes
   You contain the entire universe
 </build-note>
 <build-note id=titleConclusion2 data-title=''> 

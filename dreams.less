@@ -23,9 +23,20 @@ body[data-current-build^="title2"] #hallucinations,
   > #dreams > #faces { .full() }
 }
 
+.dreamsCitation
+{
+  > #titleCard {
+    .fixed(); z-index: 100;
+    > #titleWriter { opacity: 0; }
+    > #subTitleWriter { opacity: 1; }
+  }  
+  > #dreams > #faces { .full() }
+}
+
+
 .dreamsTraining,
 {
-  > #titleCard { display: none; }
+  > #titleCard { display: .fixed(); }
   > #dreams > #faces { .full() }
 }
 
