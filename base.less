@@ -64,7 +64,7 @@ h1 {
   animation-iteration-count: infinite;
 }
 
-:global(#bootloader) {
+#bootloader {
   .fixed();
   background: black;
   color: white;
@@ -76,7 +76,7 @@ h1 {
     --typewriter-cursor-color: rgba(0, 0, 0, 0);
   }
 
-  > :global(type-writer.terminal) {
+  > type-writer.terminal {
     white-space: pre;
     --typewriter-typing-rate: 100;  
   }
@@ -84,4 +84,29 @@ h1 {
 
 build-note {
   display: none;
+}
+
+.type-writer-title(@color: @electric-blue) {
+  display: inline-block;
+  transition: 1s;
+  background: @color;
+  color: white;
+  --typewriter-cursor-color: white;
+  padding: 0 9px;
+}
+
+.window(@color: @electric-blue) {
+  .fixed(@top: 50%, @left: 50%, @width: auto, @height: auto);
+  transform: translate(-50%, -50%) scale(0);
+  transition: 1s;
+  box-sizing: border-box;
+  > type-writer { .type-writer-title(@color); }
+  > video, > img {
+    .window-content(@color);
+  }
+}
+
+.window-content(@color: @electric-blue) {
+  border: 3px solid @color;
+  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
 }

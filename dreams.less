@@ -88,6 +88,58 @@ body[data-current-build^="title2"] #hallucinations,
     }
 }
 
+.dreamsTrainingProblemsStructure,
+{
+  > #titleCard { display: none; }
+  > #dreams {
+    > #faces {
+      .full();
+      transform: scale(1.8) translateY(15vh);
+      > .gen-layer {
+        .animate-layers(pulse-blue);
+        opacity: 1;
+      }
+      > .discrim-layer {
+        .animate-layers(pulse, @t: calc(1 - var(--layer-t)));
+        opacity: 1;
+      }
+    }
+    > #dreamsGlobalStructure {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+}
+
+.dreamsTrainingProblemsCounting,
+{
+  > #titleCard { display: none; }
+  > #dreams {
+    > #faces {
+      .full();
+      transform: scale(1.8) translateY(15vh);
+      > .gen-layer {
+        .animate-layers(pulse-blue);
+        opacity: 1;
+      }
+      > .discrim-layer {
+        .animate-layers(pulse, @t: calc(1 - var(--layer-t)));
+        opacity: 1;
+      }
+    }
+    > #dreamsGlobalStructure {
+      transform: translate(-80%, -50%) scale(1);
+    }
+    > #dreamsGlobalCounting {
+      transform: translate(0, -50%) scale(1);
+      img {
+        width: 40vw;
+        height: auto;
+      }
+    }
+  }
+}
+
+
 .dreamsInterpolation,
 {
   > #titleCard { display: none; }
@@ -383,4 +435,14 @@ grid-cells {
 .lerp(@from, @to, @t: var(--layer-t)) {
   @delta: calc(@to - @from);
   @value: calc(@from + @delta * @t);
+}
+
+#dreamsGlobalStructure, #dreamsGlobalCounting {
+  .window(@pink);
+  transform: translate(-50%, -50%) scale(0);
+}
+
+#dreamsGlobalCounting > img {
+  width: 40vw;
+  height: auto;
 }

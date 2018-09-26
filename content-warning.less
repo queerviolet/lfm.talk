@@ -65,6 +65,17 @@
       animation: trippy 5s infinite;
     }
 
+    > .cw-suicide:before {
+      content: '𝛀';
+      color: gray;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size:48px;
+      width: 64px; height: 64px;
+      animation: flickery-neutral 5s infinite;
+    }
+
     > .cw-skull:before {
       content: '';
       display: inline-block;      
@@ -185,6 +196,20 @@
   45% { filter: invert(100%) brightness(140%); }
   60% { filter: invert(100%) brightness(100%); }
   80% { filter: invert(100%) brightness(110%); }
+}
+
+@keyframes flickery-neutral {
+  0%  { filter: brightness(120%); }
+  20% { filter: brightness(100%); }
+  22% { filter: brightness(140%); }
+  24% { filter: brightness(100%); }
+  25% { filter: brightness(110%); }
+  30% { filter: brightness(100%); }
+  35% { filter: brightness(130%); }
+  35% { filter: brightness(70%); }
+  45% { filter: brightness(80%); }
+  60% { filter: brightness(120%); }
+  80% { filter: brightness(100%); }
 }
 
 

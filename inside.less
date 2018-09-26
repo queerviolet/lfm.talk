@@ -133,7 +133,7 @@
   #deepDream { display: none; }
   #skully   { .skully-visible(); }
   #ht2a {
-    transform:  translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
@@ -144,10 +144,10 @@
   #deepDream { display: none; }
   #skully   { .skully-visible(); }
   #ht2a {
-    transform:  translate(calc(-100% + 10vw), -50%) scale(1);
+    transform: translate(calc(-100% + 10vw), -50%) scale(1);
   }
   #ht2aLSDBinding {
-    transform: translate(-5vw, -100%) scale(1);
+    transform: translate(-5vw, -90%) scale(1);
   }
   #ht2aLSDBindingDetail {
     transform: translate(-5vw, 0%) scale(1);
@@ -160,10 +160,13 @@
   #deepDream { display: none; }
   #skully   { .skully-visible(); }
   #ht2a {
-    transform:  translate(calc(-100% + 10vw), -50%) scale(1);
+    transform: translate(calc(-100% + 10vw), -50%) scale(1);
   }
   #ht2aLSDBinding {
-    transform: translate(-5vw, -50%) scale(1);
+    transform: translate(-5vw, -90%) scale(1);
+  }
+  #ht2aLSDBindingDetail {
+    transform: translate(-5vw, 0%) scale(1);
   }
   #adversarialSticker {
     transform: translate(-40vw, -25vw) scale(1);
@@ -180,7 +183,10 @@
     transform:  translate(calc(-100% + 10vw), -50%) scale(1);
   }
   #ht2aLSDBinding {
-    transform: translate(-5vw, -50%) scale(1);
+    transform: translate(-5vw, -90%) scale(1);
+  }
+  #ht2aLSDBindingDetail {
+    transform: translate(-5vw, 0%) scale(1);
   }
   #adversarialSticker {
     transform: translate(-40vw, -25vw) scale(1);
@@ -273,41 +279,13 @@
 #confettiIllusion,
 {
   .window();
-  > type-writer { .type-writer-title(); }
-  > video {
-    .window-content();
-    width: 50vw;
-  }
-  > img {
-    .window-content();
+  > video, > img {
     width: 50vw;
   }
 }
 
 #adversarialStickers {
   z-index: 100;
-}
-
-
-.window {
-  .absolute(@top: 50%, @left: 50%, @width: auto, @height: auto);
-  transform: translate(-50%, -50%) scale(0);
-  transition: 1s;
-  box-sizing: border-box;
-}
-
-.window-content {
-  border: 3px solid @electric-blue;
-  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
-}
-
-.type-writer-title {
-  display: inline-block;
-  transition: 1s;
-  background:  @electric-blue;;
-  color: white;
-  --typewriter-cursor-color: white;
-  padding: 0 9px;
 }
 
 #skully {

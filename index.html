@@ -19,14 +19,14 @@
 
 <!-- Content Warning -->
 <div id=contentWarning>
-  <p>This first half of this presentation contains language and sequences of
-  computer generated imagery which may be hazardous or unsettling</p>
+  <p>This presentation may be hazardous or unsettling</p>
 
   <ul>
-    <li class=cw-seizure>Rapidly changing images over part of the screen
+    <li class=cw-seizure>Rapidly flickering images
     <li class=cw-vertigo>Vertiginous full screen zooms
     <li class=cw-drugs>Descriptions of drug use
-    <li class=cw-skull>Detailed anatomical models
+    <li class=cw-suicide>Suicide
+    <li class=cw-skull>Unusually detailed anatomical models
     <li class=cw-flesh>Distorted figures suggesting human flesh
     <li class=cw-eyes>
       <div class=many-eyes>
@@ -39,7 +39,17 @@
       Many eyes, all of them watching you</li>
   </ul>
 </div>
-<build-note id=preshowContentWarning></build-note>
+<build-note id=preshowContentWarning>
+  This talk is a little bit challenging.
+  In this talk, we're going to talk about things we do not talk about.
+  Look at things we do not look about.
+  There's all sorts of things that pour downriver when you open locks that have long been shut.
+  And I want you to be here for it.
+  So I want you to know what's going to happen
+  So you can <i>be here</i> for it.
+  If you can't, please: take care of yourself.
+  For everyone else...
+</build-note>
 
 <!-- Introduction -->
 <div id=titleCard class=vbox>
@@ -60,15 +70,14 @@
   Hi.
 </build-note>
 <build-note id=titleAshi             data-title="ashi krishnan" data-subtitle="@rakshesha     ashi.io">
-  I'm Ashi Krishnan
+  My name is Ashi.
 </build-note>  
 <build-note id=titleAshiJob          data-title="ashi krishnan" data-subtitle="sr. software engineer @ github">
-  I'm a senior software engineer at Github.
-  I work on Atom.
-  Has nothing whatsoever to do with the talk you're about to hear.
+  I'm a senior software engineer at Github, and that
+  has nothing whatsoever to do with the talk you're about to hear.
 </build-note>  
 <build-note id=titleLfm              data-title="learning from machines">
-  Today, I want to share with you a hobby of mine.
+  Today, I'm going to talk about a hobby.
   I'd like to share some things I've learned at the intersection of computational neuroscience and artificial intelligence.
 
   For years, I've been fascinated by how we think.
@@ -77,13 +86,18 @@
   Why our experiences are shaped like this and not that.
   Why we suffer.
 
-  And for years, I've been fascinated by AI. We're watching these machines begin to approximate the tasks of our cognition, in sometimes unsettling ways.
+  And for years, I've been fascinated by AI.
+  Haven't we all?
+  We're watching these machines begin to approximate the tasks of our cognition, in sometimes unsettling ways.
 
-  Today, I want to share with you some of what I've learned. Some solid research. Some solid speculation.  
+  Today, I want to share with you some of what I've learned.
+  Some solid research.
+  Some solid speculation.  
 
   All of it speaks to a truth I have come to believe:
-    our bodies are computers
-    and we are their computations.
+    we are computations
+    our worlds created on an ancient computer,
+    powerful beyond imagining.
 
   Let's begin.
 </build-note>
@@ -147,7 +161,7 @@
     This person is...
   </build-note>
   <build-note id=dreamFullscreenMiquel>
-    ...Miquel Perelló Nieto
+    ...Miquel Perelló Nieto.
     And he has something to show us.
   </build-note>
   <script>
@@ -156,7 +170,8 @@
       .end(() => miquel.text = '')
   </script>
   <build-note id=dreamFullscreenPlaying>
-    It starts with simple patterns — splotches of light and dark.
+    It starts with simple patterns — splotches of light and dark
+    Like images from the first eyes.
     These give way to lines and colors.
     And then curves, more complex shapes.
   </build-note>
@@ -165,11 +180,11 @@
     And it seems there are worlds in here.
     Shaded, multichromatic hatches.
     The crystalline farm fields of an alien world.
-    Plant cells.
-    To understand where these visuals are coming from, let's look inside...
+    Cells of plants.
+    To understand where these visuals are coming from, let's look inside.
   </build-note>
   <build-note id=inception>
-    The job of an image classifier is to reshape its input    
+    The job of an image classifier is to reshape its input
   </build-note>
   <build-note id=inceptionFromInput>
     ...which is a square of pixels
@@ -225,7 +240,7 @@
   </build-note>
   <build-note id=dreamFullscreenPlayingAgain data-time=3>
     And that gives us this.
-    We started with these basic shapes,
+    We started with these rudiments of light and shadow,
   </build-note>
   <build-note id=dreamFullscreenKodamas data-time=126>
     And now we sortof have a city-of-Kodamas situation happening
@@ -236,17 +251,17 @@
   <build-note id=dreamFullscreenNearlyHuman data-time=260>
     Later, we will find a space of nearly-human eyes
     Which become dog slugs
-    And dog birds
+    And dog slug birds
   </build-note>  
   <build-note id=dreamFullscreenSaxophonist data-time=403>
-    Unfortunate saxophonist teleporter accident
+    Unfortunate saxophonist teleporter accidents
   </build-note>
   <build-note id=dreamFullscreenFleshZones data-time=426>
     And finally, the flesh zones, with a side of lizards.
     When I first saw this, I thought it looked like Donald Trump.
     And I resolved to never tell anyone until my best friend said the exact same thing.
     Says more about the state of <i>our</i> neural networks than this one. (I think it's the lizard juxtaposition.)
-    But I do want you to think notice and think about what it means that all this skin is so... pale
+    But I do want you to notice and think about what it means that all this skin is so very white.
     
     So this is all... <i>preeeety trippy</i>.
     Why is that? What does it mean, for something to be trippy?
@@ -292,10 +307,11 @@
   </build-note>
   <build-note id=insideEnterSkully>
     ...ourselves.
+    Meet Skully.
   </build-note>
   <build-note id=insideLessCruft>
-    We don't need some of this cruft.
-    We're just looking at the human visual system.
+    Skully doesn't need all this cruft.
+    We're just looking at Skully's visual system.
     Which starts here
   </build-note>
   <build-note id=insideRetina>
@@ -321,7 +337,7 @@
     Which send it... where?
   </build-note>
   <build-note id=insideRetinaOpticNerve>
-    Oh, right. To the optic nerve which is routed right through the center of our eye.
+    Oh, right. To the optic nerve, routed right through the center of our eye.
     We mounted the sensor backwards
     And drilled a hole through the center
     It's okay. We can patch it up in software.
@@ -449,9 +465,10 @@
     That your pyramidal cells respond excitedly to serotonin suggests that we focus on that which we believe will nourish us.    
 
     It’s not correct, as a blanket statement, to say that pyramidal cells are excited by serotonin. In fact, there are different kinds of serotonin receptors, and their binding produces different effects.
-    - 5-HT1A inhibitory
-    - 5-HT3 receptors brain: associated with a sensation of queasiness and anxiety; gut: make it run… backwards.
-    --- Anti-nausea drugs are frequently 5-HT3 antagonists.
+    
+    5-HT1A receptors tend to be inhibitory.
+    5-HT3 receptors in the brain brain are associated with a sensation of queasiness and anxiety.
+    In the gut, they make it run… backwards. Anti-nausea drugs are frequently 5-HT3 antagonists.
 
     There’s another serotonin receptor, one that the pyramidal cells in your brain find particularly exciting.    
   </build-note>
@@ -499,7 +516,7 @@
   <build-note id=inside5ht2a>
     This is the 5-HT2A receptor.
     The primary target for every known psychedelic drug.
-    It is what enables our brain to create psychedelic experiences.
+    It is what enables our brains to create psychedelic experiences.
 
     So you go to a show and you eat a little piece of paper,
     and that piece of paper makes its way down into your stomach,
@@ -513,7 +530,7 @@
 
     LSD has no trouble crossing the blood brain barrier.
     It is tiny, but POWERFUL. Like you.
-    It will diffuse deep into your brain, perhaps into your visual cortex, where it finds a pyramidal 5-HT2A receptor and locks into place.
+    It will diffuse deep into your brain, into your visual cortex, where it finds a pyramidal 5-HT2A receptor and locks into place.
   </build-note>
   <build-note id=inside5ht2aLSDBinding>
     The LSD molecule stays bound for around 221 minutes(https://www.cell.com/cell/pdf/S0092-8674(16)31749-4.pdf).
@@ -557,7 +574,7 @@
     When(inside5ht2aLSDBinding)
       .start(() => {
         ht2aLSDTitle.text = 'LSD 5-ht2a binding - EL2 "lid"'
-        ht2aLSDBindingDetailTitle.text = 'LSD ↔ EL2 (L209) hydrophobic binding'
+        ht2aLSDBindingDetailTitle.text = 'LSD/EL2 (L209) hydrophobic binding'
       })
   </script>
 
@@ -594,7 +611,7 @@
   <build-note id=insideAdversarialContinuousRefinement>
     The recurrent properties of our visual cortex—not to mention much of the rest of our brain—means that our sense of the world is stateful. It’s a continually refined hypothesis, whose state is held by the state of our neurons.
     
-    Lisa Sabour: "A parse tree is carved out of a fixed multilayer neural network like a sculpture is carved from a rock” ([Sabour 2017](https://arxiv.org/pdf/1710.09829.pdf)).
+    Lisa Sabour, preparing us for Capsule networks, writes, "A parse tree is carved out of a fixed multilayer neural network like a sculpture is carved from a rock” ([Sabour 2017](https://arxiv.org/pdf/1710.09829.pdf)).
     
     Our perceptions are a process of continuous refinement.
 
@@ -617,17 +634,17 @@
       and a box missing one
   </build-note>
   <build-note id=insideConfettiIllusion>
-    This Munker illusion: something scintillating in the color of the dots
+    In this Munker illusion, there is something scintillating in the color of the dots—which are, of course, all the same.
 
     If we design CNNs with recurrence, they could exhibit such behavior as well
-    --maybe doesn't sound like such a good thing, on the face of it.--
+    Which maybe doesn't sound like such a good thing, on the face of it
     Let's make our image classifiers vascillating. Uncertain.
     But our ability to hem and haw and reconsider our own perceptions at many levels gives our perceptual system
     tremendous robustness.
     
     Paradoxically, being able to second-guess ourselves allows us greater confidence in our predictions.
     We are doing science in every moment, the cells of our brains continuously reconsidering and refining
-    a shifting hypotheses about the state of the world.
+    shifting hypotheses about the state of the world.
     
     This gives us the ability to adapt and operate within a pretty extreme range of conditions    
     Even while tripping face.
@@ -637,9 +654,9 @@
     When(buildInRange(inside5ht2a, insideAdversarialContinuousRefinement))
       .end(() => ht2aTitle.text = ht2aLSDTitle.text = stickerTitle.text = skiiersTitle.text = '')
     When(insideAdversarialSticker)
-      .start(() => stickerTitle.text = 'Adversarial patch (arXiv:1712.09665v2)')
+      .start(() => stickerTitle.text = 'Adversarial patch arXiv:1712.09665v2')
     When(insideAdversarialSkiiers)
-      .start(() => skiiersTitle.text = 'Black-box adversarial example (arXiv:1712.07113v2)')
+      .start(() => skiiersTitle.text = 'Black-box adversarial example arXiv:1712.07113v2')
   </script>
 
   <build-note id=hallucinationsToSleep>
@@ -668,7 +685,7 @@
   <build-note id=title2             data-title='2. '>Two.</build-note>
   <build-note id=title2Dreams       data-title='2. dreams'>Dreams.</build-note>
 
-  <build-note id=title2DreamsBlur data-time=10 data-paused></build-note>
+  <build-note id=title2DreamsBlur data-title='2. dreams' data-time=10 data-paused></build-note>
   <div id=faces>
     <video id=facesVideo src=assets/gan-faces.mp4 class=layer is=seekable-video preload></video>
     <script>
@@ -676,7 +693,7 @@
       const gen = createLayers({prefix: 'gen', className: 'gen-layer', count: 10})
     </script>
   </div>
-  <build-note id=dreamsPlaying data-title="" data-subtitle="" data-time=10>
+  <build-note id=dreamsPlaying data-subtitle="" data-time=10>
     These are not real people.
   </build-note>
   <build-note id=dreamsCitation data-title="" data-subtitle="Progressive Growing of GANs
@@ -720,21 +737,65 @@ for Improved Quality, Stability, and Variation
     If its forgeries are detected,
   </build-note>
   <build-note id=dreamsTrainingFeedback data-duration=10 data-playback-rate=0.1>
-    we backpropagate the failure, so it may learn.
-    Technical terms: Generator and the Discriminator.
-    This is an incredibly powerful training methodology. A semi-supervised learning technique.<!-- Because, see, we haven't found every possible image that the generator might make and labeled them PLAUSIBLE and IMPLAUSIBLE -->
-    Instead, there is this process of recursive co-training
-    In which these two circuits play this <i>game</i>
+    We backpropagate the failure, so it may learn.
+
+    I should tell you that the technical terms for these networks are the Generator and Discriminator.
+    
+    I changed the names, because names are important, and also, meaningless.
+    
+    They don't change the structure of the training methodology, which is incredibly powerful.
+    
+    A semi-supervised learning technique.
+    Because, see, we haven't found every possible image that the generator might make and labeled them PLAUSIBLE and IMPLAUSIBLE.
+    That would be an impossible task.
+    Instead we have this process of recursive co-training
+    In which two circuits play a <i>game</i>
     Ruminating on a space of possibilities
     And so extracting value from a relatively small amount of training data
-    A process that is perhaps helpful for neural circuits of all kinds. <!-- TODO: GAN problems? Counting? -->
-    
-    One interesting thing about this training methodology is that the Creator—sorry, Generator is being fed noise
+    A process that is perhaps helpful for neural circuits of all kinds.
+    Though it does have a few quirks
+  </build-note>
+  <div id=dreamsGlobalStructure>
+    <type-writer id=dreamsGlobalStructureTitle></type-writer>
+    <img src=assets/gan-problems-fallout-cow.png>
+  </div>
+  <build-note id=dreamsTrainingProblemsStructure data-duration=10 data-playback-rate=0.1>
+    GANs are not particularly great at global structure.
+    Here, it's grown a cow with an extra body
+    Just as you may have spent a night
+    walking through a house that is your house,
+    but with many extra rooms
+  </build-note>
+  <script>
+    When(dreamsTrainingProblemsStructure).start(() =>
+      dreamsGlobalStructureTitle.text = 'Fallout Cow (Goodfellow 2016)'
+    )
+  </script>
+  <div id=dreamsGlobalCounting>
+    <type-writer id=dreamsGlobalCountingTitle></type-writer>
+    <img src=assets/gan-problems-counting-3.png>
+  </div>
+  <build-note id=dreamsTrainingProblemsCounting data-duration=10 data-playback-rate=0.1>
+    These networks are also not particularly great at counting.
+
+    Do something for me:
+    Next time you think you're awake
+    Count your fingers, just to be sure
+    If you do it now, and you have more or fewer than you expected
+    Don't wake up just yet
+    We're not quite done
+
+    Another interesting thing about this training methodology is that the Generator is being fed noise
     A vector of noise—some random point in a high-dimensional space.
-    So it learns a mapping from the space of all noise it could receive
+    So it learns a mapping from this space
     onto its generation target—in this case, faces.
     And if we take a point in that space and <i>drag it around</i>...
   </build-note>
+  <script>
+    When(dreamsTrainingProblemsCounting).start(() =>
+      dreamsGlobalCountingTitle.text = 'Eight-eyed monkey (Goodfellow 2016)'
+    )
+  </script>
   <build-note id=dreamsInterpolation data-duration=2 data-time=85.5>
     We get this.
     This... is also quite trippy, no?
@@ -751,7 +812,7 @@ for Improved Quality, Stability, and Variation
     When we see a face, a bunch of neurons in our brain light up
     And begin resonating a signal which <i>is</i> the feeling of looking at that
     particular face. Taken together, all the neurons involved in face detection
-    produce a vector embedding
+    produce a vector embedding:
     a mapping from faces to positions in a high-dimensional space.
 
     And as we drag around the generator's vector here, so are we dragging around our own.
@@ -764,7 +825,7 @@ for Improved Quality, Stability, and Variation
       .changed((_, {dataset: {time, duration=0, paused, playbackRate=1}}) =>
         facesVideo.seekTo({time, duration, playbackRate, paused: typeof paused !== 'undefined'}))      
 
-    When(buildInRange(dreamsTraining, dreamsTrainingFeedback))
+    When(buildInRange(dreamsTraining, dreamsTrainingProblemsCounting))
       .frame(function() {
         this.lastTime = this.lastTime || 0
         const now = floor(facesVideo.currentTime * 10)
@@ -778,7 +839,7 @@ for Improved Quality, Stability, and Variation
       })
       .end(() => gen_9.style.opacity = 0)
 
-    When(buildInRange(dreamsTrainingExpand, dreamsTrainingFeedback))
+    When(buildInRange(dreamsTrainingExpand, dreamsTrainingProblemsCounting))
       .withDuration(20[sec])
       .start(async function() {
         this.zRot = lerp(0, 360, _ => _ % 360)
@@ -814,7 +875,7 @@ for Improved Quality, Stability, and Variation
           })         
       })
 
-    When(dreamsTrainingFeedback).withDuration(3[sec])
+    When(buildInRange(dreamsTrainingFeedback, dreamsTrainingProblemsCounting)).withDuration(3[sec])
       .start(function() {
         this.expand = lerp(1, -1)
       })
@@ -842,7 +903,7 @@ for Improved Quality, Stability, and Variation
   <build-note id=dreamsGridFlashing>
     ...A pattern begins to emerge.
 
-    This neuron is a grid cell<!-- TODO: citation, actual experimental image -->
+    This neuron is a grid cell.
     So named because the centers of its firing fields produce a triangular grid.
     There are lots of grid cells in your brain
     Each aligning to a different grid
@@ -988,16 +1049,15 @@ for Improved Quality, Stability, and Variation
   </build-note>
   <build-note id=stonesCerebellumWider>
     The cerebellum is quite special.
-    It contains half the neurons in our nervous system. TODO: Build w figure &amp; cite
+    It contains half the neurons in our nervous system.
     All action commands from the brain to the body route through it
     All sensations from the body to the brain, too
     It has long been recognized as vitally important to our motor coordination.
     Like this: <b>touch end of clicker</b>
     People with cerebellar damage have difficulty performing this action smoothly.
-    With cerebellar damage, our movements become jerky
-    laggy
-    It's theorized (TODO: cite) that the cerebellum acts as a Smith predictor.
-    our brain's controller for our latency-distant bodies
+    With cerebellar damage, our movements become jerky, laggy.
+    It's theorized that the cerebellum acts as a Smith predictor. <!-- Miall, R. C., Weir, D. J., Wolpert, D. M., and Stein, J. F. (1993). Is the cerebellum a Smith Predictor? J. Motor Behav., 25(3):203–216.) -->
+    Our brain's controller for our latency-distant bodies
     able to estimate the body's current state
     integrate sensory feedback to update that model
     and decompose gross actions generated elsewhere in the brain
@@ -1025,22 +1085,24 @@ for Improved Quality, Stability, and Variation
     <audio id=sob src=assets/sobbing.wav data-stroke=red></audio>
   </oscill-o-scope>    
   <build-note id=stonesLaughter></build-note>
-  <build-note id=stonesSobbing>
-    The structure of these acts is not so different.
+  <build-note id=stonesSobbing>    
+  </build-note>
+  <build-note id=stonesStopSobbing>
+    These things are not so different.
 
-    Visceral. Gutteral.
+    Visceral. Gutteral. Bone-shaking.
 
-    And neither is the shape of jokes so different from the shape of trauma.
+    Jokes, too, are shaped like trauma.
     They are both shatterings
     Illuminations of discontinuities
     Paradoxes: things which cannot be
       and yet are
 
     Which we must revist again and again, churning
-    As the machinery of our brains tries to make sense
-    Of a world that resists it.
-  </build-note>
-  <build-note id=stonesStopSobbing>    
+    Trying to smooth down the edges of sharp stone
+    The machinery of our brains trying to make sense
+    Of a world
+    That resists it.
   </build-note>
   <script>
     When(any(stonesLifeGoesOn, buildInRange(stonesLifeGoesOnAgain, stonesInTheCerebellum)))
@@ -1077,39 +1139,47 @@ for Improved Quality, Stability, and Variation
   but I didn't
 
   Because I remembered
-  That I am not my pain
-  I am not my body
-  I am not my brain
   I am a process of creation
   I am a song singing myself  
-  We are a story telling itself
-  Sea water, understanding itself
-  Creating within us every exquisite moment:
-    exquisite joy
-    exquisite agony
-    and everything else
+  We are stories telling ourselves
+  A sea understanding itself
+  Our churning waves
+  Creating every moment of
+    exquisite joy and
+    exquisite agony and
+    everything else
   
-  The I of us is a hallucination
-  For I contains multitudes
-  You contain the entire universe
+  It's you.
+
+  You are everything.
 </build-note>
 <build-note id=titleConclusion2 data-title=''> 
-  Everything you have ever known
-    every place you have ever been
-    ever song you have ever sung
-    every god you have ever prayed to
-    every person you have ever loved
-    and the boundaries between them and you
-    and the stars and the sea
-    are all
-    in your head
+  Everything you have ever seen
+  every place you have ever been
+  every song you have ever sung
+  every god you have ever prayed to
+  every person you have ever loved
+  and the boundaries between them and you
+  and the sea and the stars
+  are all
+  in your head
 </build-note>
 <build-note id=titleThanks data-title='thank you.'></build-note>
 <!-- <build-note id=titleEnd data-title="learning from machines" data-subtitle="github.com/queerviolet/lfm.talk"></build-note> -->
 <build-note id=titleEnd data-title="learning from machines" data-subtitle="
-github.com/queerviolet/lfm.talk
+lfm.ashi.io
 
 ashi krishnan
 @rakshesha     ashi.io"></build-note>
 
-<div id=bug><span class=at>@</span>rakshesha</div>
+<div id=bug>
+  <a id=twitterBug href=https://twitter.com/rakshesha><span class=at>@</span>rakshesha</a>
+  <a class=visible href=https://ashi.io id=wwwBug>ashi.io</a>
+</div>
+<script>
+  setInterval(() => {
+    const [current=bug.firstElementChild] = bug.getElementsByClassName('visible')
+    current.classList.remove('visible')
+    ;(current.nextElementSibling || bug.firstElementChild).classList.add('visible')
+  }, 30 * 1000)
+</script>

@@ -7,3 +7,4 @@ dist/*
 *.m4v
 assets
 tmp
+.DS_Store
