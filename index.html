@@ -40,13 +40,14 @@
   </ul>
 </div>
 <build-note id=preshowContentWarning>
-  This talk is a little bit challenging.
-  In this talk, we're going to talk about things we do not talk about.
-  Look at things we do not look about.
-  There's all sorts of things that pour downriver when you open locks that have long been shut.
-  And I want you to be here for it.
-  So I want you to know what's going to happen
-  So you can <i>be here</i> for it.
+  This talk may be a little challenging.
+  You're going to see some things that tickle your brain.
+  I'm going to talk about things we do not talk about.  
+  We're going to open some locks.
+  There's all sorts of things that pour downriver
+  When that happens
+  I really want you to be here for it
+  But if you can't be here for it
   If you can't, please: take care of yourself.
   For everyone else...
 </build-note>
@@ -63,8 +64,11 @@
         'subtitle' in current.dataset
           ? (subTitleWriter.text = current.dataset.subtitle)
           : subTitleWriter.text = ''
+        const {cite=''} = current.dataset
+        citation.text = cite
+        citation.style.opacity = cite ? 1 : 0
       })
-  </script>  
+  </script>
 </div>
 <build-note id=titleBlank            data-title="">
   Hi.
@@ -123,7 +127,6 @@
     </div>
   <video id=skully src=assets/brain-skull-to-vision.m4v is=seekable-video preload></video>
   <video id=deepDream src=assets/miquel_pn_deep_dream.mp4 preload is=seekable-video></video>
-  <type-writer id=miquel></type-writer>
   <div id=deepDreamLayers class=stopped>
     <type-writer id=deepDreamCurrentLayer></type-writer>
   </div>        
@@ -160,15 +163,10 @@
   <build-note id=dreamFullscreenPaused>
     This person is...
   </build-note>
-  <build-note id=dreamFullscreenMiquel>
+  <build-note id=dreamFullscreenMiquel data-cite='Miquel Perelló Nieto'>
     ...Miquel Perelló Nieto.
     And he has something to show us.
   </build-note>
-  <script>
-    When(dreamFullscreenMiquel)
-      .start(() => miquel.text = 'Miquel Perelló Nieto')
-      .end(() => miquel.text = '')
-  </script>
   <build-note id=dreamFullscreenPlaying>
     It starts with simple patterns — splotches of light and dark
     Like images from the first eyes.
@@ -379,7 +377,6 @@
     We are doing processing even in our eyeballs.
 
     This processing lets us downsample the signal from our photoreceptors a hundred times
-
     while retaining vitally important information: where the boundaries of objects are.
   </build-note>
   <build-note id=insideBrain>
@@ -393,7 +390,7 @@
   <build-note id=insideThalamus>
     It's processed by the Thalamus, which is responsible, amongst other things, for running our eyes' autofocus.
 
-    Each step of this signal pathway is performing signal a little bit of processing, extracting progressively higher-level features.
+    Each step of this signal pathway is performing signal a little bit of processing, extracting a little something.
 
     And that's all before we get to...
   </build-note>
@@ -414,7 +411,7 @@
     So there's some slice of tissue in the back of the brain that's responsible for pulling
     faces out of <i>this</i> particular chunk of your visual field
 
-    —with, obviously, the redundancies and slop that we've come to expect from any NN, whether artificial or biological—
+    —with the redundancies and slop that we've come to expect from any NN, whether artificial or biological—
 
     Each neuron in a layer has a receptive field—some chunk of the entire visual field that it’s “looking at”.
     Neurons in a given layer respond the same way to signals within their receptive field.
@@ -693,10 +690,10 @@
       const gen = createLayers({prefix: 'gen', className: 'gen-layer', count: 10})
     </script>
   </div>
-  <build-note id=dreamsPlaying data-subtitle="" data-time=10>
+  <build-note id=dreamsPlaying data-time=10>
     These are not real people.
   </build-note>
-  <build-note id=dreamsCitation data-title="" data-subtitle="Progressive Growing of GANs
+  <build-note id=dreamsCitation data-cite="Progressive Growing of GANs
 for Improved Quality, Stability, and Variation
 (arXiv:1710.10196)">
     These are the photos of fake celebrities, dreamt up by a generative adversarial network.
@@ -743,8 +740,7 @@ for Improved Quality, Stability, and Variation
     
     I changed the names, because names are important, and also, meaningless.
     
-    They don't change the structure of the training methodology, which is incredibly powerful.
-    
+    They don't change the structure of the training methodology, which is incredibly powerful.    
     A semi-supervised learning technique.
     Because, see, we haven't found every possible image that the generator might make and labeled them PLAUSIBLE and IMPLAUSIBLE.
     That would be an impossible task.
@@ -753,7 +749,7 @@ for Improved Quality, Stability, and Variation
     Ruminating on a space of possibilities
     And so extracting value from a relatively small amount of training data
     A process that is perhaps helpful for neural circuits of all kinds.
-    Though it does have a few quirks
+    Though it does have some quirks
   </build-note>
   <div id=dreamsGlobalStructure>
     <type-writer id=dreamsGlobalStructureTitle></type-writer>
@@ -1165,7 +1161,6 @@ for Improved Quality, Stability, and Variation
   in your head
 </build-note>
 <build-note id=titleThanks data-title='thank you.'></build-note>
-<!-- <build-note id=titleEnd data-title="learning from machines" data-subtitle="github.com/queerviolet/lfm.talk"></build-note> -->
 <build-note id=titleEnd data-title="learning from machines" data-subtitle="
 lfm.ashi.io
 
@@ -1183,3 +1178,5 @@ ashi krishnan
     ;(current.nextElementSibling || bug.firstElementChild).classList.add('visible')
   }, 30 * 1000)
 </script>
+
+<type-writer id=citation></type-writer>
