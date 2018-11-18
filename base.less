@@ -86,12 +86,12 @@ build-note {
   display: none;
 }
 
-.type-writer-title(@color: @electric-blue) {
+.type-writer-title(@bg: @electric-blue, @fg: black) {
   display: inline-block;
   transition: 1s;
-  background: @color;
-  color: white;
-  --typewriter-cursor-color: white;
+  background: @bg;
+  color: @fg;
+  --typewriter-cursor-color: @fg;
   padding: 0 9px;
 }
 

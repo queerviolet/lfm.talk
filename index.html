@@ -1114,12 +1114,13 @@ for Improved Quality, Stability, and Variation
     That resists it.
   </build-note>
   <script>
+    addEventListener('load', () => oscillo.setup())
+
     When(any(stonesLifeGoesOn, buildInRange(stonesLifeGoesOnAgain, stonesInTheCerebellum)))
       .frame(every(0.1[sec])(() => bodyModel.update()))
 
     When(stonesLaughter)
       .start(() => {
-        oscillo.setup()
         laugh1.currentTime = 0
         laugh2.currentTime = 0
         laugh1.play()

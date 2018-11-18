@@ -189,9 +189,9 @@ body[data-current-build^="dreamFullscreen"] #hallucinations,
   #deepDreamCurrentLayer {
     background: @electric-blue;
     position: absolute;
-    color: white;
-    top: 0;
-    left: 0;
+    color: black;
+    top: 36px;
+    left: 64px;
     padding: 9px;
     display: inline-block;
     text-align: center;
@@ -201,10 +201,12 @@ body[data-current-build^="dreamFullscreen"] #hallucinations,
 .on-conv-output {
   .layer(60vh);
   opacity: 1;
+  box-shadow: 0 20px 20px rgba(0, 26, 92, 0.221);
 
   #deepDreamCurrentLayer {
     top: 80vh;
-    left: 10vw;
+    left: 15vw;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.221);
   }
 }
 
@@ -262,7 +264,7 @@ body[data-current-build^="dreamFullscreen"] #hallucinations,
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 30px;
+  padding: 10%;
   box-sizing: border-box;
   .layer(0);
   // transform: translateY(60vh) translateZ(-400px) rotateX(90deg);
@@ -296,8 +298,8 @@ body[data-current-build^="dreamFullscreen"] #hallucinations,
 }
 
 .P {
-  background: @electric-blue;
-  color: white;
+  background: @blue;
+  color: black;
   padding: 9px;
   border-radius: 24px;
   margin: 9px;

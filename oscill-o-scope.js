@@ -72,7 +72,7 @@ class OscillOScope extends HTMLElement {
     let x = width
     let i = data.length; while (i --> 0) {
       const v = data[i] / 128
-      const y = v * height / 4
+      const y = v * height / (2 * devicePixelRatio)
 
       x === width
         ? ctx.moveTo(x, y)
