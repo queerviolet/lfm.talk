@@ -1,0 +1,2 @@
+- Ensure the tab has been interacted with, otherwise videos will not play
+- AUDIO! MAKE SURE YOU HAVE AUDIO!

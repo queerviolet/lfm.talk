@@ -121,7 +121,7 @@ class GridCells extends HTMLElement {
         
         if (!this.doesFire(p)) return
         ctx.moveTo(x, y)
-        ctx.arc(x, y, 2, 0, 2 * PI)
+        ctx.arc(x, y, 4, 0, 2 * PI)
       })
 
       ctx.fillStyle = 'rgb(255, 0, 255, 0.4)'
