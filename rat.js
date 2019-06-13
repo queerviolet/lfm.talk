@@ -1,6 +1,7 @@
 import {When, sec, lerp, every, addAnimator, removeAnimator} from './when'
 
 import path from './ratpath'
+import trigrid from './assets/triangle-grid.png'
 
 const {min, floor, acos, random, PI} = Math
 
@@ -191,7 +192,8 @@ class GridCells extends HTMLElement {
     const div = document.createElement('div')
     div.className = 'grid'
     const img = await this.getGridImage(ctx)
-    div.style.backgroundImage = `url(${img})`
+    // div.style.backgroundImage = `url(${img})`
+    div.style.backgroundImage = `url(${trigrid})`
     div.style.backgroundSize = `${this.gridSize * 2}px ${this.gridSize * 2}px`
     div.style.backgroundPosition = `${this.gridSize / 2}px 0`
     this.container.appendChild(div)
