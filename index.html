@@ -45,17 +45,24 @@
   <li>Audio!
   <li>Interact with tab
   </ul>
-  This talk may be a little challenging.
-  We're going to see some things that tickle the brain.
-  Some images that are a little bit disturbing
-  Although it won't be really clear why they trouble us so
-  We're going to talk about why
-  And we're going to talk about things we do not talk about
-  There's all sorts of things that pour downriver
+  Nothing like a content warning to build anticipation, huh?
+
+  This talk is not actually that scary.
+  It just has some unusual things.
+  Some flickering moments.
+  Some unsettling pictures.
+  Nothing graphic. Nothing where you could truly say, wow, this is DISTURBING, and I KNOW WHY.
+
+  No, we'll be *asking* why.
+
+  And we'll be talking about some things we don't usually talk about.
+  
+  All sorts of things pour downriver
   When you open locks like that
   I really want you to be here for it
-  But if you can't be here for it
-  Please: take care of yourself.
+  But if you can't be HERE for it
+  Take care of yourself.
+
   If you can...
 </build-note>
 
@@ -83,11 +90,11 @@
 <build-note id=titleAshi             data-title="ashi krishnan" data-subtitle="@rakshesha     ashi.io">
   My name is Ashi.
 </build-note>  
-<build-note id=titleAshiJob          data-title="ashi krishnan" data-subtitle="sr. software engineer @ github">
+<!-- <build-note id=titleAshiJob          data-title="ashi krishnan" data-subtitle="sr. software engineer @ github">
   I'm a senior software engineer at Github, and that
   has nothing whatsoever to do with the talk you're about to hear.
-</build-note>  
-<build-note id=titleLfm              data-title="learning from machines">
+</build-note>   -->
+<build-note id=titleLfm              data-title="learning from machines" data-subtitle="lfm.ashi.io">
   Today, I'm going to talk about a hobby.
   I'd like to share some things I've learned at the intersection of computational neuroscience and artificial intelligence.
 
@@ -703,6 +710,7 @@
   <build-note id=dreamsCitation data-cite="Progressive Growing of GANs
 for Improved Quality, Stability, and Variation
 (arXiv:1710.10196)">
+    Like the unpeople Monica showed us yesterday,
     These are the photos of fake celebrities, dreamt up by a generative adversarial network.
     A pair of networks
     Which are particularly... creative.  
@@ -747,16 +755,16 @@ for Improved Quality, Stability, and Variation
     
     I changed the names, because names are important, and also, meaningless.
     
-    They don't change the structure of the training methodology, which is incredibly powerful.    
-    A semi-supervised learning technique.
-    Because, see, we haven't found every possible image that the generator might make and labeled them PLAUSIBLE and IMPLAUSIBLE.
-    That would be an impossible task.
-    Instead we have this process of recursive co-training
-    In which two circuits play a <i>game</i>
-    Ruminating on a space of possibilities
-    And so extracting value from a relatively small amount of training data
-    A process that is perhaps helpful for neural circuits of all kinds.
-    Though it does have some quirks
+    They don't change the structure of the training methodology, which is that of a <i>game</i>.    
+    The two neural circuits are playing with each other.
+    And competition is inspiring.    
+    When we spar, our opponent creates the tactical landscape we must traverse, and we do the same for them.
+
+    Together, our movements ruminate on a space of possibilities much larger than any fixed example set.
+
+    GANs can train remarkably well on relatively small amounts of data.
+    It seems very likely that this kind of adversarial process could be helpful for neural circuits of all kinds.
+    Though it does have some quirks.
   </build-note>
   <div id=dreamsGlobalStructure>
     <type-writer id=dreamsGlobalStructureTitle></type-writer>
@@ -795,7 +803,7 @@ for Improved Quality, Stability, and Variation
 
     Another interesting thing about this training methodology is that the Generator is being fed noise
     A vector of noise—some random point in a high-dimensional space.
-    So it learns a mapping from this space
+    So it learns a mapping from this latent space
     onto its generation target—in this case, faces.
     And if we take a point in that space and <i>drag it around</i>...
   </build-note>
@@ -1121,7 +1129,8 @@ for Improved Quality, Stability, and Variation
     That resists it.
   </build-note>
   <script>
-    addEventListener('load', () => oscillo.setup())
+    addEventListener('click', () => oscillo.setup())
+    addEventListener('keydown', () => oscillo.setup())
 
     When(any(stonesLifeGoesOn, buildInRange(stonesLifeGoesOnAgain, stonesInTheCerebellum)))
       .frame(every(0.1[sec])(() => bodyModel.update()))
@@ -1147,16 +1156,13 @@ for Improved Quality, Stability, and Variation
 <build-note id=titleConclusion1 data-title=''>
   These last few months have been very difficult for me.
 
-  I am feeling the weight of this acutely:
-  We keep children in cages.
-  We live in cities built by slaves.
-  We work making numbers become biggers numbers.
-  Meanwhile: We are burning, we are drowning.
-  This world is ending.
+  The world is heavy.
+  My heart grows heavy.
+  We build cages for kids to die in.
+  We live in drowning cities built by slaves.
 
-  There are days when I feel... not empty
-  Emptiness would be a gift
-  But heavy.
+  Meanwhile:
+  We spend our days trying to make numbers into bigger numbers.
 
   There are days when I open my email
   And every subject line is a stone

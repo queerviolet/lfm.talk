@@ -13,6 +13,7 @@ class OscillOScope extends HTMLElement {
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')
     this.onResize = this.onResize.bind(this)
+    this.isSetup = false
   }
 
   connectedCallback() {
@@ -37,7 +38,10 @@ class OscillOScope extends HTMLElement {
   }
 
   setup() {
+    if (this.isSetup) return
+    console.log('Setting up audio context...')
     const ctx = new AudioContext
+    this.isSetup = true
     this.analysers = [...this.getElementsByTagName('audio')]
       .map(audio => {
         const src = ctx.createMediaElementSource(audio)
