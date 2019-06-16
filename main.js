@@ -72,9 +72,9 @@ const createLoadScreen = assets => {
   const term = document.createElement('type-writer')
   term.className = 'terminal'
   const loadScreen = document.createElement('div')
+  loadScreen.appendChild(term)
   loadScreen.id = 'bootloader'
   loaders.forEach(l => loadScreen.appendChild(l))
-  loadScreen.appendChild(term)
   document.body.appendChild(loadScreen)
   loadScreen.term = term
   loadScreen.loaders = loaders
@@ -102,7 +102,7 @@ async function boot() {
   const loadScreen = createLoadScreen(assets)
 
   const log = (msg, nl='\n') => loadScreen.term.type(msg + nl).done
-  log('Please wait, loading assets...')
+  log('Please wait, preloading assets for smoother playback...')
 
   const loading = When().frame(every(0.5[sec])((_, t) => {
     const dots = new Array(t % 4).fill('.').join('')
@@ -121,8 +121,25 @@ async function boot() {
       loader.text = loader.asset.src + dots
     })
   }))
+
+  const skip = document.createElement('a')
+  skip.innerText = '[ Skip Preload (tap here or ESC) ]'
+  skip.onclick = skipPreload
+  addEventListener('keydown', onPreloadKeydown)
+  function onPreloadKeydown(e) {
+    if (e.key !== 'Escape') return
+    skipPreload()
+  }
+  function skipPreload() {
+    skip.innerText = 'Preload skipped (video playback may be choppy)'
+    localStorage.loadQuietly = true
+    loading.remove()
+  }
+  loadScreen.prepend(skip)
+
   try {
     await loading.done
+    removeEventListener('keydown', onPreloadKeydown)
     await log('OK, assets loaded.')
     if (!localStorage.instructionsDelivered) {
       localStorage.instructionsDelivered = true
