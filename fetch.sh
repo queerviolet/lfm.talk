@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl --create-dirs http://lfm.ashi.io/\{\
+curl --create-dirs http://lfm.ashi.io/assets/\{\
 5ht2a.m4v,\
 adversarial-skiiers.gif,\
 adversarial-sticker.m4v,\
