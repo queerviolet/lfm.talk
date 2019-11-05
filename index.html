@@ -2,9 +2,12 @@
 <meta charset="utf-8"/>
 
 <title>Learning from Machines</title>
+<link rel=stylesheet href=node_modules/prismjs/themes/prism.css />
+<link rel=stylesheet href=node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css data-noprefix />
 <link rel=stylesheet href=base.less>
 <link rel=stylesheet href=title.less>
 <link rel=stylesheet href=hallucinations.less>
+<link rel=stylesheet href=talula.less>
 <link rel=stylesheet href=inside.less>
 <link rel=stylesheet href=dreams.less>
 <link rel=stylesheet href=stones.less>
@@ -261,6 +264,349 @@
     Or a layer to the side.
     Inception has a lot of layers.
   </build-note>
+
+  <video id=talula0 src=assets/pacman-edited-0.mp4 is=seekable-video preload></video>
+  <video id=talula1 src=assets/pacman-edited-1.mp4 is=seekable-video preload></video>
+  <video id=mobileNet0 src=assets/explore-mobilenet-0.mp4 is=seekable-video preload></video>
+  <video id=mobileNet1 src=assets/explore-mobilenet-1.mp4 is=seekable-video preload></video>
+  <video id=mobileNet2 src=assets/explore-mobilenet-2.mp4 is=seekable-video preload></video>
+  <video id=categoricalCrossCopy src=assets/categorical-cross-copy.mov is=seekable-video preload></video>
+  <video id=argMax src=assets/argmax.mov is=seekable-video preload></video>
+  <build-note id=titleTransferLearning
+    data-title="Transfer Learning with TensorFlow.js">
+    We're going to learn how to play pac man blah blah
+  </build-note>
+  <build-note id=titleTransferTalula
+    data-title="Transfer Learning with TensorFlow.js"
+    data-subtitle="...and talula">
+    With my elephant friend, Talula.
+  </build-note>
+  <build-note id=talulaTrain>
+    This is Talula, my elephant friend.
+    She’s going to help me play pacman.
+
+    To provide training data, I take a bunch of photos of her in various orientations.
+    Trying to capture a variety of different ways I might hold her.
+
+    Then, I’ll train the model. We’ll look at what’s going on behind the scenes there in a minute. Right now, we can just observe that Loss goes rather low, and that we even know what that means! Our trained model fits the data very well.
+  </build-note>
+  <build-note id=talulaPlay>
+    Now Talula and I are going to play.
+
+    It actually works reasonably well! When I turn Talula left, I go left.
+
+    But, uh, it doesn’t work perfectly. Probably I need more training data. I’m trying to stand like I was standing during training.
+    Looking back at the video, in my frustration, I’m kindof holding Talula differently, so maybe I need to retrain with more examples of me being panicked and losing at pacman.
+
+    And now I’ve been eaten. It’s extra-challenging to lose at a game when the controller is one of your friends. One of the many ways machine learning can destroy our relationships.
+
+    (I’m happy to report that we’re still friends to this day.)
+
+    Let’s take a look at how this is all working.
+  </build-note>
+  <build-note id=codeWalkthrough0 data-line=18>
+    So we pull in tensorflow
+    Then load this controller_dataset utility
+  </build-note>
+  <build-note id=codeWalkthrough1 data-line=31-32>
+    we create a controller data set to store our labeled examples
+  </build-note>
+  <build-note id=codeWalkthrough2 data-line=40-41>
+    we load the mobilenet model, a model pre trained for image recognition
+    we’re going to use transfer learning, where we take an existing model, and adapt it for a new problem
+  </build-note>
+  <build-note id=codeWalkthrough3 data-line=43-45>
+    to do that, we’re going to return not the full mobilenet model, but a model that outputs an internal layer, specifically,
+    conv_pw_13_relu.
+
+    what is that? we’ll get to it in a second.
+    let’s look at the rest of the transfer learning mechanism.
+  </build-note>
+  <build-note id=codeWalkthrough4 data-line=53-54>
+    whenever we add an example—to represent up, down, left, or right—we add an example to the controller dataset.
+
+    Notice that the x value we’re using is, itself, the output of mobilenet.
+    This is what transfer learning means
+    we’re training a smaller, simpler model
+    which can be small and simple
+    because we’re piggy-backing off the preprocessing work that mobilenet has already done.
+  </build-note>
+  <build-note id=codeWalkthrough5 data-line=72>
+    So finally, when we train, we go and create our model.
+    It’s a sequential model, meaning it’s a list of layers all wired together.
+  </build-note>
+  <build-note id=codeWalkthrough6 data-line=77>
+      the first layer flattens the output of mobilenet into a rank 1 tensor with ~12k (12544) elements
+  </build-note>
+  <build-note id=codeWalkthrough7 data-line=79-85>
+    then we throw in a dense layer
+    dense layers connect to every output of the previous layer
+    we can customize the number of dense units in the ui. the default is 100.
+    they’ll all be rectifier units, our friends from earlier
+  </build-note>
+  <build-note id=codeWalkthrough8 data-line=85-92>
+    Then we have a softmax layer.
+    softmax is again, a simple idea with a complex-sounding name.
+    softmax produces output that creates a probability distribution
+    you use it when you want to decide between a bunch of different choices
+    in this case, we want our network to decide between up, down, left, and right
+    and so we create a layer of 4 softmax units
+    all connected to the 100 relu units in the previous layer
+  </build-note>
+  <build-note id=codeWalkthrough9 data-line=97>
+    now we train it
+    we’re using the adam optimizer.
+    adam is a stochastic gradient descent, but better
+    it’s smarter about controlling how fast the model rolls downhill as it trains
+  </build-note>
+  <build-note id=codeWalkthrough10 data-line=102>
+    we compile the model, generating a tensorflow graph.
+    we’re using categorical crossentropy loss, rather than the mean squared error loss we looked at b4
+    categorical crossentropy sounds really scary, but it’s basically the loss function you use when you’re going for a P distribution
+    remember that our examples look like this.
+    tensors with one element held high
+    our predictions will be probabilities
+    cat cross-entropy figures out how much they’re off
+  </build-note>
+  <build-note id=codeWalkthrough10_annotation data-line=102>
+    categorical cross copy
+  </build-note>
+  <build-note id=codeWalkthrough11 data-line=105-109>
+    we come up with a batch size,
+    the number of examples we’ll use to compute loss at each step
+  </build-note>
+  <build-note id=codeWalkthrough12 data-line=115-124>
+    then we train our model!
+    at the end of each batch, we get this callback, which lets us show in the ui how well we’re doing.
+    then, to play the game…
+  </build-note>
+  <build-note id=codeWalkthrough13 data-line=136-138>
+    we grab a frame from the webcam
+    we run it through mobilenet, and grab that internal layer. That’s activation here
+  </build-note>
+  <build-note id=codeWalkthrough14 data-line=140-142>
+    we run those activations through our trained model
+  </build-note>
+  <build-note id=codeWalkthrough15 data-line=144-146>
+    And then—and this is key—we tell argmax to go and find the class with the highest probability and return it.
+
+    And that’s basically it. We feed that prediction into our game, and I can play pacman with an elephant.
+
+    now let’s go deeper.
+  </build-note>
+  <build-note id=codeWalkthrough15_annotation data-line=144-146>
+    Arg max
+  </build-note>
+  <build-note id=codeWalkthrough16 data-line=44>
+      let’s draw our attention back to this weird internal layer with a funny name, conv_pw_13_relu.
+      to get a better sense of what that’s all about, let’s go load up that model description file and take a look around
+  </build-note>
+  <build-note id=codeWalkthroughConsole0 data-time=0>
+    let’s load the JSON and poke around
+    it looks like this is a Keras model!
+    keras is a ml library that provides a nice interface onto tensorflow, letting you describe your model as a bunch of parameterized layers
+    and what layers, wow
+  </build-note>
+  <build-note id=codeWalkthroughConsole1 data-time=20>
+      we’ve got our input layer,
+      and then we have this repeating stack
+      convolution -> norm -> activation -> depthwise convolution -> norm -> activation
+  </build-note>
+  <build-note id=codeWalkthroughConsole2 data-time=33>
+      we’ve got our input layer,
+      and then we have this repeating stack
+      convolution -> norm -> activation -> depthwise convolution -> norm -> activation
+      convolutional layers show up a lot in deep networks
+      they sound scary, but they’re not really
+  </build-note>
+  <!-- Set an initial data-line so it doesn't "jump" horizontally when set by js the first time  -->
+  <pre data-line=1 id=codeHighlight class=language-javascript>
+    <!-- taken from https://github.com/tensorflow/tfjs-examples/blob/6cce3b2e675d698f6a95c6c08a9a9a20ec1edf55/webcam-transfer-learning/index.js -->
+      <code>/**
+* @license
+* Copyright 2018 Google LLC. All Rights Reserved.
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+* =============================================================================
+*/
+
+import * as tf from '@tensorflow/tfjs';
+
+import {ControllerDataset} from './controller_dataset';
+import * as ui from './ui';
+import {Webcam} from './webcam';
+
+// The number of classes we want to predict. In this example, we will be
+// predicting 4 classes for up, down, left, and right.
+const NUM_CLASSES = 4;
+
+// A webcam class that generates Tensors from the images from the webcam.
+const webcam = new Webcam(document.getElementById('webcam'));
+
+// The dataset object where we will store activations.
+const controllerDataset = new ControllerDataset(NUM_CLASSES);
+
+let mobilenet;
+let model;
+
+// Loads mobilenet and returns a model that returns the internal activation
+// we'll use as input to our classifier model.
+async function loadMobilenet() {
+  const mobilenet = await tf.loadModel(
+      'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json');
+
+  // Return a model that outputs an internal activation.
+  const layer = mobilenet.getLayer('conv_pw_13_relu');
+  return tf.model({inputs: mobilenet.inputs, outputs: layer.output});
+}
+
+// When the UI buttons are pressed, read a frame from the webcam and associate
+// it with the class label given by the button. up, down, left, right are
+// labels 0, 1, 2, 3 respectively.
+ui.setExampleHandler(label => {
+  tf.tidy(() => {
+    const img = webcam.capture();
+    controllerDataset.addExample(mobilenet.predict(img), label);
+
+    // Draw the preview thumbnail.
+    ui.drawThumb(img, label);
+  });
+});
+
+/**
+* Sets up and trains the classifier.
+*/
+async function train() {
+  if (controllerDataset.xs == null) {
+    throw new Error('Add some examples before training!');
+  }
+
+  // Creates a 2-layer fully connected model. By creating a separate model,
+  // rather than adding layers to the mobilenet model, we "freeze" the weights
+  // of the mobilenet model, and only train weights from the new model.
+  model = tf.sequential({
+    layers: [
+      // Flattens the input to a vector so we can use it in a dense layer. While
+      // technically a layer, this only performs a reshape (and has no training
+      // parameters).
+      tf.layers.flatten({inputShape: [7, 7, 256]}),
+      // Layer 1
+      tf.layers.dense({
+        units: ui.getDenseUnits(),
+        activation: 'relu',
+        kernelInitializer: 'varianceScaling',
+        useBias: true
+      }),
+      // Layer 2. The number of units of the last layer should correspond
+      // to the number of classes we want to predict.
+      tf.layers.dense({
+        units: NUM_CLASSES,
+        kernelInitializer: 'varianceScaling',
+        useBias: false,
+        activation: 'softmax'
+      })
+    ]
+  });
+
+  // Creates the optimizers which drives training of the model.
+  const optimizer = tf.train.adam(ui.getLearningRate());
+  // We use categoricalCrossentropy which is the loss function we use for
+  // categorical classification which measures the error between our predicted
+  // probability distribution over classes (probability that an input is of each
+  // class), versus the label (100% probability in the true class)>
+  model.compile({optimizer: optimizer, loss: 'categoricalCrossentropy'});
+
+  // We parameterize batch size as a fraction of the entire dataset because the
+  // number of examples that are collected depends on how many examples the user
+  // collects. This allows us to have a flexible batch size.
+  const batchSize =
+      Math.floor(controllerDataset.xs.shape[0] * ui.getBatchSizeFraction());
+  if (!(batchSize > 0)) {
+    throw new Error(
+        `Batch size is 0 or NaN. Please choose a non-zero fraction.`);
+  }
+
+  // Train the model! Model.fit() will shuffle xs & ys so we don't have to.
+  model.fit(controllerDataset.xs, controllerDataset.ys, {
+    batchSize,
+    epochs: ui.getEpochs(),
+    callbacks: {
+      onBatchEnd: async (batch, logs) => {
+        ui.trainStatus('Loss: ' + logs.loss.toFixed(5));
+        await tf.nextFrame();
+      }
+    }
+  });
+}
+
+let isPredicting = false;
+
+async function predict() {
+  ui.isPredicting();
+  while (isPredicting) {
+    const predictedClass = tf.tidy(() => {
+      // Capture the frame from the webcam.
+      const img = webcam.capture();
+
+      // Make a prediction through mobilenet, getting the internal activation of
+      // the mobilenet model.
+      const activation = mobilenet.predict(img);
+
+      // Make a prediction through our newly-trained model using the activation
+      // from mobilenet as input.
+      const predictions = model.predict(activation);
+
+      // Returns the index with the maximum probability. This number corresponds
+      // to the class the model thinks is the most probable given the input.
+      return predictions.as1D().argMax();
+    });
+
+    const classId = (await predictedClass.data())[0];
+
+    ui.predictClass(classId);
+    await tf.nextFrame();
+  }
+  ui.donePredicting();
+}
+
+document.getElementById('train').addEventListener('click', async () => {
+  ui.trainStatus('Training...');
+  await tf.nextFrame();
+  await tf.nextFrame();
+  isPredicting = false;
+  train();
+});
+document.getElementById('predict').addEventListener('click', () => {
+  ui.startPacman();
+  isPredicting = true;
+  predict();
+});
+
+async function init() {
+  await webcam.setup();
+  mobilenet = await loadMobilenet();
+
+  // Warm up the model. This uploads weights to the GPU and compiles the WebGL
+  // programs so the first time we collect data from the webcam it will be
+  // quick.
+  tf.tidy(() => mobilenet.predict(webcam.capture()));
+
+  ui.init();
+}
+
+// Initialize the application.
+init();
+      </code>
+    </pre>
   <build-note id=dreamFullscreenPlayingAgain data-time=3>
     And that gives us this.
     We started with these rudiments of light and shadow,
@@ -323,8 +669,89 @@
       .join('') + '\n'
     const randomMatrix = (w, h) =>
       '[\n' + new Array(h).fill(0).map(randomRow(w)).join('') + ']'
-  </script>  
-  
+  </script>
+
+  <script>
+    When(buildInRange(talulaTrain, talulaPlay))
+      .frame((_, current, prev) => {
+        if (current === prev) return
+        const vid = {
+          'talulaTrain': talula0,
+          'talulaPlay': talula1,
+        }[current.id]
+        vid.play()
+        vid.seekTo({time: 0, duration: 1, playbackRate: 1})
+      })
+
+    let codeHighlightAnimation = null
+    const gotoCodeHighlightTarget = (current) => {
+      codeHighlight.dataset.line = current.dataset.line
+      Prism.highlightAll()
+      const targetLine = document.querySelector('.line-highlight')
+      if (!targetLine) return
+
+      const targetPosition = targetLine.offsetTop - (codeHighlight.offsetHeight - targetLine.offsetHeight) / 2
+
+      // Prevents animation overlap
+      if (codeHighlightAnimation) {
+        codeHighlightAnimation._ctx.remove(codeHighlightAnimation)
+      }
+      codeHighlightAnimation = For(1[sec])
+        .at(t => {
+          const position = lerp(codeHighlight.scrollTop, targetPosition)
+          codeHighlight.scrollTop = position(t)
+        })
+    };
+
+    When(buildInRange(codeWalkthrough0, codeWalkthrough16))
+      .frame((_, current, prev) => {
+        if (current !== prev) {
+          gotoCodeHighlightTarget(current)
+        }
+      })
+    When(buildInRange(codeWalkthrough10, codeWalkthrough10_annotation))
+      .start(() => {
+        categoricalCrossCopy.play()
+      })
+      .frame((_, current, prev) => {
+        if (!categoricalCrossCopy.timeline) return
+        if (current !== prev && current.dataset.time) {
+          categoricalCrossCopy.seekTo({time: +current.dataset.time, duration: 1, playbackRate: 1})
+        }
+      })
+    When(buildInRange(codeWalkthrough15, codeWalkthrough15_annotation))
+      .start(() => {
+        argMax.play()
+      })
+      .frame((_, current, prev) => {
+        if (!argMax.timeline) return
+        if (current !== prev && current.dataset.time) {
+          argMax.seekTo({time: +current.dataset.time, duration: 1, playbackRate: 1})
+        }
+      })
+
+    When(buildInRange(codeWalkthroughConsole0, codeWalkthroughConsole2))
+      .frame((_, current, prev) => {
+        if (current === prev) return
+        const vid = {
+          'codeWalkthroughConsole0': mobileNet0,
+          'codeWalkthroughConsole1': mobileNet1,
+          'codeWalkthroughConsole2': mobileNet2,
+        }[current.id]
+        vid.play()
+        vid.seekTo({time: 0, duration: 1, playbackRate: 1})
+      })
+
+    // HACK: Shuts off deepDream since it's always visible when hallucinations is running
+    When(buildInRange(titleTransferLearning, codeWalkthroughConsole2))
+      .start(() => {
+        document.body.classList.add('deepDreamSleep')
+      })
+      .end(() => {
+        document.body.classList.remove('deepDreamSleep')
+      })
+  </script>
+
   <!-- 1b. The human visual system -->
   <build-note id=inside>    
   </build-note>
