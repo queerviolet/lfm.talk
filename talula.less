@@ -1,0 +1,199 @@
+@import "./base.less";
+
+@outline-color: #D600FA;
+
+.deepDreamSleep {
+  #deepDream {
+    transition: none;
+    opacity: 0;
+  }
+}
+
+.fullscreen-black {
+  display: block;
+  background: black;
+  transform: scale(1);
+  filter: none;
+  opacity: 1;
+}
+
+.talulaTrain #hallucinations {
+  .fullscreen-black();
+}
+.talulaPlay #hallucinations {
+  .fullscreen-black();
+}
+
+#talula0, #talula1 {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  transition: transform 2s, left 4s, opacity 0.5s;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.titleTransferTalula,
+.titleTransferTalula {
+  > #titleCard > #titleWriter {
+    opacity: 1;
+  }
+  > #titleCard > #subTitleWriter {
+    opacity: 1;
+  }
+}
+
+.talula-visible() {
+  position: absolute;
+  transform: scale(1);
+  opacity: 1;
+  z-index: 1;
+}
+.talulaTrain #hallucinations {
+  #talula0 { .talula-visible(); }
+}
+.talulaPlay #hallucinations {
+  // Keep first slide in place for better blending
+  #talula0 { .talula-visible(); }
+  #talula1 { .talula-visible(); }
+}
+
+@keyframes line-appear {
+  0% {
+    opacity: 0;
+    transform: scale(.8, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+}
+.line-highlight {
+  left: 1em;
+  right: 1em;
+  outline: .2em solid @outline-color;
+  background: rgba(0, 255, 253, .1);
+  animation: line-appear .3s ease-out;
+  &:before, &[data-end]:after {
+    background-color: @outline-color;
+  }
+}
+
+#argMax, #categoricalCrossCopy {
+  position: absolute;
+  transform: scale(0.8);
+  transition: transform .4s, opacity 0.5s;
+  opacity: 0;
+  z-index: 2;
+  outline: .1em solid @outline-color;
+}
+
+.annotation-visible() {
+  opacity: 1;
+}
+
+#categoricalCrossCopy {
+  width: 60vw;
+  right: 4vmin;
+  top: 4vmin;
+}
+
+#argMax {
+  width: 40vw;
+  right: 4vmin;
+  top: calc(50% + 4vmin);
+}
+.codeWalkthrough10_annotation #hallucinations {
+  #categoricalCrossCopy {
+    transform: scale(1) rotate(2deg);
+    opacity: 1;
+  }
+}
+.codeWalkthrough15_annotation #hallucinations {
+  #argMax {
+    transform: scale(1) rotate(-5deg);
+    opacity: 1;
+  }
+}
+#codeHighlight {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 1.5vmin;
+  display: flex;
+  opacity: 0;
+  transform: translate(0, -100%);
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  transition: transform .4s, opacity 0.2s;
+  z-index: 1;
+
+  // Override Prism
+  pre[class*=language-]& {
+    overflow: hidden;
+  }
+  code {
+    margin: 0 auto;
+  }
+}
+.codeHighlight-visible() {
+  position: absolute;
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+.forCodeWalkthrough (@i) when (@i >= 0) {
+  .codeWalkthrough@{i} #hallucinations {
+    .fullscreen-black();
+    #codeHighlight {
+      .codeHighlight-visible();
+    }
+  }
+  .forCodeWalkthrough(@i - 1);
+}
+.forCodeWalkthrough(16);
+
+.codeWalkthrough10_annotation #hallucinations,
+.codeWalkthrough15_annotation #hallucinations {
+  .fullscreen-black();
+  #codeHighlight {
+    .codeHighlight-visible();
+  }
+}
+
+
+#mobileNet0, #mobileNet1, #mobileNet2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: transform 1s, opacity 0.5s;
+  opacity: 0;
+  z-index: 2;
+}
+#mobileNet0 {
+  transform: translateY(100%);
+}
+
+// keep console in position for better transition
+.codeWalkthroughConsole1 {
+  #mobileNet0 {
+    transform: translateY(0);
+  }
+}
+
+.forCodeWalkthroughConsole (@i) when (@i >= 0) {
+  .codeWalkthroughConsole@{i} #hallucinations {
+    .fullscreen-black();
+    #mobileNet@{i} {
+      transform: translateY(0);
+      opacity: 1;
+      z-index: (@i + 2);
+    }
+  }
+  .forCodeWalkthroughConsole(@i - 1);
+}
+.forCodeWalkthroughConsole(10);

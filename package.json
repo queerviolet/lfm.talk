@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "binarysearch": "^1.0.0",
+    "prismjs": "^1.17.1",
     "three": "^0.94.0",
     "when": "^3.7.8"
   }

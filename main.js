@@ -8,6 +8,9 @@ global.Timeline = Timeline
 import {When, For, buildInRange, runAnimatorStep, always, match, lerp, every, sec, any} from './when'
 Object.assign(global, {When, For, buildInRange, always, every, sec, lerp, any})
 
+import 'prismjs';
+import 'prismjs/plugins/line-highlight/prism-line-highlight';
+
 import './type-writer'
 import './seek-able'
 import './rat'
