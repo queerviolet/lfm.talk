@@ -273,12 +273,15 @@
   <video id=categoricalCrossCopy src=assets/categorical-cross-copy.mov is=seekable-video preload></video>
   <video id=argMax src=assets/argmax.mov is=seekable-video preload></video>
   <build-note id=titleTransferLearning
-    data-title="Transfer Learning with TensorFlow.js">
+    data-title="Transfer Learning
+    with TensorFlow.js">
     We're going to learn how to play pac man blah blah
   </build-note>
   <build-note id=titleTransferTalula
-    data-title="Transfer Learning with TensorFlow.js"
-    data-subtitle="...and talula">
+    data-title="Transfer Learning
+    with TensorFlow.js"
+    data-subtitle="
+    ...and talula">
     With my elephant friend, Talula.
   </build-note>
   <build-note id=talulaTrain>
@@ -745,9 +748,11 @@ init();
     // HACK: Shuts off deepDream since it's always visible when hallucinations is running
     When(buildInRange(titleTransferLearning, codeWalkthroughConsole2))
       .start(() => {
+        deepDream.pause()
         document.body.classList.add('deepDreamSleep')
       })
       .end(() => {
+        deepDream.play()
         document.body.classList.remove('deepDreamSleep')
       })
   </script>
