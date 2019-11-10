@@ -107,7 +107,7 @@
   Which presumably I will do in some future talk,
   because <i>this</i> talk is about something completely different.
 </build-note>  
-<build-note id=titleLfm              data-title="learning from machines" data-subtitle="lfm.ashi.io">
+<build-note id=titleLfm              data-title="dissecting the robot brain" data-subtitle="lfm.ashi.io">
   This talk is about a… hobby of mine.
   Today, I'd like to share some things I've learned at the intersection of computational neuroscience and artificial intelligence.
 
@@ -122,14 +122,9 @@
   Haven't we all?
   We're watching these machines begin to approximate the tasks of our cognition, in sometimes unsettling ways.
 
-  Today, I want to share with you some of what I've learned.
-  Some solid research.
-  Some solid speculation.  
+  We're afraid—I have been afraid—that they're going to take all our jobs.
 
-  All of it speaks to a truth I have come to believe:
-    we are computations
-    our worlds created on an ancient computer,
-    powerful beyond imagining.
+  Good news on that front: the robots can do some pretty impressive things. And they're also pretty fundamentally stupid. They're not going to take your job, at least not for the next couple of years. But they are going to change it, and today, we're going to look at how.
 
   Let's begin.
 </build-note>
@@ -263,6 +258,10 @@
     Every 100 frames, we move to a deeper layer.
     Or a layer to the side.
     Inception has a lot of layers.
+
+    Let's see how we can use them!
+
+    We're going to explore transfer learning.
   </build-note>
 
   <video id=talula0 src=assets/pacman-edited-0.mp4 is=seekable-video preload></video>
@@ -275,23 +274,29 @@
   <build-note id=titleTransferLearning
     data-title="Transfer Learning
     with TensorFlow.js">
-    We're going to learn how to play pac man blah blah
+    With transfer learning, we keep <em>most</em> of the training from an existing
+    network, but we detach the last few layers and retrain them to serve our own goals.
+
+    And what are those goals?
+
+    We're going to play Pac-Man, using transfer learning…
   </build-note>
   <build-note id=titleTransferTalula
     data-title="Transfer Learning
     with TensorFlow.js"
     data-subtitle="
     ...and talula">
-    With my elephant friend, Talula.
+    …and my elephant friend, Talula.
   </build-note>
   <build-note id=talulaTrain>
-    This is Talula, my elephant friend.
-    She’s going to help me play pacman.
+    This is Talula.
+    She’s going to help us play pacman.
 
-    To provide training data, I take a bunch of photos of her in various orientations.
-    Trying to capture a variety of different ways I might hold her.
+    First, we're going to train the network. To provide training data, I take a bunch of photos of me holding Talula in various orientations.
 
-    Then, I’ll train the model. We’ll look at what’s going on behind the scenes there in a minute. Right now, we can just observe that Loss goes rather low, and that we even know what that means! Our trained model fits the data very well.
+    Here, I'm trying to capture a variety of different ways I might hold her.
+
+    Then we train the model. We’ll look at what’s going on behind the scenes there in a minute. Right now, we can just observe that Loss goes rather low, meaning our trained model fits the data very well.
   </build-note>
   <build-note id=talulaPlay>
     Now Talula and I are going to play.
@@ -299,47 +304,43 @@
     It actually works reasonably well! When I turn Talula left, I go left.
 
     But, uh, it doesn’t work perfectly. Probably I need more training data. I’m trying to stand like I was standing during training.
-    Looking back at the video, in my frustration, I’m kindof holding Talula differently, so maybe I need to retrain with more examples of me being panicked and losing at pacman.
+
+    In my frustration, I’m kindof holding Talula differently, so maybe I need to retrain with more examples of me being panicked and losing at pacman.
 
     And now I’ve been eaten. It’s extra-challenging to lose at a game when the controller is one of your friends. One of the many ways machine learning can destroy our relationships.
 
-    (I’m happy to report that we’re still friends to this day.)
+    (I’m happy to report that we’re still friends.)
 
-    Let’s take a look at how this is all working.
+    Let’s take a look at the code behind all this.
   </build-note>
   <build-note id=codeWalkthrough0 data-line=18>
-    So we pull in tensorflow
-    Then load this controller_dataset utility
+    So we pull in tensorflow.js. It's on npm! We can just npm install it.
   </build-note>
   <build-note id=codeWalkthrough1 data-line=31-32>
-    we create a controller data set to store our labeled examples
+    Next, we create this controller data set. It's just a utility that stores our labeled examples.
   </build-note>
   <build-note id=codeWalkthrough2 data-line=40-41>
-    we load the mobilenet model, a model pre trained for image recognition
-    we’re going to use transfer learning, where we take an existing model, and adapt it for a new problem
+    We load the mobilenet model from cloud storage. This is an image recognizer—like Inception, which we saw earlie—pre-trained for image recognition.
+
+    Now we get to the transfer learning bit. We're going to adapt mobilenet to a new problem: being a pacman controller.
   </build-note>
   <build-note id=codeWalkthrough3 data-line=43-45>
-    to do that, we’re going to return not the full mobilenet model, but a model that outputs an internal layer, specifically,
-    conv_pw_13_relu.
+    To do that, we’re going to return not the full mobilenet model, but a model that outputs an internal layer, specifically, conv_pw_13_relu.
 
-    what is that? we’ll get to it in a second.
-    let’s look at the rest of the transfer learning mechanism.
+    What is that? We’ll get to it in a second. First, let’s look at the rest of the transfer learning mechanism.
   </build-note>
   <build-note id=codeWalkthrough4 data-line=53-54>
-    whenever we add an example—to represent up, down, left, or right—we add an example to the controller dataset.
+    Whenever we record an example—to represent up, down, left, or right—we add an example to the controller dataset.
 
     Notice that the x value we’re using is, itself, the output of mobilenet.
-    This is what transfer learning means
-    we’re training a smaller, simpler model
-    which can be small and simple
-    because we’re piggy-backing off the preprocessing work that mobilenet has already done.
+    This is what transfer learning means: we’re training a smaller, simpler model, which can be small and simple, because we’re piggy-backing off the preprocessing work that mobilenet has already done.
   </build-note>
   <build-note id=codeWalkthrough5 data-line=72>
-    So finally, when we train, we go and create our model.
+    So finally, before we train, we go and create our model.
     It’s a sequential model, meaning it’s a list of layers all wired together.
   </build-note>
   <build-note id=codeWalkthrough6 data-line=77>
-      the first layer flattens the output of mobilenet into a rank 1 tensor with ~12k (12544) elements
+    the first layer flattens the output of mobilenet into a rank 1 tensor with ~12k (12544) elements
   </build-note>
   <build-note id=codeWalkthrough7 data-line=79-85>
     then we throw in a dense layer
@@ -364,16 +365,14 @@
   </build-note>
   <build-note id=codeWalkthrough10 data-line=102>
     we compile the model, generating a tensorflow graph.
-    we’re using categorical crossentropy loss, rather than the mean squared error loss we looked at b4
-    categorical crossentropy sounds really scary, but it’s basically the loss function you use when you’re going for a P distribution
+    we’re using categorical crossentropy loss, rather than the mean squared error loss we looked at b4    
+  </build-note>
+  <build-note id=codeWalkthrough10_annotation data-line=102>
+    categorical cross entropy sounds really scary, but it’s basically the loss function you use when you’re going for a P distribution
     remember that our examples look like this.
     tensors with one element held high
     our predictions will be probabilities
-    cat cross-entropy figures out how much they’re off
-  </build-note>
-  <build-note id=codeWalkthrough10_annotation data-line=102>
-    categorical cross copy
-  </build-note>
+    cat cross-entropy figures out how much they’re off  </build-note>
   <build-note id=codeWalkthrough11 data-line=105-109>
     we come up with a batch size,
     the number of examples we’ll use to compute loss at each step
@@ -391,22 +390,23 @@
     we run those activations through our trained model
   </build-note>
   <build-note id=codeWalkthrough15 data-line=144-146>
-    And then—and this is key—we tell argmax to go and find the class with the highest probability and return it.
+    And then we use argmax…
+  </build-note>
+  <build-note id=codeWalkthrough15_annotation data-line=144-146>
+    ...to go and find the class with the highest probability and return it.
 
     And that’s basically it. We feed that prediction into our game, and I can play pacman with an elephant.
 
-    now let’s go deeper.
+    Now let’s go deeper.
+
+    Let’s draw our attention back to this weird internal layer with a funny name, conv_pw_13_relu.
   </build-note>
-  <build-note id=codeWalkthrough15_annotation data-line=144-146>
-    Arg max
-  </build-note>
-  <build-note id=codeWalkthrough16 data-line=44>
-      let’s draw our attention back to this weird internal layer with a funny name, conv_pw_13_relu.
-      to get a better sense of what that’s all about, let’s go load up that model description file and take a look around
+  <build-note id=codeWalkthrough16 data-line=44>      
+    to get a better sense of what that’s all about, I wanted to go load up that model description file and take a look around
   </build-note>
   <build-note id=codeWalkthroughConsole0 data-time=0>
-    let’s load the JSON and poke around
-    it looks like this is a Keras model!
+    I'll just fetch it from the Google Storage URL we saw earlier.
+    It looks like this is a Keras model!
     keras is a ml library that provides a nice interface onto tensorflow, letting you describe your model as a bunch of parameterized layers
     and what layers, wow
   </build-note>
@@ -419,8 +419,7 @@
       we’ve got our input layer,
       and then we have this repeating stack
       convolution -> norm -> activation -> depthwise convolution -> norm -> activation
-      convolutional layers show up a lot in deep networks
-      they sound scary, but they’re not really
+      Very much like the layers we were diving through before.
   </build-note>
   <!-- Set an initial data-line so it doesn't "jump" horizontally when set by js the first time  -->
   <pre data-line=1 id=codeHighlight class=language-javascript>
@@ -635,9 +634,8 @@ init();
     Says more about the state of <i>our</i> neural networks than this one. (I think it's the lizard juxtaposition.)
     But I do want you to notice and think about what it means that all this skin is so very white.
     
-    So this is all... <i>preeeety trippy</i>.
-    Why is that? What does it mean, for something to be trippy?
-    To figure that out, let's take a look inside...
+    This data processing arrangement—from simple forms to more intricate ones—is quite similar to how our visual
+    cortex processes information.
   </build-note>
 <script>
     When(dreamFullscreenPaused)
@@ -758,7 +756,7 @@ init();
   </script>
 
   <!-- 1b. The human visual system -->
-  <build-note id=inside>    
+  <!-- <build-note id=inside>    
   </build-note>
   <build-note id=insideEnterSkully>
     ...ourselves.
@@ -838,9 +836,9 @@ init();
   </build-note>
   <build-note id=insideBrain>
     Then the signal goes through the brain
-  </build-note>
+  </build-note> -->
   <div id=highlightBox></div>
-  <build-note id=insideChiasma>
+  <!-- <build-note id=insideChiasma>
     It hits the optic chiasma, where the data streams from your left and right eyes cross,
     giving us 3d stereo vision
   </build-note>
@@ -850,7 +848,7 @@ init();
     Each step of this signal pathway is performing signal a little bit of processing, extracting a little something.
 
     And that's all before we get to...
-  </build-note>
+  </build-note> -->
   <build-note id=insideVisualCortex>
     Ths visual cortex. All the way around here in the back.
 
@@ -904,12 +902,14 @@ init();
     
     You know this feeling: thinking you see one thing, and then realizing it’s something else.
 
-    These loopback pyramidal cells in our visual cortex are covered in serotonin receptors.
+    Neural networks know this feeling too, in a sense.
+
+    <!-- These loopback pyramidal cells in our visual cortex are covered in serotonin receptors.
     Different kinds of pyramidal cells respond to serotonin differently,
-    Generally, they find it exciting
+    Generally, they find it exciting -->
     <!-- (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3630391/) (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5810041/) -->
   </build-note>
-  <build-note id=insideVisualCortexRecurrentSerotonin>  
+  <!-- <build-note id=insideVisualCortexRecurrentSerotonin>  
     And don’t we all? You might be familiar with serotonin from its starring role as the target of typical antidepressants, which are serotonin reuptake inhibitors—when serotonin gets released into your brain, they make it stick around longer, thereby treating depression
     (some side effects may occur)
     Most serotonin is located in your gut, where it controls bowel movement.
@@ -925,37 +925,37 @@ init();
     In the gut, they make it run… backwards. Anti-nausea drugs are frequently 5-HT3 antagonists.
 
     There’s another serotonin receptor, one that the pyramidal cells in your brain find particularly exciting.    
-  </build-note>
+  </build-note> -->
   <script>
     When(insideVisualCortexRecurrent)  
       .start(() =>
         visualCortexMapTitle.text = 'Visual heirarchy (Felleman 1991)')
   </script>  
   <script>
-    insideEnterSkully.skully = {time: 0, paused: true}
-    insideLessCruft.skully = {time: 14.8, duration: 5, paused: true}
-    insideRetina.skully = {time: 20, duration: 20 - 14.8, paused: true}
-    insideRetinaGanglions.skully = {time: 29, duration: 29 - 20, paused: true}
-    insideRetinaEtc.skully = {time: 31, duration: 31 - 29, paused: true}
-    insideRetinaPhotoreceptors.skully = {time: 34, duration: 34 - 31, paused: true}
-    insideRetinaLightGoesIn.skully = {time: 34.5, duration: 34.5 - 34, paused: true}
-    insideRetinaSignalComesOut.skully = {time: 36.5, duration: 36.5 - 34.5, paused: true}
-    insideRetinaOpticNerve.skully = {time: 42, duration: 42 - 36.5, paused: true}
-    insideRetinaReceptiveField.skully = {time: 50.84, duration: 50.8 - 42, paused: true}
-    insideRetinaReceptiveFieldFiringWeakly.skully = {time: 50.96, duration: 0, paused: true}
-    insideRetinaReceptiveFieldOffCenterFiring.skully = {time: 51.5, duration: 3, paused: true}
-    insideRetinaReceptiveFieldOffCenterDead.skully = {time: 51.63, duration: 1, paused: true}
-    insideRetinaReceptiveFieldOnCenterFiring.skully = {time: 51.8, duration: 1, paused: true}
-    insideBrain.skully = {time: 65, duration: 3, paused: true}
-    insideChiasma.skully = {time: 65, duration: 3, paused: true}
-    insideThalamus.skully = {time: 65, duration: 3, paused: true}
-    insideVisualCortex.skully = {time: 86, duration: 5, paused: true}
+    // insideEnterSkully.skully = {time: 0, paused: true}
+    // insideLessCruft.skully = {time: 14.8, duration: 5, paused: true}
+    // insideRetina.skully = {time: 20, duration: 20 - 14.8, paused: true}
+    // insideRetinaGanglions.skully = {time: 29, duration: 29 - 20, paused: true}
+    // insideRetinaEtc.skully = {time: 31, duration: 31 - 29, paused: true}
+    // insideRetinaPhotoreceptors.skully = {time: 34, duration: 34 - 31, paused: true}
+    // insideRetinaLightGoesIn.skully = {time: 34.5, duration: 34.5 - 34, paused: true}
+    // insideRetinaSignalComesOut.skully = {time: 36.5, duration: 36.5 - 34.5, paused: true}
+    // insideRetinaOpticNerve.skully = {time: 42, duration: 42 - 36.5, paused: true}
+    // insideRetinaReceptiveField.skully = {time: 50.84, duration: 50.8 - 42, paused: true}
+    // insideRetinaReceptiveFieldFiringWeakly.skully = {time: 50.96, duration: 0, paused: true}
+    // insideRetinaReceptiveFieldOffCenterFiring.skully = {time: 51.5, duration: 3, paused: true}
+    // insideRetinaReceptiveFieldOffCenterDead.skully = {time: 51.63, duration: 1, paused: true}
+    // insideRetinaReceptiveFieldOnCenterFiring.skully = {time: 51.8, duration: 1, paused: true}
+    // insideBrain.skully = {time: 65, duration: 3, paused: true}
+    // insideChiasma.skully = {time: 65, duration: 3, paused: true}
+    // insideThalamus.skully = {time: 65, duration: 3, paused: true}
+    insideVisualCortex.skully = {time: 86, duration: 0, paused: true}
 
-    When(buildInRange(insideEnterSkully, insideVisualCortex))
+    When(buildInRange(insideVisualCortex, insideVisualCortex))
       .changed(((_ts, build) => build.skully && skully.seekTo(build.skully)))
   </script>
 
-  <div id=ht2a>
+  <!-- <div id=ht2a>
     <type-writer id=ht2aTitle></type-writer>
     <video id=ht2aVideo src=assets/5ht2a.m4v loop preload></video>
   </div>
@@ -966,8 +966,8 @@ init();
   <div id=ht2aLSDBindingDetail>
     <type-writer id=ht2aLSDBindingDetailTitle></type-writer>
     <img src=lsd-el2-interaction.jpg>
-  </div>  
-  <build-note id=inside5ht2a>
+  </div>   -->
+  <!-- <build-note id=inside5ht2a>
     This is the 5-HT2A receptor.
     The primary target for every known psychedelic drug.
     It is what enables our brains to create psychedelic experiences.
@@ -1016,7 +1016,7 @@ init();
     
     But we could.
     We could perform the amplification process on a final result, rather than an intermediate one.    
-  </build-note>
+  </build-note> 
   <script>
     When(buildInRange(inside5ht2a, insideWeAreTheOutput))
       .start(() => {
@@ -1030,7 +1030,7 @@ init();
         ht2aLSDTitle.text = 'LSD 5-ht2a binding - EL2 "lid"'
         ht2aLSDBindingDetailTitle.text = 'LSD/EL2 (L209) hydrophobic binding'
       })
-  </script>
+  </script> -->
 
   <div id=adversarialSticker>
     <type-writer id=stickerTitle></type-writer>
@@ -1041,7 +1041,7 @@ init();
     <img src=assets/adversarial-skiiers.gif>
   </div>
   <build-note id=insideAdversarialSticker>
-    Maybe we ask, “what would it take for you to see this banana as a toaster?"
+    Here's a banana that it's <em>preeety sure</em> is a toaster.
   </build-note>
   <script>
     When(insideAdversarialSticker)
@@ -1101,11 +1101,10 @@ init();
     shifting hypotheses about the state of the world.
     
     This gives us the ability to adapt and operate within a pretty extreme range of conditions    
-    Even while tripping face.
-    Or...
+    Even when things are not what they seem, and even…
   </build-note>
   <script>
-    When(buildInRange(inside5ht2a, insideAdversarialContinuousRefinement))
+    When(buildInRange(insideAdversarialSkiiers, insideAdversarialContinuousRefinement))
       .end(() => ht2aTitle.text = ht2aLSDTitle.text = stickerTitle.text = skiiersTitle.text = '')
     When(insideAdversarialSticker)
       .start(() => stickerTitle.text = 'Adversarial patch arXiv:1712.09665v2')
@@ -1114,7 +1113,7 @@ init();
   </script>
 
   <build-note id=hallucinationsToSleep>
-    ...while asleep.
+    ...when we're asleep.
   </build-note>
   <script>
     let hallucinationBuilds =
@@ -1264,9 +1263,8 @@ for Improved Quality, Stability, and Variation
     It resembles the sorts of things you may have seen,
     in long-forgotten dreams.
 
-    I don't have a magic schoolbus voyage to take us on to understand why that is.
+    I think what's happening is this:
 
-    But I have a theory:
     When we see a face, a bunch of neurons in our brain light up
     And begin resonating a signal which <i>is</i> the feeling of looking at that
     particular face. Taken together, all the neurons involved in face detection
@@ -1274,11 +1272,34 @@ for Improved Quality, Stability, and Variation
     a mapping from faces to positions in a high-dimensional space.
 
     And as we drag around the generator's vector here, so are we dragging around our own.
-    A novel sensation.
+    A novel and unsettling sensation, for a novel and unsettling world.
 
-    This is a wild theory. But not without neurocognitive precedent.
+    a world flush with information
+    our interaction with it heavily mediated—increasingly, by machine learning systems
+    these systems are not perfect
+    they have trained on whatever data we’ve given them
+    just like us, they internalize the biases of whatever data we’ve given them
+    & just like us, they can be pressed into the service of whoever wields them
+
+    there’s a proof that neural networks are universal approximators
+    that is, for any function we can think of, there’s a neural network that can approximate it to any level of precision
+      —though whether we have the techniques or data to train such a network is another matter
+    still, i think we’re getting there
+    if you believe that cognition is a computable function
+    we’re moving into a world in which the fundamental tasks of cognition
+    are now things we can train a machine to do
   </build-note>
+  <video id=obama src=assets/obama.mp4></video>
+  <build-note id=dreamsObama>   
+  </build-note>  
   <script>
+    When(dreamsObama)
+      .start(() => {
+        obama.volume = 0
+        obama.currentTime = 12.142
+        obama.play()
+      })
+      .end(() => obama.pause())
     When(buildInRange(title2DreamsBlur, dreamsInterpolation))
       .changed((_, {dataset: {time, duration=0, paused, playbackRate=1}}) =>
         facesVideo.seekTo({time, duration, playbackRate, paused: typeof paused !== 'undefined'}))      
@@ -1348,7 +1369,7 @@ for Improved Quality, Stability, and Variation
         (facesVideo.currentTime = dreamsInterpolation.dataset.time))
   </script>
 
-  <grid-cells id=grid></grid-cells>  
+  <!-- <grid-cells id=grid></grid-cells>  
   <build-note id=dreamsGrid>
     Here we have a rat in a cage
 
@@ -1403,196 +1424,7 @@ for Improved Quality, Stability, and Variation
 
   <build-note id=dreamsEnd data-title=''>
     In many senses of the word.
-  </build-note>    
-</div>
-
-<!-- 3. stones -->
-<div id=stones>
-  <build-note id=title3 data-title='3. '>Part three.</build-note>
-  <build-note id=title3sticksAndStones data-title='3. sticks and stones'>
-    Sticks and stones.
-
-    They say you can't tickle yourself because you know it's coming.
-
-    Specifically, when your brain sends an action command to your muscles...
-  </build-note>
-
-  <body-model id=bodyModel>
-    <div id=inversion-wipe class=wipe-east-west></div>
-  </body-model>
-  <type-writer id=efferenceCopy></type-writer>
-  <build-note id=stonesEfference data-title='efference'>
-    That's called an efference
-    When an efference is sent, your brain makes a copy.      
-  </build-note>
-  <build-note id=stonesEfferenceCopy data-title='efference'>
-    "Makes a copy" sounds so... planned. Engineered.
-    Your brain is this big, messy, evolved signal processing mesh.
-  </build-note>
-  <build-note id=stonesEfferenceReflection data-title='efference'>
-    Another way to think of efference copies is as reflections.
-  </build-note>
-  <script>
-    When(stonesEfference).start(() => efferenceCopy.text = '')
-    When(stonesEfferenceCopy)
-      .start(() => {
-        const {width, height, bottom, left} = titleWriter.getBoundingClientRect()
-        efferenceCopy.style.bottom = bottom - height + 'px'
-        efferenceCopy.style.left = left + 'px'
-        efferenceCopy.text = 'efference copy'
-      })
-  </script>
-  <build-note id=stonesEfferenceMove data-title='fingers: move'>
-    We take the efference...
-  </build-note>
-  <script>
-    When(stonesEfferenceMove)
-      .start(() => {
-        efferenceCopy.removeAttribute('style')
-        efferenceCopy.text = 'fingers: move'
-      })
-  </script>
-
-  <build-note id=stonesEfferenceSend data-title='fingers: move'>
-    ...and send it out to our peripheral nerves, where it will presumably
-    make some muscles contract.
-    Meanwhile, from the efference copy...
-  </build-note>
-  <build-note id=stonesTransformCopy>
-    We predict how our body's state will change...
-  </build-note>
-  <script>
-    When(stonesTransformCopy)
-      .start(() => efferenceCopy.text = 'fingers will move')
-  </script>
-  <build-note id=stonesApplyCopy>
-    And use that to update our brain's model of our body's state.
-    If we <i>didn't</i> do this, the we would have to wait for
-    sensory data to come back, to tell what happened. Where <i>is</i> our
-    hand right now?
-
-    Then we'd face the same problem as trying to play
-    a twitchy video game over a totally crap connection. Signals take 10ms
-    to travel from our brain to our periphery, and another 10ms to travel
-    back. It's just not that low-latency or high-bandwidth, this body of ours,
-    at least not neurologically.
-
-    To enable smooth, coordinated movements, our brain has to make predictions.
-  </build-note>
-  <script>
-    When(stonesApplyCopy)  
-      .start(() => For(4[sec]).frame(every(0.1[sec])(() => {
-        r_finger_pos.update()
-        l_armpit_touch_pts.update()
-      })))
-  </script>
-  <h1 id=fingersDidMove>fingers did move</h1>
-  <h1 id=armpitWasTickled>armpit was tickled</h1>
-  <build-note id=stonesLifeGoesOn>
-    Life goes on.  
-  </build-note>
-  <build-note id=stonesFingersDidMove>
-    But in a moment, have a problem.
-    We will still receive sense data from our nerves.
-    If we updated our models again, they would actually fall *out* of sync.
-  </build-note>
-  <build-note id=stonesFingersDidMoveAttenuated>
-    So we attenuate this signal.
-  </build-note>
-  <build-note id=stonesLifeGoesOnAgain>
-    And keep our model in sync.
-  </build-note>
-  <build-note id=stonesArmpitWasTickled>
-    This attenuation applies to sense of touch, when that touch is an
-    expected consequence of our own movement.
-    Aspects of this forward model are likely distributed throughout our brain
-    But there's one place that's particularly important in maintaining it
-  </build-note>
-  <img id=grayCerebellum src=assets/gray-cerebellum-pink.png>
-  <img id=soboCerebellum src=assets/sobo-cerebellum-pink.png>
-  <build-note id=stonesInTheCerebellum>
-    The cerebellum.
-  </build-note>
-  <build-note id=stonesCerebellumWider>
-    The cerebellum is quite special.
-    It contains half the neurons in our nervous system.
-    All action commands from the brain to the body route through it
-    All sensations from the body to the brain, too
-    It has long been recognized as vitally important to our motor coordination.
-    Like this: <b>touch end of clicker</b>
-    People with cerebellar damage have difficulty performing this action smoothly.
-    With cerebellar damage, our movements become jerky, laggy.
-    It's theorized that the cerebellum acts as a Smith predictor. <!-- Miall, R. C., Weir, D. J., Wolpert, D. M., and Stein, J. F. (1993). Is the cerebellum a Smith Predictor? J. Motor Behav., 25(3):203–216.) -->
-    Our brain's controller for our latency-distant bodies
-    able to estimate the body's current state
-    integrate sensory feedback to update that model
-    and decompose gross actions generated elsewhere in the brain
-    into a fine-tuned, continuously adjusted control signal
-
-    Once you've evolved it, such a thing has many uses.
-  </build-note>
-  <build-note id=stonesCerebellumLanguage>
-    There's a growing body of evidence implicating the cerebellum in language.
-
-    Which makes sense. Utterance is a kind of movement.
-    Language—she said, gesticulating wildly—is not limited to utterance.
-
-    The work of moving words is not so different from the work of moving the body.
-    They are both transformations—from the space of internal states, efferents and ideas,
-    to the space of space of world coordinates and external sense impressions
-    and back again.
-
-    What happens when this predictor encounters a problem?
-    When there is an irreconcileable discontinuity in the model?  
-  </build-note>
-  <oscill-o-scope id=oscillo>
-    <audio id=laugh1 src=assets/woman-laugh.wav data-stroke=fuchsia></audio>
-    <audio id=laugh2 src=assets/man-laugh.wav data-stroke=cyan></audio>
-    <audio id=sob src=assets/sobbing.wav data-stroke=red></audio>
-  </oscill-o-scope>    
-  <build-note id=stonesLaughter></build-note>
-  <build-note id=stonesSobbing>    
-  </build-note>
-  <build-note id=stonesStopSobbing>
-    These sounds we make are so similar.
-
-    Visceral. Gutteral. Rhythmic. They shake our bones.
-
-    Humour, too, is shaped like trauma.
-    They are both shatterings
-    Illuminations of discontinuities
-    Paradoxes: things which cannot be
-      and yet are
-
-    Which we must revist again and again, churning
-    Water smoothing the edges of cutting stone
-    The machinery of our brains trying to make sense
-    Of a world
-    That resists it.
-  </build-note>
-  <script>
-    addEventListener('click', () => oscillo.setup())
-    addEventListener('keydown', () => oscillo.setup())
-
-    When(any(stonesLifeGoesOn, buildInRange(stonesLifeGoesOnAgain, stonesInTheCerebellum)))
-      .frame(every(0.1[sec])(() => bodyModel.update()))
-
-    When(stonesLaughter)
-      .start(() => {
-        laugh1.currentTime = 0
-        laugh2.currentTime = 0
-        laugh1.play()
-        laugh2.play()
-      })
-
-    When(stonesSobbing)
-      .start(() => {
-        sob.volume = 1
-        sob.currentTime = 0
-        sob.play()
-      })
-      .end(() => sob.pause())
-  </script>
+  </build-note>     -->
 </div>
 
 <build-note id=titleConclusion1 data-title=''>
