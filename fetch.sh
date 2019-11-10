@@ -32,5 +32,5 @@ explore-mobilenet-0.mp4,\
 explore-mobilenet-1.mp4,\
 explore-mobilenet-2.mp4,\
 pacman-edited-0.mp4,\
-pacman-edited-1.mp4
+pacman-edited-1.mp4\
 \} -o assets/#1
