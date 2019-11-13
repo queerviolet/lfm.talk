@@ -140,8 +140,48 @@ body[data-current-build^="title2"] #hallucinations,
     > #grid {
       display: block;
     }
+    > #obama {
+      display: block;
+      opacity: 0;
+    }
   }
 }
+
+.dreamsObama
+{
+  > #titleCard { display: none; }
+  > #dreams {
+    > #faces {
+      .full();
+      opacity: 0;
+    }
+    > #obama {
+      display: block;
+      .full();  
+    }
+    > #terminator {
+      .full();
+      opacity: 0;
+    }
+  }
+}
+
+.dreamsTerminator
+{
+  > #titleCard { display: none; }
+  > #dreams {
+    > #faces { display: none; }
+    > #obama {
+      .full();  
+      opacity: 0;
+    }
+    > #terminator {
+      .full();
+      opacity: 1;      
+    }
+  }
+}
+
 
 .dreamsGrid,
 {
@@ -339,6 +379,8 @@ grid-cells {
   --stack-skew-x-from: 0deg;
   .layer();
 }
+
+#obama, #terminator { display: none; }
 
 .gen-layer {
   .layer(

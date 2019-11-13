@@ -1274,23 +1274,36 @@ for Improved Quality, Stability, and Variation
     And as we drag around the generator's vector here, so are we dragging around our own.
     A novel and unsettling sensation, for a novel and unsettling world.
 
-    a world flush with information
-    our interaction with it heavily mediated—increasingly, by machine learning systems
-    these systems are not perfect
-    they have trained on whatever data we’ve given them
-    just like us, they internalize the biases of whatever data we’ve given them
-    & just like us, they can be pressed into the service of whoever wields them
+    A world where we can map the mathematical space of pretty faces and pluck photos of imaginary people out of it.
 
-    there’s a proof that neural networks are universal approximators
-    that is, for any function we can think of, there’s a neural network that can approximate it to any level of precision
-      —though whether we have the techniques or data to train such a network is another matter
-    still, i think we’re getting there
-    if you believe that cognition is a computable function
-    we’re moving into a world in which the fundamental tasks of cognition
-    are now things we can train a machine to do
+    And that's not even the scary part.
   </build-note>
   <video id=obama src=assets/obama.mp4></video>
-  <build-note id=dreamsObama>   
+  <video id=terminator src=assets/terminator.mp4></video>
+  <build-note id=dreamsObama>
+    Here is video of Obama. Of fake Obama. He's saying lines from an actual Obama speech here. Also, I think fake Obama could be a bit more convincing, but this video is two years old, so, I bet by now it's pretty straightforward to make him say whatever we want him to.
+
+    That's not the scary part either.
+
+    Deep fakes are not great, perhaps, but the worst thing they'll do is take us back to the world of not so long ago, when you couldn't trust photos or video because we didn't have them. Truth has always been an ensemble calculation.
+
+    No, what scares me is that we can scale human cognition. Which means we can scale *judgment* and *value systems*, and that gives <em>us</em> a huge amount of power.
+
+    There's this AI thought experiment: what if we told a very powerful AI to optimize for…
+    paperclip production. But we didn't tell it anything else, and so to optimize for paperclip production, it destroys… everything. It kills every living thing and ravages every ecosystem in order to turn what's left of them into paperclips.
+
+    And I think conceptualizing that as an AI thought experiment makes it easy to miss that if you replace &#8220;paperclips&#8221; with &#8220;Amazon stock price,&#8221; you have a pretty good description of Amazon's business model.
+
+    And that's who I'm scared of. Not the robots. Not Jeff Bezos. Us.
+    
+    Or really, the hungry ghosts inside us, always needing more.
+  </build-note>
+  <build-note id=dreamsTerminator>
+    Which is enough to think that this robot? Had the right idea.
+
+    Yeah. Burn it down. Step into that pit of molten metal. Technology was a mistake, it must end here.
+
+    Except it didn't. This was like eight sequels ago. Because, yes, Hollywood <i>loves</i> sequels, but also, because it is easy to break technological artifacts and tremendously difficult to destroy technology that is useful to someone, somewhere.
   </build-note>  
   <script>
     When(dreamsObama)
@@ -1300,6 +1313,14 @@ for Improved Quality, Stability, and Variation
         obama.play()
       })
       .end(() => obama.pause())
+
+    When(dreamsTerminator)
+      .start(() => {
+        terminator.volume = 0
+        terminator.currentTime = 0
+        terminator.play()
+      })
+      .end(() => terminator.pause())
     When(buildInRange(title2DreamsBlur, dreamsInterpolation))
       .changed((_, {dataset: {time, duration=0, paused, playbackRate=1}}) =>
         facesVideo.seekTo({time, duration, playbackRate, paused: typeof paused !== 'undefined'}))      
@@ -1427,7 +1448,8 @@ for Improved Quality, Stability, and Variation
   </build-note>     -->
 </div>
 
-<build-note id=titleConclusion1 data-title=''>
+<!--
+  <build-note id=titleConclusion1 data-title=''>
   This has been a hard year for me.
   This has been a hard year… for all of us.
   
@@ -1471,22 +1493,21 @@ for Improved Quality, Stability, and Variation
 
   You are everything.
 </build-note>
+-->
 <build-note id=titleConclusion3 data-title=''> 
-  Everything you have ever seen
-  every place you have ever been
-  every song you have ever sung
-  every god you have ever prayed to
-  every person you have ever loved
-  and the boundaries between them and you
-  and the sea and the stars
-  are all
-  in your head
+  I think the only way out is through.
+
+  These technologies are going to keep getting better. Our ghosts are going to keep getting hungrier. And we are going to have to deal with them, and keep dealing with them.
+  
+  There are going to be some starkly terrifying uses of AI in the next decade. We have to imagine better ones. We have to imagine ways for this technology to exist and support a world that we want to live in. We have to articulate our values. We have to believe in them, and we have to figure out how to teach them to the AI genie that is definitely not going back in the bottle.
+  
+  That's how we win.
 </build-note>
 <build-note id=titleThanks data-title='thank you.'></build-note>
-<build-note id=titleEnd data-title="learning from machines" data-subtitle="
+<build-note id=titleEnd data-title="dissecting the robot brain" data-subtitle="
 ashi krishnan  ·  @rakshesha  ·  ashi.io"></build-note>
 
-<build-note id=titleColophon data-title="learning from machines" data-subtitle="
+<build-note id=titleColophon data-title="dissecting the robot brain" data-subtitle="
 ashi krishnan  ·  @rakshesha  ·  ashi.io
 
 lfm.ashi.io  ·  lfm.ashi.io/presenter.html
