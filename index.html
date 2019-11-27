@@ -1105,7 +1105,7 @@ init();
   </build-note>
   <script>
     When(buildInRange(insideAdversarialSkiiers, insideAdversarialContinuousRefinement))
-      .end(() => ht2aTitle.text = ht2aLSDTitle.text = stickerTitle.text = skiiersTitle.text = '')
+      .end(() => stickerTitle.text = skiiersTitle.text = '')
     When(insideAdversarialSticker)
       .start(() => stickerTitle.text = 'Adversarial patch arXiv:1712.09665v2')
     When(insideAdversarialSkiiers)
