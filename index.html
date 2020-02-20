@@ -1275,53 +1275,10 @@ for Improved Quality, Stability, and Variation
     And as we drag around the generator's vector here, so are we dragging around our own.
     A novel and unsettling sensation, for a novel and unsettling world.
 
-    A world where we can map the mathematical space of pretty faces and pluck photos of imaginary people out of it.
-
-    And that's not even the scary part.
+    So, that's a wild theory. But it's not without some neurocognitive precedent.
   </build-note>
-  <video id=obama src=assets/obama.mp4></video>
-  <video id=terminator src=assets/terminator.mp4></video>
-  <build-note id=dreamsObama>
-    Here is video of Obama. Of fake Obama. He's saying lines from an actual Obama speech here. Also, I think fake Obama could be a bit more convincing, but this video is two years old, so, I bet by now it's pretty straightforward to make him say whatever we want him to.
 
-    That's not the scary part either.
-
-    Deep fakes are not great, perhaps, but the worst thing they'll do is take us back to the world of not so long ago, when you couldn't trust photos or video because we didn't have them. Truth has always been an ensemble calculation.
-
-    No, what scares me is that we can scale human cognition. Which means we can scale *judgment* and *value systems*, and that gives <em>us</em> a huge amount of power.
-
-    There's this AI thought experiment: what if we told a very powerful AI to optimize for…
-    paperclip production. But we didn't tell it anything else, and so to optimize for paperclip production, it destroys… everything. It kills every living thing and ravages every ecosystem in order to turn what's left of them into paperclips.
-
-    And I think conceptualizing that as an AI thought experiment makes it easy to miss that if you replace &#8220;paperclips&#8221; with &#8220;Amazon stock price,&#8221; you have a pretty good description of Amazon's business model.
-
-    And that's who I'm scared of. Not the robots. Not Jeff Bezos. Us.
-    
-    Or really, the hungry ghosts inside us, always needing more.
-  </build-note>
-  <build-note id=dreamsTerminator>
-    Which is enough to think that this robot? Had the right idea.
-
-    Yeah. Burn it down. Step into that pit of molten metal. Technology was a mistake, it must end here.
-
-    Except it didn't. This was like eight sequels ago. Because, yes, Hollywood <i>loves</i> sequels, but also, because it is easy to break technological artifacts and tremendously difficult to destroy technology that is useful to someone, somewhere.
-  </build-note>  
   <script>
-    When(dreamsObama)
-      .start(() => {
-        obama.volume = 0
-        obama.currentTime = 12.142
-        obama.play()
-      })
-      .end(() => obama.pause())
-
-    When(dreamsTerminator)
-      .start(() => {
-        terminator.volume = 0
-        terminator.currentTime = 0
-        terminator.play()
-      })
-      .end(() => terminator.pause())
     When(buildInRange(title2DreamsBlur, dreamsInterpolation))
       .changed((_, {dataset: {time, duration=0, paused, playbackRate=1}}) =>
         facesVideo.seekTo({time, duration, playbackRate, paused: typeof paused !== 'undefined'}))      
@@ -1391,111 +1348,310 @@ for Improved Quality, Stability, and Variation
         (facesVideo.currentTime = dreamsInterpolation.dataset.time))
   </script>
 
-  <!-- <grid-cells id=grid></grid-cells>  
-  <build-note id=dreamsGrid>
-    Here we have a rat in a cage
+<grid-cells id=grid></grid-cells>  
+<build-note id=dreamsGrid>
+  Here we have a rat in a cage
 
-    We've hooked an electrode up to a particular neuron in the rat's brain
-    And those pink dots are the locations where it fires.    
-  </build-note>
-  <build-note id=dreamsGridFaster>
-    If we speed it up...
-  </build-note>
-  <build-note id=dreamsGridFlashing>
-    ...A pattern begins to emerge.
+  We've hooked an electrode up to a particular neuron in the rat's brain
+  And those pink dots are the locations where it fires.    
+</build-note>
+<build-note id=dreamsGridFaster>
+  If we speed it up...
+</build-note>
+<build-note id=dreamsGridFlashing>
+  ...A pattern begins to emerge.
 
-    This neuron is a grid cell.
-    So named because the centers of its firing fields produce a triangular grid.
-    There are lots of grid cells in your brain
-    Each aligning to a different grid
+  This neuron is a grid cell.
+  So named because the centers of its firing fields produce a triangular grid.
+  There are lots of grid cells in your brain
+  Each aligning to a different grid
 
-    They collect data from your visual system
-    from head direction cells, which similarly encode the position of your head
+  They collect data from your visual system
+  from head direction cells, which similarly encode the position of your head
 
-    And together, these cells construct an encoding of our position in 2D Euclidian space.
-    
-    It operates even in our sleep.
+  And together, these cells construct an encoding of our position in 2D Euclidian space.
+  
+  It operates even in our sleep.
 
-    If earlier, you discovered that you're dreaming
-    and you want to see the end of this talk
-    but you're having trouble staying in it,
-    oneironauts recommend spinning around
-    This detaches your perceived body—the one with twelve fingers and three extra bedrooms—from your physical body,
-    which is lying in bed
-  </build-note>
-  <build-note id=dreamsGridZoom>
-    This positioning system is something which on some level, you always knew existed
-    After all, you know where you are in space.
-    You <i>have a sense</i> of space as you move through it.
-    And it's likely
-      —even <i>necessary</i>, if we believe that cognition is computation—
-    That our qualitative sense of position has a neurocognitive precursor
-    
-    A signal in the web that tells us where we're at
-  </build-note>
+  If earlier, you discovered that you're dreaming
+  and you want to see the end of this talk
+  but you're having trouble staying in it,
+  oneironauts recommend spinning around
+  This detaches your perceived body—the one with twelve fingers and three extra bedrooms—from your physical body,
+  which is lying in bed
+</build-note>
+<build-note id=dreamsGridZoom>
+  This positioning system is something which on some level, you always knew existed
+  After all, you know where you are in space.
+  You <i>have a sense</i> of space as you move through it.
+  And it's likely
+    —even <i>necessary</i>, if we believe that cognition is computation—
+  That our qualitative sense of position has a neurocognitive precursor
+  
+  A signal in the web that tells us where we're at
+</build-note>
 
-  <script>
-    grid.playbackRate = 0
-    When(dreamsGrid)
-      .start(() => { grid.onResize(); grid.playbackRate = 1 })
+<script>
+  grid.playbackRate = 0
+  When(dreamsGrid)
+    .start(() => { grid.onResize(); grid.playbackRate = 1 })
 
-    When(buildInRange(dreamsGridFaster, dreamsGridZoom))
-      .start(() => For(2[sec]).at(t => grid.playbackRate = 100 * t))
-      .end(() => grid.playbackRate = 0)
-  </script>
+  When(buildInRange(dreamsGridFaster, dreamsGridZoom))
+    .start(() => For(2[sec]).at(t => grid.playbackRate = 100 * t))
+    .end(() => grid.playbackRate = 0)
+</script>
 
-  <build-note id=dreamsEnd data-title=''>
-    In many senses of the word.
-  </build-note>     -->
+<build-note id=dreamsEnd data-title=''>
+  In many senses of the word.
+</build-note>    
 </div>
 
-<!--
-  <build-note id=titleConclusion1 data-title=''>
-  This has been a hard year for me.
-  This has been a hard year… for all of us.
-  
-  We are in a growing storm.
-  We are refugees. We are fleeing war.
-  Trying to escape oppression,
-  We are families trying to find water as the deserts keep spreading
-  As the earth beneath our feet just keeps getting hotter
+<!-- 3. stones -->
+<div id=stones>
+<build-note id=title3 data-title='3. '>Part three.</build-note>
+<build-note id=title3sticksAndStones data-title='3. sticks and stones'>
+  Sticks and stones.
 
-  Our governments' response has been
-  to build walls to stop THEM coming in
-  and to build cages for THEIR children to die in.
-  
-  It's enough to drive you mad, and it has.
+  They say you can't tickle yourself because you know it's coming.
 
-  Sometimes it has felt impossible that I should keep waking up
-  Every morning, keep waking up every. single. one.
+  Specifically, when your brain sends an action command to your muscles...
+</build-note>
+
+<body-model id=bodyModel>
+  <div id=inversion-wipe class=wipe-east-west></div>
+</body-model>
+<type-writer id=efferenceCopy></type-writer>
+<build-note id=stonesEfference data-title='efference'>
+  That's called an efference
+  When an efference is sent, your brain makes a copy.      
+</build-note>
+<build-note id=stonesEfferenceCopy data-title='efference'>
+  "Makes a copy" sounds so... planned. Engineered.
+  Your brain is this big, messy, evolved signal processing mesh.
+</build-note>
+<build-note id=stonesEfferenceReflection data-title='efference'>
+  Another way to think of efference copies is as reflections.
+</build-note>
+<script>
+  When(stonesEfference).start(() => efferenceCopy.text = '')
+  When(stonesEfferenceCopy)
+    .start(() => {
+      const {width, height, bottom, left} = titleWriter.getBoundingClientRect()
+      efferenceCopy.style.bottom = bottom - height + 'px'
+      efferenceCopy.style.left = left + 'px'
+      efferenceCopy.text = 'efference copy'
+    })
+</script>
+<build-note id=stonesEfferenceMove data-title='fingers: move'>
+  We take the efference...
+</build-note>
+<script>
+  When(stonesEfferenceMove)
+    .start(() => {
+      efferenceCopy.removeAttribute('style')
+      efferenceCopy.text = 'fingers: move'
+    })
+</script>
+
+<build-note id=stonesEfferenceSend data-title='fingers: move'>
+  ...and send it out to our peripheral nerves, where it will presumably
+  make some muscles contract.
+  Meanwhile, from the efference copy...
+</build-note>
+<build-note id=stonesTransformCopy>
+  We predict how our body's state will change...
+</build-note>
+<script>
+  When(stonesTransformCopy)
+    .start(() => efferenceCopy.text = 'fingers will move')
+</script>
+<build-note id=stonesApplyCopy>
+  And use that to update our brain's model of our body's state.
+  If we <i>didn't</i> do this, the we would have to wait for
+  sensory data to come back, to tell what happened. Where <i>is</i> our
+  hand right now?
+
+  Then we'd face the same problem as trying to play
+  a twitchy video game over a totally crap connection. Signals take 10ms
+  to travel from our brain to our periphery, and another 10ms to travel
+  back. It's just not that low-latency or high-bandwidth, this body of ours,
+  at least not neurologically.
+
+  To enable smooth, coordinated movements, our brain has to make predictions.
+</build-note>
+<script>
+  When(stonesApplyCopy)  
+    .start(() => For(4[sec]).frame(every(0.1[sec])(() => {
+      r_finger_pos.update()
+      l_armpit_touch_pts.update()
+    })))
+</script>
+<h1 id=fingersDidMove>fingers did move</h1>
+<h1 id=armpitWasTickled>armpit was tickled</h1>
+<build-note id=stonesLifeGoesOn>
+  Life goes on.  
+</build-note>
+<build-note id=stonesFingersDidMove>
+  But in a moment, have a problem.
+  We will still receive sense data from our nerves.
+  If we updated our models again, they would actually fall *out* of sync.
+</build-note>
+<build-note id=stonesFingersDidMoveAttenuated>
+  So we attenuate this signal.
+</build-note>
+<build-note id=stonesLifeGoesOnAgain>
+  And keep our model in sync.
+</build-note>
+<build-note id=stonesArmpitWasTickled>
+  This attenuation applies to sense of touch, when that touch is an
+  expected consequence of our own movement.
+  Aspects of this forward model are likely distributed throughout our brain
+  But there's one place that's particularly important in maintaining it
+</build-note>
+<img id=grayCerebellum src=assets/gray-cerebellum-pink.png>
+<img id=soboCerebellum src=assets/sobo-cerebellum-pink.png>
+<build-note id=stonesInTheCerebellum>
+  The cerebellum.
+</build-note>
+<build-note id=stonesCerebellumWider>
+  The cerebellum is quite special.
+  It contains half the neurons in our nervous system.
+  All action commands from the brain to the body route through it
+  All sensations from the body to the brain, too
+  It has long been recognized as vitally important to our motor coordination.
+  Like this: <b>touch end of clicker</b>
+  People with cerebellar damage have difficulty performing this action smoothly.
+  With cerebellar damage, our movements become jerky, laggy.
+  It's theorized that the cerebellum acts as a Smith predictor. <!-- Miall, R. C., Weir, D. J., Wolpert, D. M., and Stein, J. F. (1993). Is the cerebellum a Smith Predictor? J. Motor Behav., 25(3):203–216.) -->
+  Our brain's controller for our latency-distant bodies
+  able to estimate the body's current state
+  integrate sensory feedback to update that model
+  and decompose gross actions generated elsewhere in the brain
+  into a fine-tuned, continuously adjusted control signal
+
+  Once you've evolved it, such a thing has many uses.
+</build-note>
+<build-note id=stonesCerebellumLanguage>
+  There's a growing body of evidence implicating the cerebellum in language.
+
+  Which makes sense. Utterance is a kind of movement.
+  Language—she said, gesticulating wildly—is not limited to utterance.
+
+  The work of moving words is not so different from the work of moving the body.
+  They are both transformations—from the space of internal states, efferents and ideas,
+  to the space of space of world coordinates and external sense impressions
+  and back again.
+
+  What happens when this predictor encounters a problem?
+  When there is an irreconcileable discontinuity in the model?  
+</build-note>
+<oscill-o-scope id=oscillo>
+  <audio id=laugh1 src=assets/woman-laugh.wav data-stroke=fuchsia></audio>
+  <audio id=laugh2 src=assets/man-laugh.wav data-stroke=cyan></audio>
+  <audio id=sob src=assets/sobbing.wav data-stroke=red></audio>
+</oscill-o-scope>    
+<build-note id=stonesLaughter></build-note>
+<build-note id=stonesSobbing>    
+</build-note>
+<build-note id=stonesStopSobbing>
+  These sounds we make are so similar.
+
+  Visceral. Gutteral. Rhythmic. They shake our bones.
+
+  Humour, too, is shaped like trauma.
+  They are both shatterings
+  Illuminations of discontinuities
+  Paradoxes: things which cannot be
+    and yet are
+
+  Which we must revist again and again, churning
+  Water smoothing the edges of cutting stone
+  The machinery of our brains trying to make sense
+  Of a world
+  That resists it.
+</build-note>
+<script>
+  addEventListener('click', () => oscillo.setup())
+  addEventListener('keydown', () => oscillo.setup())
+
+  When(any(stonesLifeGoesOn, buildInRange(stonesLifeGoesOnAgain, stonesInTheCerebellum)))
+    .frame(every(0.1[sec])(() => bodyModel.update()))
+
+  When(stonesLaughter)
+    .start(() => {
+      laugh1.currentTime = 0
+      laugh2.currentTime = 0
+      laugh1.play()
+      laugh2.play()
+    })
+
+  When(stonesSobbing)
+    .start(() => {
+      sob.volume = 1
+      sob.currentTime = 0
+      sob.play()
+    })
+    .end(() => sob.pause())
+</script>
+</div>
+
+<build-note id=titleConclusion1 data-title=''>
+This has been a hard year for me.
+This has been a hard year… for all of us.
+
+We are in a growing storm.
+We are refugees. We are fleeing war.
+Trying to escape oppression,
+We are families trying to find water as the deserts keep spreading
+As the earth beneath our feet just keeps getting hotter
+
+Our governments' response has been
+to build walls to stop THEM coming in
+and to build cages for THEIR children to die in.
+
+It's enough to drive you mad, and it has.
+
+Sometimes it has felt impossible that I should keep waking up
+Every morning, keep waking up every. single. one.
 </build-note>
 <build-note id=titleConclusion2 data-title=''>
-  There are days when I read the news
-  And every headline is a stone
-  And I think:
-  I should put all these into my dress
-  and walk into the sea.
+There are days when I read the news
+And every headline is a stone
+And I think:
+I should put all these into my dress
+and walk into the sea.
 
-  But I don't.
+But I don't.
 
-  Because I remind myself
-  Because I remember
-  I am a process of creation
-  I am a song singing myself  
-  We are stories telling ourselves
-  A sea understanding itself
-  Our churning waves
-  Creating every moment of
-    exquisite joy and
-    exquisite agony and
-    everything else
-  
-  It's you. It's all you.
+Because I remind myself
+Because I remember
+I am a process of creation
+I am a song singing myself  
+We are stories telling ourselves
+A sea understanding itself
+Our churning waves
+Creating every moment of
+  exquisite joy and
+  exquisite agony and
+  everything else
 
-  You are everything.
+It's you. It's all you.
+
+You are everything.
 </build-note>
--->
 <build-note id=titleConclusion3 data-title=''> 
+Everything you have ever seen
+every place you have ever been
+every song you have ever sung
+every god you have ever prayed to
+every person you have ever loved
+and the boundaries between them and you
+and the sea and the stars
+are all
+in your head
+</build-note>
+
+<!-- <build-note id=titleConclusion4 data-title=''> 
   I think the only way out is through.
 
   These technologies are going to keep getting better. Our ghosts are going to keep getting hungrier. And we are going to have to deal with them, and keep dealing with them.
@@ -1503,7 +1659,7 @@ for Improved Quality, Stability, and Variation
   There are going to be some starkly terrifying uses of AI in the next decade. We have to imagine better ones. We have to imagine ways for this technology to exist and support a world that we want to live in. We have to articulate our values. We have to believe in them, and we have to figure out how to teach them to the AI genie that is definitely not going back in the bottle.
   
   That's how we win.
-</build-note>
+</build-note> -->
 <build-note id=titleThanks data-title='thank you.'></build-note>
 <build-note id=titleEnd data-title="dissecting the robot brain" data-subtitle="
 ashi krishnan  ·  @rakshesha  ·  ashi.io"></build-note>
