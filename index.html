@@ -634,8 +634,7 @@ init();
     Says more about the state of <i>our</i> neural networks than this one. (I think it's the lizard juxtaposition.)
     But I do want you to notice and think about what it means that all this skin is so very white.
     
-    This data processing arrangement—from simple forms to more intricate ones—is quite similar to how our visual
-    cortex processes information.
+    So all of this is… *preeeety trippy*. To understand why that is, let's take a look inside…
   </build-note>
 <script>
     When(dreamFullscreenPaused)
@@ -756,7 +755,7 @@ init();
   </script>
 
   <!-- 1b. The human visual system -->
-  <!-- <build-note id=inside>    
+  <build-note id=inside>    
   </build-note>
   <build-note id=insideEnterSkully>
     ...ourselves.
@@ -836,9 +835,9 @@ init();
   </build-note>
   <build-note id=insideBrain>
     Then the signal goes through the brain
-  </build-note> -->
+  </build-note>
   <div id=highlightBox></div>
-  <!-- <build-note id=insideChiasma>
+  <build-note id=insideChiasma>
     It hits the optic chiasma, where the data streams from your left and right eyes cross,
     giving us 3d stereo vision
   </build-note>
@@ -848,7 +847,7 @@ init();
     Each step of this signal pathway is performing signal a little bit of processing, extracting a little something.
 
     And that's all before we get to...
-  </build-note> -->
+  </build-note>
   <build-note id=insideVisualCortex>
     Ths visual cortex. All the way around here in the back.
 
@@ -902,14 +901,14 @@ init();
     
     You know this feeling: thinking you see one thing, and then realizing it’s something else.
 
-    Neural networks know this feeling too, in a sense.
+    <!-- Neural networks know this feeling too, in a sense. -->
 
-    <!-- These loopback pyramidal cells in our visual cortex are covered in serotonin receptors.
+    These loopback pyramidal cells in our visual cortex are covered in serotonin receptors.
     Different kinds of pyramidal cells respond to serotonin differently,
-    Generally, they find it exciting -->
+    Generally, they find it exciting
     <!-- (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3630391/) (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5810041/) -->
   </build-note>
-  <!-- <build-note id=insideVisualCortexRecurrentSerotonin>  
+  <build-note id=insideVisualCortexRecurrentSerotonin>  
     And don’t we all? You might be familiar with serotonin from its starring role as the target of typical antidepressants, which are serotonin reuptake inhibitors—when serotonin gets released into your brain, they make it stick around longer, thereby treating depression
     (some side effects may occur)
     Most serotonin is located in your gut, where it controls bowel movement.
@@ -925,37 +924,37 @@ init();
     In the gut, they make it run… backwards. Anti-nausea drugs are frequently 5-HT3 antagonists.
 
     There’s another serotonin receptor, one that the pyramidal cells in your brain find particularly exciting.    
-  </build-note> -->
+  </build-note>
   <script>
     When(insideVisualCortexRecurrent)  
       .start(() =>
         visualCortexMapTitle.text = 'Visual heirarchy (Felleman 1991)')
   </script>  
   <script>
-    // insideEnterSkully.skully = {time: 0, paused: true}
-    // insideLessCruft.skully = {time: 14.8, duration: 5, paused: true}
-    // insideRetina.skully = {time: 20, duration: 20 - 14.8, paused: true}
-    // insideRetinaGanglions.skully = {time: 29, duration: 29 - 20, paused: true}
-    // insideRetinaEtc.skully = {time: 31, duration: 31 - 29, paused: true}
-    // insideRetinaPhotoreceptors.skully = {time: 34, duration: 34 - 31, paused: true}
-    // insideRetinaLightGoesIn.skully = {time: 34.5, duration: 34.5 - 34, paused: true}
-    // insideRetinaSignalComesOut.skully = {time: 36.5, duration: 36.5 - 34.5, paused: true}
-    // insideRetinaOpticNerve.skully = {time: 42, duration: 42 - 36.5, paused: true}
-    // insideRetinaReceptiveField.skully = {time: 50.84, duration: 50.8 - 42, paused: true}
-    // insideRetinaReceptiveFieldFiringWeakly.skully = {time: 50.96, duration: 0, paused: true}
-    // insideRetinaReceptiveFieldOffCenterFiring.skully = {time: 51.5, duration: 3, paused: true}
-    // insideRetinaReceptiveFieldOffCenterDead.skully = {time: 51.63, duration: 1, paused: true}
-    // insideRetinaReceptiveFieldOnCenterFiring.skully = {time: 51.8, duration: 1, paused: true}
-    // insideBrain.skully = {time: 65, duration: 3, paused: true}
-    // insideChiasma.skully = {time: 65, duration: 3, paused: true}
-    // insideThalamus.skully = {time: 65, duration: 3, paused: true}
-    insideVisualCortex.skully = {time: 86, duration: 0, paused: true}
+    insideEnterSkully.skully = {time: 0, paused: true}
+    insideLessCruft.skully = {time: 14.8, duration: 5, paused: true}
+    insideRetina.skully = {time: 20, duration: 20 - 14.8, paused: true}
+    insideRetinaGanglions.skully = {time: 29, duration: 29 - 20, paused: true}
+    insideRetinaEtc.skully = {time: 31, duration: 31 - 29, paused: true}
+    insideRetinaPhotoreceptors.skully = {time: 34, duration: 34 - 31, paused: true}
+    insideRetinaLightGoesIn.skully = {time: 34.5, duration: 34.5 - 34, paused: true}
+    insideRetinaSignalComesOut.skully = {time: 36.5, duration: 36.5 - 34.5, paused: true}
+    insideRetinaOpticNerve.skully = {time: 42, duration: 42 - 36.5, paused: true}
+    insideRetinaReceptiveField.skully = {time: 50.84, duration: 50.8 - 42, paused: true}
+    insideRetinaReceptiveFieldFiringWeakly.skully = {time: 50.96, duration: 0, paused: true}
+    insideRetinaReceptiveFieldOffCenterFiring.skully = {time: 51.5, duration: 3, paused: true}
+    insideRetinaReceptiveFieldOffCenterDead.skully = {time: 51.63, duration: 1, paused: true}
+    insideRetinaReceptiveFieldOnCenterFiring.skully = {time: 51.8, duration: 1, paused: true}
+    insideBrain.skully = {time: 65, duration: 3, paused: true}
+    insideChiasma.skully = {time: 65, duration: 3, paused: true}
+    insideThalamus.skully = {time: 65, duration: 3, paused: true}
+    insideVisualCortex.skully = {time: 86, duration: 2, paused: true}
 
-    When(buildInRange(insideVisualCortex, insideVisualCortex))
+    When(buildInRange(inside, insideVisualCortex))
       .changed(((_ts, build) => build.skully && skully.seekTo(build.skully)))
   </script>
 
-  <!-- <div id=ht2a>
+  <div id=ht2a>
     <type-writer id=ht2aTitle></type-writer>
     <video id=ht2aVideo src=assets/5ht2a.m4v loop preload></video>
   </div>
@@ -967,7 +966,7 @@ init();
     <type-writer id=ht2aLSDBindingDetailTitle></type-writer>
     <img src=lsd-el2-interaction.jpg>
   </div>   -->
-  <!-- <build-note id=inside5ht2a>
+  <build-note id=inside5ht2a>
     This is the 5-HT2A receptor.
     The primary target for every known psychedelic drug.
     It is what enables our brains to create psychedelic experiences.
@@ -1030,7 +1029,7 @@ init();
         ht2aLSDTitle.text = 'LSD 5-ht2a binding - EL2 "lid"'
         ht2aLSDBindingDetailTitle.text = 'LSD/EL2 (L209) hydrophobic binding'
       })
-  </script> -->
+  </script>
 
   <div id=adversarialSticker>
     <type-writer id=stickerTitle></type-writer>
@@ -1041,7 +1040,7 @@ init();
     <img src=assets/adversarial-skiiers.gif>
   </div>
   <build-note id=insideAdversarialSticker>
-    Here's a banana that it's <em>preeety sure</em> is a toaster.
+    Maybe we ask: what would it take for you to see this banana as a toaster?
   </build-note>
   <script>
     When(insideAdversarialSticker)
@@ -1101,7 +1100,7 @@ init();
     shifting hypotheses about the state of the world.
     
     This gives us the ability to adapt and operate within a pretty extreme range of conditions    
-    Even when things are not what they seem, and even…
+    Even when when we're tripping face. Or…
   </build-note>
   <script>
     When(buildInRange(insideAdversarialSkiiers, insideAdversarialContinuousRefinement))
@@ -1118,10 +1117,12 @@ init();
   <script>
     let hallucinationBuilds =
       [...hallucinations.getElementsByTagName('build-note')]
-        .filter(x => !x.skully)
+        // .slice(0, hallucinations.getElemhallucinationsToSleep.order)
+        .filter(x => !x.skully && !x.dataset.line)
+    console.log(hallucinationBuilds)
     When(hallucinationsToSleep)
       .start(() => titleWriter.text = '')
-      .frame(every(0.2[sec]) ((_, i) => {
+      .frame(every(0.1[sec]) ((_, i) => {
         const lastBuild = hallucinationBuilds[hallucinationBuilds.length - i - 2]
         const nextBuild = hallucinationBuilds[hallucinationBuilds.length - i - 3]
         if (!nextBuild) return
