@@ -20,11 +20,13 @@
 .talulaTrain #hallucinations {
   .fullscreen-black();
 }
+
 .talulaPlay #hallucinations {
   .fullscreen-black();
 }
 
 #talula0, #talula1 {
+  display: none;
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -46,6 +48,7 @@
 }
 
 .talula-visible() {
+  display: block;
   position: absolute;
   transform: scale(1);
   opacity: 1;
@@ -82,6 +85,7 @@
 }
 
 #argMax, #categoricalCrossCopy {
+  display: none;
   position: absolute;
   transform: scale(0.8);
   transition: transform .4s, opacity 0.5s;
@@ -105,14 +109,30 @@
   right: 4vmin;
   top: calc(50% + 4vmin);
 }
+
+.codeWalkthrough10 {
+  #categoricalCrossCopy {
+    display: block;
+  }
+}
+
 .codeWalkthrough10_annotation #hallucinations {
   #categoricalCrossCopy {
+    display: block;
     transform: scale(1) rotate(2deg);
     opacity: 1;
   }
 }
+
+.codeWalkthrough15 {
+  #argMax {
+    display: block;
+  }
+}
+
 .codeWalkthrough15_annotation #hallucinations {
   #argMax {
+    display: block;
     transform: scale(1) rotate(-5deg);
     opacity: 1;
   }
@@ -164,7 +184,10 @@
 }
 
 
-#mobileNet0, #mobileNet1, #mobileNet2 {
+
+#mobileNet0, #mobileNet1 {
+  display: none;
+  transform: translateY(100%);
   position: absolute;
   left: 0;
   top: 0;
@@ -174,26 +197,46 @@
   opacity: 0;
   z-index: 2;
 }
-#mobileNet0 {
-  transform: translateY(100%);
-}
 
 // keep console in position for better transition
-.codeWalkthroughConsole1 {
-  #mobileNet0 {
-    transform: translateY(0);
+.codeWalkthroughConsole0 {
+  #hallucinations {
+    .fullscreen-black();
+    #mobileNet0 {
+      transform: translateY(0);
+      display: block;
+      opacity: 1;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      z-index: 20000;
+    }
   }
 }
 
-.forCodeWalkthroughConsole (@i) when (@i >= 0) {
-  .codeWalkthroughConsole@{i} #hallucinations {
+.codeWalkthroughConsole1 {
+  #hallucinations {
     .fullscreen-black();
-    #mobileNet@{i} {
+    #mobileNet1 {
       transform: translateY(0);
+      display: block;
       opacity: 1;
-      z-index: (@i + 2);
+      position: absolute;
+      z-index: 100;
     }
   }
-  .forCodeWalkthroughConsole(@i - 1);
 }
-.forCodeWalkthroughConsole(10);
+
+
+// .forCodeWalkthroughConsole (@i) when (@i >= 0) {
+//   .codeWalkthroughConsole@{i} #hallucinations {
+//     .fullscreen-black();
+//     #mobileNet@{i} {
+//       transform: translateY(0);
+//       opacity: 1;
+//       z-index: (@i + 2);
+//     }
+//   }
+//   .forCodeWalkthroughConsole(@i - 1);
+// }
+// .forCodeWalkthroughConsole(1);

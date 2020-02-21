@@ -96,10 +96,10 @@
   Hi.
 </build-note>
 <build-note id=titleAshi             data-title="ashi krishnan" data-subtitle="@rakshesha     ashi.io">
-  My name is Ashi. On the program it says I'm at GitHub, which is no longer strictly true. 
+  My name is Ashi.
 </build-note>  
 <build-note id=titleAshiJob          data-title="ashi krishnan" data-subtitle="sr. software engineer @ apollo">
-  I'm at Apollo now, where I'm working on GraphQL. We're doing some really fascinating
+  I work at Apollo, doing strange things to GraphQL. We're doing some really fascinating
   work to let you slice and dice and recombine your services data layers however you want.
   
   I'm very excited by what we're working on, and I can't wait to tell you about it.
@@ -268,7 +268,6 @@
   <video id=talula1 src=assets/pacman-edited-1.mp4 is=seekable-video preload></video>
   <video id=mobileNet0 src=assets/explore-mobilenet-0.mp4 is=seekable-video preload></video>
   <video id=mobileNet1 src=assets/explore-mobilenet-1.mp4 is=seekable-video preload></video>
-  <video id=mobileNet2 src=assets/explore-mobilenet-2.mp4 is=seekable-video preload></video>
   <video id=categoricalCrossCopy src=assets/categorical-cross-copy.mov is=seekable-video preload></video>
   <video id=argMax src=assets/argmax.mov is=seekable-video preload></video>
   <build-note id=titleTransferLearning
@@ -346,7 +345,7 @@
     then we throw in a dense layer
     dense layers connect to every output of the previous layer
     we can customize the number of dense units in the ui. the default is 100.
-    they’ll all be rectifier units, our friends from earlier
+    they’ll all be rectifier units, which are simple neurons that implement a threshold function: they don't fire below some learned threshold, and then above that threshold, they emit the value they're given.
   </build-note>
   <build-note id=codeWalkthrough8 data-line=85-92>
     Then we have a softmax layer.
@@ -365,10 +364,10 @@
   </build-note>
   <build-note id=codeWalkthrough10 data-line=102>
     we compile the model, generating a tensorflow graph.
-    we’re using categorical crossentropy loss, rather than the mean squared error loss we looked at b4    
+    we’re using categorical crossentropy loss.
   </build-note>
   <build-note id=codeWalkthrough10_annotation data-line=102>
-    categorical cross entropy sounds really scary, but it’s basically the loss function you use when you’re going for a P distribution
+    categorical cross entropy sounds really scary, certainly has a scary name. It's the math that tells us how badly we're doing at generating the correct P distribution
     remember that our examples look like this.
     tensors with one element held high
     our predictions will be probabilities
@@ -414,12 +413,7 @@
       we’ve got our input layer,
       and then we have this repeating stack
       convolution -> norm -> activation -> depthwise convolution -> norm -> activation
-  </build-note>
-  <build-note id=codeWalkthroughConsole2 data-time=33>
-      we’ve got our input layer,
-      and then we have this repeating stack
-      convolution -> norm -> activation -> depthwise convolution -> norm -> activation
-      Very much like the layers we were diving through before.
+      Each of these layers learns to extract a bit of pattern from the signal, and they're the patterns we saw earlier!
   </build-note>
   <!-- Set an initial data-line so it doesn't "jump" horizontally when set by js the first time  -->
   <pre data-line=1 id=codeHighlight class=language-javascript>
@@ -610,7 +604,6 @@ init();
       </code>
     </pre>
   <build-note id=dreamFullscreenPlayingAgain data-time=3>
-    And that gives us this.
     We started with these rudiments of light and shadow,
   </build-note>
   <build-note id=dreamFullscreenKodamas data-time=126>
@@ -633,8 +626,12 @@ init();
     And I resolved to never tell anyone until my best friend said the exact same thing.
     Says more about the state of <i>our</i> neural networks than this one. (I think it's the lizard juxtaposition.)
     But I do want you to notice and think about what it means that all this skin is so very white.
+
+    So all of this is… *preeeety trippy*.
     
-    So all of this is… *preeeety trippy*. To understand why that is, let's take a look inside…
+    Why is that? What does it mean for something to be "trippy"?
+
+    To figure that out, let's take a look inside…
   </build-note>
 <script>
     When(dreamFullscreenPaused)
@@ -730,20 +727,19 @@ init();
         }
       })
 
-    When(buildInRange(codeWalkthroughConsole0, codeWalkthroughConsole2))
+    When(buildInRange(codeWalkthroughConsole0, codeWalkthroughConsole1))
       .frame((_, current, prev) => {
         if (current === prev) return
         const vid = {
           'codeWalkthroughConsole0': mobileNet0,
           'codeWalkthroughConsole1': mobileNet1,
-          'codeWalkthroughConsole2': mobileNet2,
         }[current.id]
         vid.play()
         vid.seekTo({time: 0, duration: 1, playbackRate: 1})
       })
 
     // HACK: Shuts off deepDream since it's always visible when hallucinations is running
-    When(buildInRange(titleTransferLearning, codeWalkthroughConsole2))
+    When(buildInRange(titleTransferLearning, codeWalkthroughConsole1))
       .start(() => {
         deepDream.pause()
         document.body.classList.add('deepDreamSleep')
@@ -810,10 +806,12 @@ init();
   <build-note id=insideRetinaReceptiveField>
     Each ganglion connects to a patch of 100 or so photoreceptor cells—its <i>receptive field</i>
     divided into an central disk and the surrounding region. In, and out. Center & surround.
-    When there's no light on the entire field, the ganglion doesn't fire.
+    When there's no light on the entire field, our ganglions don't fire. Sensible.
   </build-note>
   <build-note id=insideRetinaReceptiveFieldFiringWeakly>
-    When the whole field is illuminated, it fires weakly.
+    When the whole field is illuminated, they fire weakly. Slightly surprising, yes?
+    
+    And it gets better, because when the center and surround are illuminated differently—so one is lit, the other is not—half our ganglions behave one way, and half behave in the exact opposite way.
   </build-note>
   <build-note id=insideRetinaReceptiveFieldOffCenterFiring>
     When only the surround is illuminated, about half the ganglions fire rapidly
@@ -831,7 +829,7 @@ init();
     We are doing processing even in our eyeballs.
 
     This processing lets us downsample the signal from our photoreceptors a hundred times
-    while retaining vitally important information: where the boundaries of objects are.
+    while retaining vitally important information: where the boundaries of objects might be.
   </build-note>
   <build-note id=insideBrain>
     Then the signal goes through the brain
@@ -842,11 +840,15 @@ init();
     giving us 3d stereo vision
   </build-note>
   <build-note id=insideThalamus>
-    It's processed by the Thalamus, which is responsible, amongst other things, for running our eyes' autofocus.
+    It's processed by the Thalamus, which is kindof a signal integration center for our brain. 
+    
+    It's responsible for many things, amongst them running our eyes' autofocus. Ah, bet you never thought about your eyes having autofocus, but they're lenses, so of course they do.
 
-    Each step of this signal pathway is performing signal a little bit of processing, extracting a little something.
+    Interesting, it increasingly seems like this little nubbin of tissue is quite important to *consciousness*.
 
-    And that's all before we get to...
+    You may have seen this paper that came out just a couple of weeks ago. Researchers did this experiment where they put macaque monkeys under general anesthesia and then stimulated their central lateral thalamus with little electrical zaps. And when they did that, the monkeys woke up, fully alert, looking around, presumably somewhat horrified at what was happening to them. Vegan sidebar: I obviously love learning all this stuff about our bodies. I love that we can learn all these things about our bodies, but the things we do to other creatures to acquire that knowledge are really very upsetting when you think about it. I mean, this experiment is far from the worst I've read, and still, if it happened to you, you'd be traumatized. You'd probably go on TV and talk about how these giant furless monkeyoid things abducted you and probed your brain. And we'd all be like, "ah yes, that happens quite a lot. at least they didn't eat you." And we say that, oh, it's okay, they're not as smart as us, they don't have real feelings, they don't really know what's going on. But I think that the more we do this kind of research, the more we realize that all brains and all creatures are doing basically the same tasks, that we're not really a higher order of animal so much as we've evolved a couple of extremely useful tricks for processing data.
+
+    Because that's what we are. All of us—forests and fish and macaque monkeys and humans. We're signal processing machines. And each step of our visual signal pathway, from our eyeballs through our brain, is doing a little bit of processing, extracting a little bit of data, and that's all before we get to the main event…
   </build-note>
   <build-note id=insideVisualCortex>
     Ths visual cortex. All the way around here in the back.
@@ -864,8 +866,6 @@ init();
     The signal stays relatively spatially oriented through the visual cortex
     So there's some slice of tissue in the back of the brain that's responsible for pulling
     faces out of <i>this</i> particular chunk of your visual field
-
-    —with the redundancies and slop that we've come to expect from any NN, whether artificial or biological—
 
     Each neuron in a layer has a receptive field—some chunk of the entire visual field that it’s “looking at”.
     Neurons in a given layer respond the same way to signals within their receptive field.
@@ -893,19 +893,11 @@ init();
     1:1-47. -->
     Inception is a straight shot through—one pass, input to output.
 
-    Visual cortex contains <i>feedback loops</i>—pyramidal neurons that connect deeper layers to earlier ones.
-    These feedback loops allow the results of deeper layers to inform the behavior of earlier ones
-    e.g. We might turn up the edge detection gain where there's an object
-    Lets our visual system adapt and focus—not optically, but attentionally.
-    Gives it the ability to ruminate on visual input, well before we become conciously aware of it, improving predictions over time.
+    Visual cortex contains <i>feedback loops</i>—pyramidal neurons that connect deeper layers to earlier ones. These feedback loops allow the results of deeper layers to inform the behavior of earlier ones—e.g. we might turn up the edge detection gain where there's an object. Lets our visual system adapt and focus—not optically, but attentionally. Gives it the ability to ruminate on visual input, well before we become conciously aware of it, improving predictions over time.
     
     You know this feeling: thinking you see one thing, and then realizing it’s something else.
 
-    <!-- Neural networks know this feeling too, in a sense. -->
-
-    These loopback pyramidal cells in our visual cortex are covered in serotonin receptors.
-    Different kinds of pyramidal cells respond to serotonin differently,
-    Generally, they find it exciting
+    These loopback pyramidal cells in our visual cortex are covered in serotonin receptors. Different kinds of pyramidal cells respond to serotonin differently, but generally, they find it exciting.
     <!-- (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3630391/) (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5810041/) -->
   </build-note>
   <build-note id=insideVisualCortexRecurrentSerotonin>  
@@ -996,8 +988,9 @@ init();
     And while it rattles around in there, our little LSD is stimulating a feedback loop in your visual cortex.
     It sends the signal:
     Pay attention
-    What you’re looking may be nourishing
-    The pattern finding machinery in your cortex to starts to run overtime, and at different rates.
+    What you're looking at is <em>important</em>
+    It may be <em>nourishing</em>
+    So the pattern finding machinery in your cortex to starts to run overtime, and at different rates.
     
     In one moment, the pattern in a tapestry seems to extend into the world beyond it; in the next, it is the trees that are growing and breathing, the perception of movement a visual hypothesis allowed to grow wild.
   </build-note>
@@ -1007,7 +1000,6 @@ init();
     There’s no comparable gradient ascent process in biological psychedelic experience.
 
     That’s because we aren’t looking at a source image—we’re looking at the output of the network. We <i>are</i> the output of the network. The output of your visual cortex is a signal carrying visual perceptions,
-    —proto qualia—
     which will be integrated by other circuits to produce your next moment of experience.
 
     Inception never gets that far.
@@ -1064,9 +1056,9 @@ init();
   <build-note id=insideAdversarialContinuousRefinement>
     The recurrent properties of our visual cortex—not to mention much of the rest of our brain—means that our sense of the world is stateful. It’s a continually refined hypothesis, whose state is held by the state of our neurons.
     
-    Laying the groundwork for Capsule networks, Sara Sabour, Nicholas Frosst, and Geoffrey Hinton write: "A parse tree is carved out of a fixed multilayer neural network like a sculpture is carved from a rock” ([Sabour 2017](https://arxiv.org/pdf/1710.09829.pdf)).
+<!--    Laying the groundwork for Capsule networks, Sara Sabour, Nicholas Frosst, and Geoffrey Hinton write: "A parse tree is carved out of a fixed multilayer neural network like a sculpture is carved from a rock” ([Sabour 2017](https://arxiv.org/pdf/1710.09829.pdf)).
     
-    Our perceptions are a process of continuous refinement.
+-->Our perceptions are a process of continuous refinement.
 
     This may point the way towards more robust recognition architectures.
     Recurrent convolutional networks that ruminate upon images, making better classifications, or providing a signal that something is off about an input.
@@ -1091,7 +1083,7 @@ init();
 
     If we design CNNs with recurrence, they could exhibit such behavior as well
     Which maybe doesn't sound like such a good thing, on the face of it
-    Let's make our image classifiers vascillating. Uncertain.
+    Let's make our image classifiers vascillating. Uncertain. And then let's put them in charge of driving cars around.
     But our ability to hem and haw and reconsider our own perceptions at many levels gives our perceptual system
     tremendous robustness.
     
@@ -1474,8 +1466,7 @@ for Improved Quality, Stability, and Variation
   Then we'd face the same problem as trying to play
   a twitchy video game over a totally crap connection. Signals take 10ms
   to travel from our brain to our periphery, and another 10ms to travel
-  back. It's just not that low-latency or high-bandwidth, this body of ours,
-  at least not neurologically.
+  back. 20ms of latency might be fine for a video game, but it is just not fast enough to coordinate the subtle movements of bodies in a physical world.
 
   To enable smooth, coordinated movements, our brain has to make predictions.
 </build-note>
