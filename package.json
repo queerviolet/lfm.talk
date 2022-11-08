@@ -22,7 +22,7 @@
     "less": "^3.7.1",
     "marked": "^0.4.0",
     "parcel": "^1.9.7",
-    "postcss-modules": "^1.1.0"
+    "postcss-modules": "^1.5.0"
   },
   "dependencies": {
     "binarysearch": "^1.0.0",
