@@ -21,8 +21,8 @@
     "immutable": "^3.8.2",
     "less": "^3.7.1",
     "marked": "^0.4.0",
-    "parcel": "^1.9.7",
-    "postcss-modules": "^1.1.0"
+    "parcel": "^2.8.2",
+    "postcss-modules": "^6.0.0"
   },
   "dependencies": {
     "binarysearch": "^1.0.0",
